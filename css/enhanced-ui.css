@@ -1,0 +1,486 @@
+/* Enhanced UI styles */
+:root {
+  --primary-color: #3498db;
+  --primary-dark: #2980b9;
+  --primary-light: #5dade2;
+  --secondary-color: #2c3e50;
+  --accent-color: #1abc9c;
+  --text-color: #333;
+  --text-light: #666;
+  --background-light: #f9f9f9;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header styling */
+header {
+  background: linear-gradient(135deg, var(--secondary-color), #1c2833);
+  padding: 1.2rem 2.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.6rem;
+}
+
+nav ul {
+  gap: 2rem;
+}
+
+nav a {
+  font-size: 1.05rem;
+  transition: all var(--transition-speed) ease;
+  padding: 0.6rem 0;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-light);
+  transition: width var(--transition-speed) ease;
+}
+
+nav a:hover::after, nav a.active::after {
+  width: 100%;
+}
+
+/* Main content styling */
+main {
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+#visualization-container {
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  position: relative;
+  transition: all var(--transition-speed) ease;
+}
+
+#dimension-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#dimension-toggle:hover {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#dimension-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Control panels */
+#controls-panel, #explanation-panel {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  transition: all var(--transition-speed) ease;
+}
+
+#controls-panel:hover, #explanation-panel:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Function input */
+#function-input {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+#function-input label {
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+input[type="text"], select {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  transition: border-color var(--transition-speed) ease;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Concept controls */
+#concept-controls {
+  margin-bottom: 1.5rem;
+}
+
+.control-group {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  position: relative;
+  transition: all var(--transition-speed) ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 0.8rem 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* Examples dropdown */
+#examples-dropdown {
+  margin-top: 1.5rem;
+}
+
+#examples-dropdown label {
+  font-weight: 600;
+  color: var(--secondary-color);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#examples {
+  width: 100%;
+}
+
+/* Explanation panel */
+#concept-title {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+#concept-explanation p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.real-world-application {
+  background-color: var(--background-light);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.real-world-application h4 {
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Footer styling */
+footer {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--secondary-color), #1c2833);
+  text-align: center;
+}
+
+/* Enhanced tooltips */
+.tooltip-trigger {
+  position: relative;
+  cursor: help;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  width: 220px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all var(--transition-speed) ease;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+}
+
+.tooltip-trigger:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+/* Mathematical formulas */
+.math-formula {
+  font-family: 'Georgia', serif;
+  background-color: var(--background-light);
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  display: inline-block;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* 3D Controls */
+.visualization-controls {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.viz-control-btn {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.viz-control-btn:hover {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.viz-control-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--secondary-color);
+}
+
+/* Color scheme selector */
+.color-scheme-selector {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  padding: 0.4rem;
+  display: flex;
+  gap: 0.4rem;
+  z-index: 10;
+}
+
+.color-option {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.active {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-color);
+}
+
+.gradient {
+  background: linear-gradient(135deg, #3498db, #e74c3c);
+}
+
+.height {
+  background: linear-gradient(135deg, #3498db, #2ecc71, #f1c40f, #e74c3c);
+}
+
+.single {
+  background-color: var(--primary-color);
+}
+
+/* Animation controls */
+.animation-control {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.animation-control:hover {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.animation-control svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Function tooltips */
+.function-tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  max-width: 200px;
+  z-index: 1000;
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+/* Professional tools */
+.pro-tool-group {
+  padding: 0.8rem;
+  border-radius: var(--border-radius);
+  background-color: var(--background-light);
+  margin-bottom: 0.8rem;
+}
+
+.pro-tool-group label {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive design improvements */
+@media (max-width: 900px) {
+  header {
+    padding: 1rem;
+  }
+  
+  nav ul {
+    gap: 1rem;
+  }
+  
+  main {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  #concept-title {
+    font-size: 1.5rem;
+  }
+  
+  .tooltip {
+    width: 180px;
+  }
+}
