@@ -6,6 +6,7 @@
     <title>Calculus Visualizer</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="css/user-levels.css">
+    <link rel="stylesheet" href="css/tutorials.css">
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
@@ -74,6 +75,16 @@
                 <div class="pro-tool-group">
                     <button id="export-visualization">Export Visualization</button>
                 </div>
+                <div class="pro-tool-group">
+                    <label>Significant Digits:
+                        <select id="precision-digits">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6" selected>6</option>
+                            <option value="10">10</option>
+                        </select>
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -100,6 +111,11 @@
     <!-- Config -->
     <script src="js/config.js"></script>
     <script src="js/user-level.js"></script>
+    
+    <!-- Enhanced UX -->
+    <script src="js/tutorials.js"></script>
+    <script src="js/documentation.js"></script>
+    <script src="js/animations.js"></script>
 
     <!-- Utils -->
     <script src="js/utils/math.js"></script>
