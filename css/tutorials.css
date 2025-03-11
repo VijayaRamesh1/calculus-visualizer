@@ -1,0 +1,336 @@
+/* Tutorial styles */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 800px;
+  max-width: 90%;
+  max-height: 80vh;
+  display: flex;
+  overflow: hidden;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.tutorial-image {
+  width: 45%;
+  background-size: cover;
+  background-position: center;
+}
+
+.tutorial-content {
+  width: 55%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-header {
+  margin-bottom: 15px;
+}
+
+.tutorial-title {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.tutorial-subtitle {
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.tutorial-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.tutorial-body p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.tutorial-step {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.tutorial-step-number {
+  background-color: #3498db;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.tutorial-step-content {
+  flex-grow: 1;
+}
+
+.tutorial-step-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.tutorial-target {
+  position: relative;
+  z-index: 1001;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+}
+
+.tutorial-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.tutorial-nav-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.tutorial-prev {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+}
+
+.tutorial-prev:hover {
+  background-color: #dde4e6;
+}
+
+.tutorial-next, .tutorial-finish {
+  background-color: #3498db;
+  color: white;
+}
+
+.tutorial-next:hover, .tutorial-finish:hover {
+  background-color: #2980b9;
+}
+
+.tutorial-progress {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.tutorial-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #bdc3c7;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.tutorial-dot.active {
+  background-color: #3498db;
+  transform: scale(1.3);
+}
+
+/* Concept glossary popup */
+.concept-glossary {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  z-index: 900;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform-origin: bottom right;
+  animation: popIn 0.3s forwards;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.glossary-header {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.glossary-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.glossary-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.glossary-content {
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.glossary-term {
+  margin-bottom: 12px;
+}
+
+.glossary-term-title {
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+}
+
+.glossary-term-definition {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Floating help button */
+.help-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 901;
+  transition: all 0.2s;
+  border: none;
+}
+
+.help-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.1);
+}
+
+.help-button:focus {
+  outline: none;
+}
+
+.expert-only .glossary-trigger,
+.professional-only .glossary-trigger {
+  display: none;
+}
+
+/* Mathematical formulas styling */
+.math-formula {
+  font-family: 'Georgia', serif;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin: 10px 0;
+  display: inline-block;
+  border-left: 3px solid #3498db;
+}
+
+.formula-caption {
+  display: block;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Level-specific backgrounds and themes */
+.user-level-beginner main {
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('https://images.unsplash.com/photo-1516906561371-8a314e33bb6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.user-level-expert main {
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.97), rgba(255,255,255,0.97)), url('https://images.unsplash.com/photo-1521737604893-d14cc5a59ef2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.user-level-professional main {
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(255,255,255,0.98)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Animation for concept switching */
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Level badges in header */
+.header-level-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  color: white;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.level-beginner {
+  background-color: #27ae60;
+}
+
+.level-expert {
+  background-color: #f39c12;
+}
+
+.level-professional {
+  background-color: #e74c3c;
+}

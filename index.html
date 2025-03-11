@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus Visualizer</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/user-levels.css">
+    <link rel="stylesheet" href="css/tutorials.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+</head>
+<body class="user-level-beginner">
+    <header>
+        <h1>Calculus Visualizer</h1>
+        <nav>
+            <ul>
+                <li><a href="#" data-concept="derivatives">Derivatives</a></li>
+                <li><a href="#" data-concept="integrals">Integrals</a></li>
+                <li><a href="#" data-concept="limits">Limits</a></li>
+            </ul>
+        </nav>
+        
+        <!-- User Level Selector -->
+        <div class="user-level-selector">
+            <label for="user-level-selector">Level:</label>
+            <select id="user-level-selector">
+                <option value="beginner">Beginner</option>
+                <option value="expert">Expert</option>
+                <option value="professional">Professional</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <div id="visualization-container">
+            <canvas id="visualization"></canvas>
+        </div>
+
+        <div id="controls-panel">
+            <div id="function-input">
+                <label for="function">Function: f(x) = </label>
+                <input type="text" id="function" value="x^2">
+                <button id="update-function">Update</button>
+            </div>
+
+            <div id="concept-controls">
+                <!-- Dynamic controls will be inserted here based on selected concept -->
+            </div>
+
+            <div id="examples-dropdown">
+                <label for="examples">Examples:</label>
+                <select id="examples">
+                    <option value="">Select an example</option>
+                    <optgroup label="Physics">
+                        <option value="projectile-motion">Projectile Motion</option>
+                        <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
+                    </optgroup>
+                    <optgroup label="Everyday">
+                        <option value="car-acceleration">Car Acceleration</option>
+                        <option value="population-growth" class="expert-only">Population Growth</option>
+                    </optgroup>
+                </select>
+            </div>
+            
+            <!-- Professional tools section (hidden by default) -->
+            <div class="professional-tool" style="display: none;">
+                <h3>Professional Tools</h3>
+                <div class="pro-tool-group">
+                    <label>
+                        <input type="checkbox" id="enable-high-precision"> Enable High-Precision
+                    </label>
+                </div>
+                <div class="pro-tool-group">
+                    <button id="export-visualization">Export Visualization</button>
+                </div>
+                <div class="pro-tool-group">
+                    <label>Significant Digits:
+                        <select id="precision-digits">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6" selected>6</option>
+                            <option value="10">10</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="explanation-panel">
+            <h2 id="concept-title">Welcome to Calculus Visualizer</h2>
+            <div class="level-info">
+                <span class="level-badge level-badge-beginner">Beginner</span>
+                <span class="level-badge level-badge-expert expert-only">Expert</span>
+                <span class="level-badge level-badge-professional professional-only">Professional</span>
+            </div>
+            <div id="concept-explanation">
+                <p>Select a calculus concept from the navigation menu to begin exploring interactive visualizations.</p>
+                <p class="beginner-only">This beginner mode provides simplified controls and explanations to help you understand calculus concepts.</p>
+                <p class="expert-only">Expert mode gives you more control and detailed explanations of the underlying mathematics.</p>
+                <p class="professional-only">Professional mode provides high-precision calculations and advanced visualization options.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
+    </footer>
+
+    <!-- Config -->
+    <script src="js/config.js"></script>
+    <script src="js/user-level.js"></script>
+    
+    <!-- Enhanced UX -->
+    <script src="js/tutorials.js"></script>
+    <script src="js/documentation.js"></script>
+    <script src="js/animations.js"></script>
+
+    <!-- Utils -->
+    <script src="js/utils/math.js"></script>
+    <script src="js/utils/animations.js"></script>
+
+    <!-- Concepts -->
+    <script src="js/concepts/derivatives.js"></script>
+    <script src="js/concepts/integrals.js"></script>
+    <script src="js/concepts/limits.js"></script>
+
+    <!-- Examples -->
+    <script src="js/examples/physics.js"></script>
+    <script src="js/examples/everyday.js"></script>
+
+    <!-- Core -->
+    <script src="js/engine.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
