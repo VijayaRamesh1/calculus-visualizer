@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculus Visualizer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="css/user-levels.css">
     <link rel="stylesheet" href="css/tutorials.css">
+    <link rel="stylesheet" href="css/enhanced-ui.css">
+    
+    <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
@@ -16,9 +25,9 @@
         <h1>Calculus Visualizer</h1>
         <nav>
             <ul>
-                <li><a href="#" data-concept="derivatives">Derivatives</a></li>
-                <li><a href="#" data-concept="integrals">Integrals</a></li>
-                <li><a href="#" data-concept="limits">Limits</a></li>
+                <li><a href="#" data-concept="derivatives" id="concept-derivatives">Derivatives</a></li>
+                <li><a href="#" data-concept="integrals" id="concept-integrals">Integrals</a></li>
+                <li><a href="#" data-concept="limits" id="concept-limits">Limits</a></li>
             </ul>
         </nav>
         
@@ -36,30 +45,63 @@
     <main>
         <div id="visualization-container">
             <canvas id="visualization"></canvas>
+            
+            <!-- Dimension toggle button -->
+            <button id="dimension-toggle" data-tooltip="dimension-toggle">
+                <span id="dimension-mode">3D</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10m14 3l-7 -3l-7 3v-10l7 -3l7 3m0 10v-10"/></svg>
+            </button>
+            
+            <!-- Animation toggle button -->
+            <button id="toggle-animation" class="animation-control" data-tooltip="toggle-animation">
+                <span>Animate</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16l13 -8z"/></svg>
+            </button>
+            
+            <!-- View controls -->
+            <div class="visualization-controls">
+                <button id="reset-view" class="viz-control-btn" data-tooltip="reset-view">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                </button>
+            </div>
+            
+            <!-- Color scheme selector -->
+            <div class="color-scheme-selector">
+                <div class="color-option gradient active" data-tooltip="color-scheme" data-scheme="gradient"></div>
+                <div class="color-option height" data-tooltip="color-scheme" data-scheme="height"></div>
+                <div class="color-option single" data-tooltip="color-scheme" data-scheme="single"></div>
+            </div>
         </div>
 
         <div id="controls-panel">
-            <div id="function-input">
+            <div id="function-input" class="tooltip-trigger" data-tooltip="function-input">
                 <label for="function">Function: f(x) = </label>
                 <input type="text" id="function" value="x^2">
-                <button id="update-function">Update</button>
+                <button id="update-function" data-tooltip="update-function">Update</button>
             </div>
 
             <div id="concept-controls">
                 <!-- Dynamic controls will be inserted here based on selected concept -->
             </div>
 
-            <div id="examples-dropdown">
+            <div id="examples-dropdown" class="tooltip-trigger" data-tooltip="examples-dropdown">
                 <label for="examples">Examples:</label>
                 <select id="examples">
                     <option value="">Select an example</option>
                     <optgroup label="Physics">
                         <option value="projectile-motion">Projectile Motion</option>
                         <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
+                        <option value="wave-propagation" class="expert-only">Wave Propagation</option>
+                        <option value="heat-distribution" class="expert-only">3D Heat Distribution</option>
+                        <option value="electric-potential" class="professional-only">3D Electric Potential</option>
                     </optgroup>
                     <optgroup label="Everyday">
                         <option value="car-acceleration">Car Acceleration</option>
                         <option value="population-growth" class="expert-only">Population Growth</option>
+                        <option value="market-equilibrium" class="expert-only">Market Equilibrium</option>
+                        <option value="loan-repayment" class="expert-only">Loan Repayment</option>
+                        <option value="consumer-preference" class="professional-only">3D Consumer Utility</option>
+                        <option value="retail-location" class="professional-only">3D Geographic Sales</option>
                     </optgroup>
                 </select>
             </div>
@@ -69,15 +111,15 @@
                 <h3>Professional Tools</h3>
                 <div class="pro-tool-group">
                     <label>
-                        <input type="checkbox" id="enable-high-precision"> Enable High-Precision
+                        <input type="checkbox" id="enable-high-precision" data-tooltip="enable-high-precision"> Enable High-Precision
                     </label>
                 </div>
                 <div class="pro-tool-group">
-                    <button id="export-visualization">Export Visualization</button>
+                    <button id="export-visualization" data-tooltip="export-visualization">Export Visualization</button>
                 </div>
                 <div class="pro-tool-group">
                     <label>Significant Digits:
-                        <select id="precision-digits">
+                        <select id="precision-digits" data-tooltip="precision-digits">
                             <option value="2">2</option>
                             <option value="4">4</option>
                             <option value="6" selected>6</option>
@@ -116,6 +158,7 @@
     <script src="js/tutorials.js"></script>
     <script src="js/documentation.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/tooltips.js"></script>
 
     <!-- Utils -->
     <script src="js/utils/math.js"></script>
@@ -134,5 +177,54 @@
     <script src="js/engine.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/main.js"></script>
+    
+    <script>
+        // Initialize dimension toggle
+        document.getElementById('dimension-toggle').addEventListener('click', function() {
+            const engine = window.calcEngine;
+            if (engine) {
+                engine.toggleDimension();
+                document.getElementById('dimension-mode').textContent = engine.is3DMode ? '3D' : '2D';
+            }
+        });
+        
+        // Initialize animation toggle
+        document.getElementById('toggle-animation').addEventListener('click', function() {
+            const engine = window.calcEngine;
+            if (engine) {
+                engine.animateFunction = !engine.animateFunction;
+                this.querySelector('span').textContent = engine.animateFunction ? 'Stop' : 'Animate';
+            }
+        });
+        
+        // Initialize view reset
+        document.getElementById('reset-view').addEventListener('click', function() {
+            const engine = window.calcEngine;
+            if (engine) {
+                engine.camera.position.set(3, 3, 5);
+                engine.camera.lookAt(0, 0, 0);
+                engine.controls.update();
+            }
+        });
+        
+        // Initialize color scheme selector
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const scheme = this.getAttribute('data-scheme');
+                const engine = window.calcEngine;
+                
+                // Update active state
+                document.querySelectorAll('.color-option').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update visualization
+                if (engine) {
+                    engine.updateVisualizationOptions({ colorScheme: scheme });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
