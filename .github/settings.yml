@@ -1,0 +1,11 @@
+repository:
+  name: calculus-visualizer
+  description: Interactive 3D calculus visualization tool using Three.js
+  homepage: https://vijayaramesh1.github.io/calculus-visualizer/
+  
+pages:
+  enabled: true
+  build_type: workflow
+  source:
+    branch: gh-pages
+    path: /
