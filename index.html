@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus Visualizer</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Calculus Visualizer</h1>
+        <nav>
+            <ul>
+                <li><a href="#" data-concept="derivatives">Derivatives</a></li>
+                <li><a href="#" data-concept="integrals">Integrals</a></li>
+                <li><a href="#" data-concept="limits">Limits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="visualization-container">
+            <canvas id="visualization"></canvas>
+        </div>
+
+        <div id="controls-panel">
+            <div id="function-input">
+                <label for="function">Function: f(x) = </label>
+                <input type="text" id="function" value="x^2">
+                <button id="update-function">Update</button>
+            </div>
+
+            <div id="concept-controls">
+                <!-- Dynamic controls will be inserted here based on selected concept -->
+            </div>
+
+            <div id="examples-dropdown">
+                <label for="examples">Examples:</label>
+                <select id="examples">
+                    <option value="">Select an example</option>
+                    <optgroup label="Physics">
+                        <option value="projectile-motion">Projectile Motion</option>
+                        <option value="spring-oscillation">Spring Oscillation</option>
+                    </optgroup>
+                    <optgroup label="Everyday">
+                        <option value="car-acceleration">Car Acceleration</option>
+                        <option value="population-growth">Population Growth</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div id="explanation-panel">
+            <h2 id="concept-title">Welcome to Calculus Visualizer</h2>
+            <div id="concept-explanation">
+                <p>Select a calculus concept from the navigation menu to begin exploring interactive visualizations.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
+    </footer>
+
+    <!-- Utils -->
+    <script src="js/utils/math.js"></script>
+    <script src="js/utils/animations.js"></script>
+
+    <!-- Concepts -->
+    <script src="js/concepts/derivatives.js"></script>
+    <script src="js/concepts/integrals.js"></script>
+    <script src="js/concepts/limits.js"></script>
+
+    <!-- Examples -->
+    <script src="js/examples/physics.js"></script>
+    <script src="js/examples/everyday.js"></script>
+
+    <!-- Core -->
+    <script src="js/engine.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
