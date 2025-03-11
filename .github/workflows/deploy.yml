@@ -11,22 +11,11 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          
-      - name: Create gh-pages branch if it doesn't exist
-        run: |
-          if ! git ls-remote --heads origin gh-pages | grep -q 'refs/heads/gh-pages'; then
-            git checkout --orphan gh-pages
-            git reset --hard
-            git commit --allow-empty -m "Initial gh-pages commit"
-            git push origin gh-pages
-            git checkout main
-          fi
+      - name: Checkout
+        uses: actions/checkout@v3
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: .
-          branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
