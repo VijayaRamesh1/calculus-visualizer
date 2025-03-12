@@ -1,0 +1,504 @@
+/* 
+ * Projectile Motion - Archery Theme CSS
+ * Specific styling for the archery-themed projectile motion visualizer
+ */
+
+/* Custom properties for archery theme */
+:root {
+  /* Archery theme colors */
+  --archery-primary: #ff6b35;     /* Bright orange for bow/arrows */
+  --archery-secondary: #1c5253;   /* Teal for targets */
+  --archery-accent: #ffbc42;      /* Gold for bullseye */
+  --archery-bg: #f7fff7;          /* Light green for grass/outdoor feel */
+  
+  /* Score ring colors */
+  --bullseye: #ffbc42;            /* Gold */
+  --inner-ring: #ff6b35;          /* Orange */
+  --middle-ring: #4ecdc4;         /* Teal */
+  --outer-ring: #292f36;          /* Dark */
+  
+  /* Font family */
+  --game-font: 'Quicksand', var(--font-sans);
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --archery-bg: #1f2d3d;
+  --bullseye: #ffd166;
+  --inner-ring: #ff6b6b;
+}
+
+/* Global styles for archery theme */
+body {
+  font-family: var(--game-font);
+  background-color: var(--bg-main);
+}
+
+.visualization-container {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background-color: var(--archery-bg);
+}
+
+/* Scene Info Overlay */
+.scene-info {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 10;
+  width: 200px;
+}
+
+.info-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-md);
+  font-family: var(--game-font);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .info-card {
+  background-color: rgba(31, 41, 55, 0.85);
+  color: var(--text-secondary);
+}
+
+.current-target, .current-score {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+
+.current-score {
+  color: var(--archery-primary);
+}
+
+/* Trajectory Toggle Button */
+.trajectory-toggle {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: 10;
+}
+
+.toggle-btn {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--game-font);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(5px);
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.toggle-btn.active {
+  background-color: var(--archery-primary);
+  color: white;
+}
+
+[data-theme="dark"] .toggle-btn {
+  background-color: rgba(31, 41, 55, 0.85);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .toggle-btn.active {
+  background-color: var(--archery-primary);
+  color: white;
+}
+
+/* Module Indicator styling */
+.module-indicator {
+  display: flex;
+  align-items: center;
+  font-family: var(--game-font);
+  font-weight: 500;
+}
+
+.module-link {
+  color: var(--archery-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.module-link:hover {
+  color: var(--archery-primary);
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 var(--space-2);
+  color: var(--text-tertiary);
+}
+
+.current-page {
+  color: var(--text-secondary);
+}
+
+/* Difficulty controls */
+.difficulty-control {
+  display: flex;
+  background-color: var(--bg-hover);
+  border-radius: var(--radius-full);
+  padding: var(--space-1);
+}
+
+.difficulty-btn {
+  background: none;
+  border: none;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  font-family: var(--game-font);
+}
+
+.difficulty-btn.active {
+  background-color: var(--bg-main);
+  color: var(--archery-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hide intermediate/advanced content based on difficulty level */
+body[data-level="beginner"] .intermediate-control,
+body[data-level="beginner"] .advanced-control,
+body[data-level="beginner"] .intermediate-content,
+body[data-level="beginner"] .advanced-content {
+  display: none;
+}
+
+body[data-level="intermediate"] .advanced-control,
+body[data-level="intermediate"] .advanced-content {
+  display: none;
+}
+
+/* Calculus section styling */
+.calculus-explanation {
+  font-size: 0.95rem;
+}
+
+.formula-card {
+  background-color: var(--bg-hover);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+  border-left: 4px solid var(--archery-primary);
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--archery-primary);
+}
+
+.formula {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  background-color: var(--bg-main);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.formula p {
+  margin: var(--space-1) 0;
+  font-size: 0.9rem;
+}
+
+.formula-explanation {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.highlight {
+  color: var(--archery-primary);
+  font-weight: 600;
+}
+
+/* Calculus steps styling */
+.calculus-step {
+  display: flex;
+  align-items: flex-start;
+  margin: var(--space-4) 0;
+}
+
+.step-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--archery-primary);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-right: var(--space-3);
+}
+
+.step-content {
+  flex: 1;
+}
+
+/* Data graph section */
+.graph-selector {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-1);
+}
+
+.graph-btn {
+  background: none;
+  border: none;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.graph-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.graph-btn.active {
+  background-color: var(--archery-secondary);
+  color: white;
+}
+
+.graph-container {
+  background-color: var(--bg-main);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  height: 200px;
+  margin-bottom: var(--space-3);
+}
+
+.data-insight {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-tertiary);
+}
+
+/* Challenge section */
+.challenge-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--space-3) 0;
+}
+
+.target-distance {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.target-distance select {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--game-font);
+  font-size: 0.875rem;
+}
+
+.challenge-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.stat-item {
+  background-color: var(--bg-hover);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-1);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--archery-primary);
+}
+
+/* Button specifically for firing arrows */
+#fire-arrow {
+  background-color: var(--archery-primary);
+}
+
+#fire-arrow svg {
+  stroke: white;
+}
+
+/* Animation for arrow firing button */
+@keyframes pulse-fire {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+  }
+  
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+  }
+  
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+  }
+}
+
+.pulse-animation {
+  animation: pulse-fire 1.5s infinite;
+}
+
+/* Target score visualization */
+.target-rings {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.target-rings.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring-bullseye {
+  width: 16px;
+  height: 16px;
+  background-color: var(--bullseye);
+  z-index: 4;
+}
+
+.ring-inner {
+  width: 32px;
+  height: 32px;
+  background-color: var(--inner-ring);
+  z-index: 3;
+}
+
+.ring-middle {
+  width: 56px;
+  height: 56px;
+  background-color: var(--middle-ring);
+  z-index: 2;
+}
+
+.ring-outer {
+  width: 80px;
+  height: 80px;
+  background-color: var(--outer-ring);
+  z-index: 1;
+}
+
+/* Focus mode */
+body.focus-mode .controls-panel,
+body.focus-mode .app-header,
+body.focus-mode .app-footer {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+body.focus-mode .scene-info {
+  opacity: 0.3;
+  transition: opacity var(--transition-normal);
+}
+
+body.focus-mode .scene-info:hover {
+  opacity: 1;
+}
+
+body.focus-mode .visualization-layout {
+  grid-template-columns: 1fr;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .visualization-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .scene-info {
+    width: 150px;
+  }
+  
+  .info-card {
+    font-size: 0.875rem;
+  }
+  
+  .challenge-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 768px) {
+  .module-indicator,
+  .header-controls {
+    display: none;
+  }
+  
+  .app-header {
+    justify-content: center;
+  }
+  
+  .viz-controls {
+    flex-wrap: wrap;
+  }
+  
+  .trajectory-toggle {
+    bottom: auto;
+    top: var(--space-4);
+    left: var(--space-4);
+  }
+  
+  .toggle-btn {
+    font-size: 0.75rem;
+    padding: var(--space-1) var(--space-2);
+  }
+  
+  .graph-selector {
+    flex-wrap: wrap;
+  }
+}
