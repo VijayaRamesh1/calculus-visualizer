@@ -1,0 +1,312 @@
+/*
+ * Physics Module CSS
+ * Shared styles for all physics visualizations
+ */
+
+/* Physics module color theme */
+:root {
+  --physics-primary: #3a86ff;       /* Primary blue */
+  --physics-secondary: #ff006e;     /* Secondary pink */
+  --physics-tertiary: #fb5607;      /* Tertiary orange */
+  --physics-quaternary: #8338ec;    /* Quaternary purple */
+  --physics-background: #f8f9fa;    /* Light background */
+  
+  /* Energy type colors */
+  --potential-energy: #06d6a0;      /* Green for potential energy */
+  --kinetic-energy: #ff006e;        /* Pink for kinetic energy */
+  --total-energy: #3a86ff;          /* Blue for total energy */
+  
+  /* Force colors */
+  --gravity-force: #ffbe0b;         /* Yellow for gravity */
+  --normal-force: #ff006e;          /* Pink for normal */
+  --friction-force: #8338ec;        /* Purple for friction */
+  --tension-force: #06d6a0;         /* Green for tension */
+  
+  /* Vector colors */
+  --position-vector: #06d6a0;       /* Green for position */
+  --velocity-vector: #3a86ff;       /* Blue for velocity */
+  --acceleration-vector: #ff006e;   /* Pink for acceleration */
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --physics-background: #121826;
+}
+
+.visualization-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: var(--space-6);
+  padding: var(--space-6);
+}
+
+.visualization-container {
+  position: relative;
+  min-height: 500px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background-color: var(--physics-background);
+}
+
+#visualization-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Panel section styling */
+.panel-section {
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-4);
+}
+
+.panel-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.section-title.collapsible {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title.collapsible::after {
+  content: '';
+  width: 0.75rem;
+  height: 0.75rem;
+  border-right: 2px solid var(--text-tertiary);
+  border-bottom: 2px solid var(--text-tertiary);
+  transform: rotate(45deg);
+  transition: transform var(--transition-normal);
+}
+
+.section-title.collapsible.collapsed::after {
+  transform: rotate(-45deg);
+}
+
+.section-content {
+  max-height: 1000px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height var(--transition-normal), opacity var(--transition-normal);
+}
+
+.section-title.collapsed + .section-content {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Parameter controls styling */
+.parameter-control {
+  margin-bottom: var(--space-4);
+}
+
+.parameter-control:last-child {
+  margin-bottom: 0;
+}
+
+.parameter-control label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.slider-with-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.parameter-slider {
+  flex: 1;
+  height: 5px;
+  appearance: none;
+  background-color: var(--border-light);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+.parameter-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--physics-primary);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.parameter-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.parameter-value {
+  width: 70px;
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+/* General physics visualization controls */
+.viz-controls {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  display: flex;
+  gap: var(--space-2);
+  z-index: 10;
+}
+
+.viz-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.viz-btn:hover {
+  background-color: var(--bg-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.viz-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: var(--text-secondary);
+}
+
+.viz-btn.active {
+  background-color: var(--physics-primary);
+}
+
+.viz-btn.active svg {
+  stroke: white;
+}
+
+.pause-icon {
+  display: none;
+}
+
+.viz-btn#play-pause.active .play-icon {
+  display: none;
+}
+
+.viz-btn#play-pause.active .pause-icon {
+  display: block;
+}
+
+/* Panel actions */
+.panel-actions {
+  padding: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.action-btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-fast);
+  background: none;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.action-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.action-btn svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+}
+
+.action-btn.primary-btn {
+  background-color: var(--physics-primary);
+  color: white;
+  border-color: var(--physics-primary);
+}
+
+.action-btn.primary-btn:hover {
+  background-color: var(--physics-primary);
+  filter: brightness(1.1);
+}
+
+/* Visualization overlay styles */
+.overlay-text {
+  position: absolute;
+  padding: var(--space-2) var(--space-4);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  z-index: 10;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .overlay-text {
+  background-color: rgba(18, 24, 38, 0.85);
+  color: var(--text-secondary);
+}
+
+/* Responsive adaptations */
+@media (max-width: 1024px) {
+  .visualization-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+  
+  .visualization-container {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .panel-actions {
+    flex-direction: column;
+  }
+  
+  .viz-controls {
+    bottom: auto;
+    top: var(--space-4);
+  }
+}
