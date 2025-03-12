@@ -155,7 +155,7 @@ class DataAnalyzer {
     });
     
     // Update insight text for velocity graph
-    this.updateInsightText('The horizontal velocity (vx) is constant without air resistance. The vertical velocity (vy) decreases linearly due to constant acceleration of gravity. The slope of this line is -g = -9.8 m/s\u00B2.');
+    this.updateInsightText('The horizontal velocity (vx) is constant without air resistance. The vertical velocity (vy) decreases linearly due to constant acceleration of gravity. The slope of this line is -g = -9.8 m/s².');
   }
   
   /**
@@ -171,7 +171,7 @@ class DataAnalyzer {
         labels: this.data.time.map(t => t.toFixed(1)),
         datasets: [
           {
-            label: 'ax (m/s\u00B2)',
+            label: 'ax (m/s²)',
             data: this.data.acceleration.x,
             borderColor: '#3a86ff',
             backgroundColor: 'rgba(58, 134, 255, 0.1)',
@@ -179,7 +179,7 @@ class DataAnalyzer {
             pointRadius: 0
           },
           {
-            label: 'ay (m/s\u00B2)',
+            label: 'ay (m/s²)',
             data: this.data.acceleration.y,
             borderColor: '#ff006e',
             backgroundColor: 'rgba(255, 0, 110, 0.1)',
@@ -187,7 +187,7 @@ class DataAnalyzer {
             pointRadius: 0
           },
           {
-            label: 'Magnitude (m/s\u00B2)',
+            label: 'Magnitude (m/s²)',
             data: this.data.acceleration.magnitude,
             borderColor: '#fb5607',
             backgroundColor: 'rgba(251, 86, 7, 0.1)',
@@ -197,11 +197,11 @@ class DataAnalyzer {
           }
         ]
       },
-      options: this.getChartOptions('Acceleration vs. Time', 'Time (s)', 'Acceleration (m/s\u00B2)')
+      options: this.getChartOptions('Acceleration vs. Time', 'Time (s)', 'Acceleration (m/s²)')
     });
     
     // Update insight text for acceleration graph
-    this.updateInsightText('The horizontal acceleration (ax) is zero without air resistance. The vertical acceleration (ay) is constant at -9.8 m/s\u00B2 due to gravity. This constant acceleration is what defines projectile motion.');
+    this.updateInsightText('The horizontal acceleration (ax) is zero without air resistance. The vertical acceleration (ay) is constant at -9.8 m/s² due to gravity. This constant acceleration is what defines projectile motion.');
   }
   
   /**
