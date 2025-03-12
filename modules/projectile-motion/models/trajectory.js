@@ -8,9 +8,7 @@
  * - Derivative calculations along trajectory
  */
 
-import PhysicsModel from './physics.js';
-
-export default class TrajectoryModel {
+class TrajectoryModel {
     constructor() {
         this.physics = new PhysicsModel();
         this.trajectoryPoints = [];
@@ -195,3 +193,6 @@ export default class TrajectoryModel {
         };
     }
 }
+
+// Make the class globally available
+window.TrajectoryModel = TrajectoryModel;

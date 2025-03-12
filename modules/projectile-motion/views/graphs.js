@@ -8,9 +8,7 @@
  * - Function derivatives
  */
 
-import ChartUtils from '../../../core/chart-utils.js';
-
-export default class GraphsView {
+class GraphsView {
     constructor(container) {
         // Initialize charts
         this.chartUtils = new ChartUtils(container);
@@ -155,3 +153,6 @@ export default class GraphsView {
         this.chartUtils.addLabel('y', { x: 0.3, y: maxHeight * 0.95 });
     }
 }
+
+// Make the class globally available
+window.GraphsView = GraphsView;
