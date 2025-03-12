@@ -4,230 +4,498 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculus Visualizer</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="css/user-levels.css">
-    <link rel="stylesheet" href="css/tutorials.css">
-    <link rel="stylesheet" href="css/enhanced-ui.css">
-    <link rel="stylesheet" href="css/modern-theme.css">
+    <link rel="stylesheet" href="css/modern-redesign.css">
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
 </head>
-<body class="user-level-beginner">
-    <header>
-        <h1>Calculus Visualizer</h1>
-        <nav>
-            <ul>
-                <li><a href="#" data-concept="derivatives" id="concept-derivatives">Derivatives</a></li>
-                <li><a href="#" data-concept="integrals" id="concept-integrals">Integrals</a></li>
-                <li><a href="#" data-concept="limits" id="concept-limits">Limits</a></li>
-            </ul>
-        </nav>
-        
-        <!-- User Level Selector (Modern Toggle UI) -->
-        <div class="user-level-selector">
-            <label>Level:</label>
-            <div class="toggle-container">
-                <div class="toggle-option active" data-level="beginner">Beginner</div>
-                <div class="toggle-option" data-level="expert">Expert</div>
-                <div class="toggle-option" data-level="professional">Pro</div>
+<body>
+    <div class="app-layout">
+        <header class="app-header">
+            <div class="container header-container">
+                <a href="#" class="app-logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 5L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Calculus Visualizer
+                </a>
+                
+                <nav class="primary-nav">
+                    <a href="#" class="nav-link active" data-concept="derivatives">Derivatives</a>
+                    <a href="#" class="nav-link" data-concept="integrals">Integrals</a>
+                    <a href="#" class="nav-link" data-concept="limits">Limits</a>
+                    
+                    <!-- User Level Control -->
+                    <div class="segmented-control" id="user-level-control">
+                        <div class="segmented-option active" data-level="beginner">Beginner</div>
+                        <div class="segmented-option" data-level="expert">Expert</div>
+                        <div class="segmented-option" data-level="pro">Pro</div>
+                        <div class="segment-indicator" style="width: 33.33%; transform: translateX(0%);"></div>
+                    </div>
+                </nav>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main>
-        <div id="visualization-container">
-            <canvas id="visualization"></canvas>
-            
-            <!-- Dimension toggle button -->
-            <button id="dimension-toggle" data-tooltip="dimension-toggle">
-                <span id="dimension-mode">3D</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10m14 3l-7 -3l-7 3v-10l7 -3l7 3m0 10v-10"/></svg>
-            </button>
-            
-            <!-- Animation toggle button -->
-            <button id="toggle-animation" class="animation-control" data-tooltip="toggle-animation">
-                <span>Animate</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16l13 -8z"/></svg>
-            </button>
-            
-            <!-- View controls -->
-            <div class="visualization-controls">
-                <button id="reset-view" class="viz-control-btn" data-tooltip="reset-view">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+        <main class="container main-content">
+            <div class="visualization-wrapper">
+                <canvas id="visualization" class="visualization-canvas"></canvas>
+                
+                <!-- Dimension Toggle -->
+                <button class="dimension-toggle" id="dimension-toggle" title="Toggle 2D/3D View">
+                    <span id="dimension-mode">3D</span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 7V17M17 20L10 17L3 20V10L10 7L17 10M17 20V10M17 20L10 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </button>
-            </div>
-            
-            <!-- Color scheme selector -->
-            <div class="color-scheme-selector">
-                <div class="color-option gradient active" data-tooltip="color-scheme" data-scheme="gradient"></div>
-                <div class="color-option height" data-tooltip="color-scheme" data-scheme="height"></div>
-                <div class="color-option single" data-tooltip="color-scheme" data-scheme="single"></div>
-            </div>
-        </div>
-
-        <div id="controls-panel">
-            <div id="function-input" class="card tooltip-trigger" data-tooltip="function-input">
-                <label for="function">Function: f(x) = </label>
-                <input type="text" id="function" value="x^2">
-                <button id="update-function" data-tooltip="update-function">Update</button>
-            </div>
-
-            <div id="concept-controls" class="card">
-                <!-- Dynamic controls will be inserted here based on selected concept -->
-            </div>
-
-            <div id="examples-dropdown" class="card tooltip-trigger" data-tooltip="examples-dropdown">
-                <label for="examples">Examples:</label>
-                <select id="examples">
-                    <option value="">Select an example</option>
-                    <optgroup label="Physics">
-                        <option value="projectile-motion">Projectile Motion</option>
-                        <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
-                        <option value="wave-propagation" class="expert-only">Wave Propagation</option>
-                        <option value="heat-distribution" class="expert-only">3D Heat Distribution</option>
-                        <option value="electric-potential" class="professional-only">3D Electric Potential</option>
-                    </optgroup>
-                    <optgroup label="Everyday">
-                        <option value="car-acceleration">Car Acceleration</option>
-                        <option value="population-growth" class="expert-only">Population Growth</option>
-                        <option value="market-equilibrium" class="expert-only">Market Equilibrium</option>
-                        <option value="loan-repayment" class="expert-only">Loan Repayment</option>
-                        <option value="consumer-preference" class="professional-only">3D Consumer Utility</option>
-                        <option value="retail-location" class="professional-only">3D Geographic Sales</option>
-                    </optgroup>
-                </select>
-            </div>
-            
-            <!-- Professional tools section (hidden by default) -->
-            <div class="professional-tool card" style="display: none;">
-                <h3>Professional Tools</h3>
-                <div class="pro-tool-group">
-                    <label>
-                        <input type="checkbox" id="enable-high-precision" data-tooltip="enable-high-precision"> Enable High-Precision
-                    </label>
+                
+                <!-- Animation Controls -->
+                <div class="viz-controls top">
+                    <button class="viz-control-btn" id="toggle-animation" title="Toggle Animation">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 5V19L19 12L5 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="pro-tool-group">
-                    <button id="export-visualization" data-tooltip="export-visualization">Export Visualization</button>
+                
+                <!-- View Controls -->
+                <div class="viz-controls">
+                    <button class="viz-control-btn" id="reset-view" title="Reset View">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4.5V1.5L7.5 6L12 10.5V7.5C15.59 7.5 18.5 10.41 18.5 14C18.5 17.59 15.59 20.5 12 20.5C8.41 20.5 5.5 17.59 5.5 14H3.5C3.5 18.69 7.31 22.5 12 22.5C16.69 22.5 20.5 18.69 20.5 14C20.5 9.31 16.69 5.5 12 5.5V4.5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="viz-control-btn" id="zoom-in" title="Zoom In">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 3H9V9H3V15H9V21H15V15H21V9H15V3Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="viz-control-btn" id="zoom-out" title="Zoom Out">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 9H21V15H3V9Z" fill="currentColor"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="pro-tool-group">
-                    <label>Significant Digits:
-                        <select id="precision-digits" data-tooltip="precision-digits">
+                
+                <!-- Color Theme Selector -->
+                <div class="viz-controls right">
+                    <button class="viz-control-btn color-theme-option theme-gradient active" id="gradient-theme" title="Gradient Theme"></button>
+                    <button class="viz-control-btn color-theme-option theme-height" id="height-theme" title="Height Theme"></button>
+                    <button class="viz-control-btn color-theme-option theme-solid" id="solid-theme" title="Solid Theme"></button>
+                </div>
+            </div>
+
+            <div class="controls-sidebar">
+                <!-- Function Input Card -->
+                <div class="card" id="function-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Function Input</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="function" class="form-label">f(x) =</label>
+                        <div class="input-group">
+                            <input type="text" id="function" class="form-input" value="x^2">
+                            <button id="update-function" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Concept Controls Card -->
+                <div class="card" id="concept-controls-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Controls</h3>
+                    </div>
+                    
+                    <!-- Dynamic controls will be inserted here based on selected concept -->
+                    <div id="concept-controls">
+                        <!-- Example controls for derivatives (initially visible) -->
+                        <div class="control-group" id="derivative-controls">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="show-derivative" checked>
+                                    Show Derivative
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="show-tangent">
+                                    Show Tangent Line
+                                </label>
+                            </div>
+                            <div class="form-group" id="tangent-point-group" style="display: none;">
+                                <label for="tangent-point" class="form-label">Tangent Point (x)</label>
+                                <input type="range" id="tangent-point" min="-5" max="5" step="0.1" value="0" class="form-range">
+                                <div id="tangent-point-value">x = 0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Examples Card -->
+                <div class="card" id="examples-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Examples</h3>
+                    </div>
+                    <div class="form-group">
+                        <select id="examples" class="form-select">
+                            <option value="">Select an example</option>
+                            <optgroup label="Physics">
+                                <option value="projectile-motion">Projectile Motion</option>
+                                <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
+                                <option value="wave-propagation" class="expert-only">Wave Propagation</option>
+                                <option value="heat-distribution" class="expert-only">3D Heat Distribution</option>
+                                <option value="electric-potential" class="professional-only">3D Electric Potential</option>
+                            </optgroup>
+                            <optgroup label="Everyday">
+                                <option value="car-acceleration">Car Acceleration</option>
+                                <option value="population-growth" class="expert-only">Population Growth</option>
+                                <option value="market-equilibrium" class="expert-only">Market Equilibrium</option>
+                                <option value="loan-repayment" class="expert-only">Loan Repayment</option>
+                                <option value="consumer-preference" class="professional-only">3D Consumer Utility</option>
+                                <option value="retail-location" class="professional-only">3D Geographic Sales</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Explanation Card -->
+                <div class="card" id="explanation-card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="concept-title">Derivatives</h3>
+                    </div>
+                    <div id="concept-explanation">
+                        <p>Derivatives measure the rate of change of a function at a given point. For a function f(x), the derivative f'(x) tells us the slope of the tangent line at any point x.</p>
+                        <p>In this visualization, you can see how the derivative of f(x) = x² varies across different values of x. Try modifying the function or enabling the tangent line to see how derivatives work in practice.</p>
+                        
+                        <div class="expert-only" style="display: none;">
+                            <h4>Mathematical Definition</h4>
+                            <p>The derivative is formally defined as the limit:</p>
+                            <div class="math-formula">f'(x) = lim<sub>h→0</sub> (f(x+h) - f(x)) / h</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Tools Card (hidden by default) -->
+                <div class="card professional-only" id="pro-tools-card" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">Professional Tools</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="enable-high-precision">
+                            Enable High-Precision
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="precision-digits" class="form-label">Significant Digits:</label>
+                        <select id="precision-digits" class="form-select">
                             <option value="2">2</option>
                             <option value="4">4</option>
                             <option value="6" selected>6</option>
                             <option value="10">10</option>
                         </select>
-                    </label>
+                    </div>
+                    <div class="form-group">
+                        <button id="export-visualization" class="btn btn-secondary">Export Visualization</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
 
-        <div id="explanation-panel">
-            <div class="card">
-                <h2 id="concept-title">Welcome to Calculus Visualizer</h2>
-                <div class="level-info">
-                    <span class="level-badge level-badge-beginner">Beginner</span>
-                    <span class="level-badge level-badge-expert expert-only">Expert</span>
-                    <span class="level-badge level-badge-professional professional-only">Professional</span>
-                </div>
-                <div id="concept-explanation">
-                    <p>Select a calculus concept from the navigation menu to begin exploring interactive visualizations.</p>
-                    <p class="beginner-only">This beginner mode provides simplified controls and explanations to help you understand calculus concepts.</p>
-                    <p class="expert-only">Expert mode gives you more control and detailed explanations of the underlying mathematics.</p>
-                    <p class="professional-only">Professional mode provides high-precision calculations and advanced visualization options.</p>
-                </div>
+        <footer class="app-footer">
+            <div class="container footer-content">
+                <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
             </div>
-        </div>
-    </main>
+        </footer>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
-    </footer>
-
-    <!-- Config -->
-    <script src="js/config.js"></script>
-    <script src="js/user-level.js"></script>
-    <script src="js/user-level-toggle.js"></script>
-    
-    <!-- Enhanced UX -->
-    <script src="js/tutorials.js"></script>
-    <script src="js/documentation.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/tooltips.js"></script>
-
-    <!-- Utils -->
-    <script src="js/utils/math.js"></script>
-    <script src="js/utils/animations.js"></script>
-
-    <!-- Concepts -->
-    <script src="js/concepts/derivatives.js"></script>
-    <script src="js/concepts/integrals.js"></script>
-    <script src="js/concepts/limits.js"></script>
-
-    <!-- Examples -->
-    <script src="js/examples/physics.js"></script>
-    <script src="js/examples/everyday.js"></script>
-
-    <!-- Core -->
-    <script src="js/engine.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/main.js"></script>
-    
+    <!-- User Interface JS -->
     <script>
-        // Initialize dimension toggle
-        document.getElementById('dimension-toggle').addEventListener('click', function() {
-            const engine = window.calcEngine;
-            if (engine) {
-                engine.toggleDimension();
-                document.getElementById('dimension-mode').textContent = engine.is3DMode ? '3D' : '2D';
-            }
-        });
-        
-        // Initialize animation toggle
-        document.getElementById('toggle-animation').addEventListener('click', function() {
-            const engine = window.calcEngine;
-            if (engine) {
-                engine.animateFunction = !engine.animateFunction;
-                this.querySelector('span').textContent = engine.animateFunction ? 'Stop' : 'Animate';
-            }
-        });
-        
-        // Initialize view reset
-        document.getElementById('reset-view').addEventListener('click', function() {
-            const engine = window.calcEngine;
-            if (engine) {
-                engine.camera.position.set(3, 3, 5);
-                engine.camera.lookAt(0, 0, 0);
-                engine.controls.update();
-            }
-        });
-        
-        // Initialize color scheme selector
-        document.querySelectorAll('.color-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const scheme = this.getAttribute('data-scheme');
-                const engine = window.calcEngine;
-                
-                // Update active state
-                document.querySelectorAll('.color-option').forEach(el => {
-                    el.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize user level segmented control
+            const segmentedControl = document.getElementById('user-level-control');
+            const segmentOptions = segmentedControl.querySelectorAll('.segmented-option');
+            const segmentIndicator = segmentedControl.querySelector('.segment-indicator');
+            
+            segmentOptions.forEach((option, index) => {
+                option.addEventListener('click', function() {
+                    // Update active state
+                    segmentOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Move the indicator
+                    const optionWidth = 100 / segmentOptions.length;
+                    segmentIndicator.style.transform = `translateX(${optionWidth * index}%)`;
+                    
+                    // Get selected level
+                    const level = this.getAttribute('data-level');
+                    document.body.className = `user-level-${level}`;
+                    
+                    // Show/hide level-specific elements
+                    updateLevelSpecificElements(level);
                 });
-                this.classList.add('active');
-                
-                // Update visualization
-                if (engine) {
-                    engine.updateVisualizationOptions({ colorScheme: scheme });
-                }
             });
+            
+            // Show/hide tangent point slider when checkbox is clicked
+            const showTangentCheckbox = document.getElementById('show-tangent');
+            const tangentPointGroup = document.getElementById('tangent-point-group');
+            
+            showTangentCheckbox.addEventListener('change', function() {
+                tangentPointGroup.style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // Update tangent point value display
+            const tangentPointSlider = document.getElementById('tangent-point');
+            const tangentPointValue = document.getElementById('tangent-point-value');
+            
+            tangentPointSlider.addEventListener('input', function() {
+                tangentPointValue.textContent = `x = ${this.value}`;
+            });
+            
+            // Initialize concept navigation
+            const conceptLinks = document.querySelectorAll('.nav-link');
+            const conceptTitle = document.getElementById('concept-title');
+            const conceptExplanation = document.getElementById('concept-explanation');
+            
+            conceptLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active state
+                    conceptLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get concept
+                    const concept = this.getAttribute('data-concept');
+                    
+                    // Update title and content (would be more dynamic in real implementation)
+                    conceptTitle.textContent = concept.charAt(0).toUpperCase() + concept.slice(1);
+                    
+                    // In a real app, you would load concept-specific controls and explanations here
+                });
+            });
+            
+            // Color theme selectors
+            const themeOptions = document.querySelectorAll('.color-theme-option');
+            
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    themeOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, you would update the visualization colors here
+                });
+            });
+            
+            // Initialize 2D/3D toggle
+            const dimensionToggle = document.getElementById('dimension-toggle');
+            const dimensionMode = document.getElementById('dimension-mode');
+            
+            dimensionToggle.addEventListener('click', function() {
+                const is3D = dimensionMode.textContent === '3D';
+                dimensionMode.textContent = is3D ? '2D' : '3D';
+                
+                // In a real app, you would toggle the visualization between 2D and 3D here
+            });
+            
+            // Initialize animation toggle
+            const toggleAnimation = document.getElementById('toggle-animation');
+            
+            toggleAnimation.addEventListener('click', function() {
+                this.classList.toggle('active');
+                
+                // In a real app, you would start/stop animation here
+            });
+            
+            // Function to update level-specific elements
+            function updateLevelSpecificElements(level) {
+                const expertElements = document.querySelectorAll('.expert-only');
+                const proElements = document.querySelectorAll('.professional-only');
+                
+                if (level === 'beginner') {
+                    expertElements.forEach(el => el.style.display = 'none');
+                    proElements.forEach(el => el.style.display = 'none');
+                } else if (level === 'expert') {
+                    expertElements.forEach(el => el.style.display = 'block');
+                    proElements.forEach(el => el.style.display = 'none');
+                } else if (level === 'pro') {
+                    expertElements.forEach(el => el.style.display = 'block');
+                    proElements.forEach(el => el.style.display = 'block');
+                }
+            }
+        });
+    </script>
+    
+    <!-- Visualization Engine JS -->
+    <script>
+        // This would be connected to your existing engine.js, but with updated interfaces
+        // For demo purposes, let's create a simple placeholder visualization
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('visualization');
+            
+            // Set canvas size to match container
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Initialize Three.js scene (simplified placeholder)
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            
+            // Basic lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // Add coordinate axes
+            const axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+            
+            // Set camera position
+            camera.position.set(3, 3, 5);
+            camera.lookAt(0, 0, 0);
+            
+            // Add orbit controls
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.1;
+            
+            // Create function visualization (placeholder - would be more complex in real app)
+            const resolution = 50;
+            const size = 10;
+            
+            function createFunctionMesh(func) {
+                const geometry = new THREE.BufferGeometry();
+                const vertices = [];
+                const colors = [];
+                
+                const colorPrimary = new THREE.Color(0x6366f1);
+                const colorAccent = new THREE.Color(0xf43f5e);
+                
+                for (let i = 0; i <= resolution; i++) {
+                    for (let j = 0; j <= resolution; j++) {
+                        const x = (i / resolution - 0.5) * size;
+                        const z = (j / resolution - 0.5) * size;
+                        const y = func(x, z);
+                        
+                        vertices.push(x, y, z);
+                        
+                        const color = colorPrimary.clone().lerp(colorAccent, (y + size/4) / (size/2));
+                        colors.push(color.r, color.g, color.b);
+                    }
+                }
+                
+                const indices = [];
+                for (let i = 0; i < resolution; i++) {
+                    for (let j = 0; j < resolution; j++) {
+                        const a = i * (resolution + 1) + j;
+                        const b = i * (resolution + 1) + j + 1;
+                        const c = (i + 1) * (resolution + 1) + j;
+                        const d = (i + 1) * (resolution + 1) + j + 1;
+                        
+                        indices.push(a, b, d);
+                        indices.push(a, d, c);
+                    }
+                }
+                
+                geometry.setIndex(indices);
+                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+                
+                const material = new THREE.MeshPhongMaterial({
+                    vertexColors: true,
+                    side: THREE.DoubleSide,
+                    shininess: 50
+                });
+                
+                return new THREE.Mesh(geometry, material);
+            }
+            
+            function parseFunction(expression) {
+                return function(x, z) {
+                    try {
+                        return math.evaluate(expression, { x, z: z || 0 });
+                    } catch (e) {
+                        return 0;
+                    }
+                };
+            }
+            
+            // Initial function
+            let currentExpression = 'x^2';
+            let currentFunction = parseFunction(currentExpression);
+            let functionMesh = createFunctionMesh(currentFunction);
+            scene.add(functionMesh);
+            
+            // Update function
+            const updateButton = document.getElementById('update-function');
+            const functionInput = document.getElementById('function');
+            
+            updateButton.addEventListener('click', function() {
+                const newExpression = functionInput.value;
+                currentExpression = newExpression;
+                currentFunction = parseFunction(newExpression);
+                
+                scene.remove(functionMesh);
+                functionMesh = createFunctionMesh(currentFunction);
+                scene.add(functionMesh);
+            });
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Expose control functions
+            window.calcEngine = {
+                camera: camera,
+                controls: controls,
+                scene: scene,
+                is3DMode: true,
+                
+                toggleDimension: function() {
+                    this.is3DMode = !this.is3DMode;
+                    
+                    if (this.is3DMode) {
+                        camera.position.set(3, 3, 5);
+                        controls.enableRotate = true;
+                    } else {
+                        camera.position.set(0, 5, 0);
+                        camera.lookAt(0, 0, 0);
+                        controls.enableRotate = false;
+                    }
+                },
+                
+                updateVisualizationOptions: function(options) {
+                    // Would update visualization options in a real app
+                    console.log('Updating visualization options:', options);
+                }
+            };
         });
     </script>
 </body>
