@@ -10,14 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     
+    <!-- IMPORTANT: Load Chart.js first to ensure it's available -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="../../css/minimalist.css">
     <link rel="stylesheet" href="../../css/components.css">
     <link rel="stylesheet" href="../physics.css">
     <link rel="stylesheet" href="projectile-motion.css">
-    
-    <!-- IMPORTANT: Load Chart.js first to ensure it's available -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
@@ -35,6 +35,18 @@
         border-radius: 4px;
         background: #f9f9f9;
         margin-bottom: 20px;
+    }
+    
+    /* Add styles for direct renderer buttons */
+    .graph-btn {
+        padding: 8px 16px;
+        background: #eee;
+        border: 1px solid #ddd;
+        cursor: pointer;
+    }
+    .graph-btn.active {
+        background: #3a86ff;
+        color: white;
     }
     </style>
 </head>
@@ -351,11 +363,11 @@
     <script src="../../js/engine.js"></script>
     <script src="../../js/ui-controller.js"></script>
     
-    <!-- Physics Module Scripts (using simple analyzer instead) -->
+    <!-- Physics Module Scripts -->
     <script src="../physics-engine.js"></script>
     <script src="projectile-motion.js"></script>
-    <script src="simple-analyzer.js"></script>
     
-    <!-- Init Script is now in simple-analyzer.js with auto-initialization -->
+    <!-- Direct renderer script - immediately executes to ensure visualizations show up -->
+    <script src="direct-renderer.js"></script>
 </body>
 </html>
