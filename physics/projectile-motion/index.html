@@ -21,6 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+    
+    <!-- Charts library for data visualization (moved to head) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 </head>
 <body data-theme="light">
     <div class="app-container">
@@ -258,8 +261,9 @@
                                     <button class="graph-btn" data-graph="energy">Energy</button>
                                 </div>
                                 
-                                <div class="graph-container" id="data-graph">
+                                <div class="graph-container" id="data-graph" style="height: 300px;">
                                     <!-- Graph will be rendered here -->
+                                    <!-- Added explicit height -->
                                 </div>
                                 
                                 <div class="data-insight">
@@ -337,23 +341,108 @@
     <script src="projectile-motion.js"></script>
     <script src="data-analyzer.js"></script>
     
-    <!-- Charts library for data visualization -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <!-- Debug script -->
+    <script src="debug.js"></script>
     
     <!-- Init Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize UI controller
-            const uiController = new UIController();
+            console.log('[Main] DOM content loaded, initializing...');
             
-            // Initialize projectile motion simulator
-            const projectileSimulator = new ProjectileMotionSimulator('visualization-canvas');
-            
-            // Initialize data analyzer
-            const dataAnalyzer = new DataAnalyzer('data-graph');
-            
-            // Connect them together
-            projectileSimulator.setDataAnalyzer(dataAnalyzer);
+            try {
+                // Initialize UI controller
+                const uiController = new UIController();
+                console.log('[Main] UI controller initialized');
+                
+                // Initialize projectile motion simulator
+                try {
+                    console.log('[Main] Creating ProjectileMotionSimulator...');
+                    const projectileSimulator = new ProjectileMotionSimulator('visualization-canvas');
+                    console.log('[Main] ProjectileMotionSimulator created');
+                    
+                    // Initialize data analyzer
+                    try {
+                        console.log('[Main] Creating DataAnalyzer...');
+                        const dataAnalyzer = new DataAnalyzer('data-graph');
+                        console.log('[Main] DataAnalyzer created');
+                        
+                        // Connect them together
+                        try {
+                            console.log('[Main] Connecting simulator and analyzer...');
+                            projectileSimulator.setDataAnalyzer(dataAnalyzer);
+                            console.log('[Main] Connection established');
+                        } catch (error) {
+                            console.error('[Main] Error connecting simulator and analyzer:', error);
+                            
+                            // Direct manual update as fallback
+                            console.log('[Main] Attempting direct data update as fallback...');
+                            const sampleData = {
+                                time: Array.from({length: 50}, (_, i) => i/10),
+                                position: {
+                                    x: Array.from({length: 50}, (_, i) => 5 * i/10),
+                                    y: Array.from({length: 50}, (_, i) => 10 * (i/10) - 4.9 * Math.pow(i/10, 2))
+                                },
+                                velocity: {
+                                    x: Array.from({length: 50}, () => 5),
+                                    y: Array.from({length: 50}, (_, i) => 10 - 9.8 * (i/10)),
+                                    magnitude: Array.from({length: 50}, (_, i) => Math.sqrt(25 + Math.pow(10 - 9.8 * (i/10), 2)))
+                                },
+                                acceleration: {
+                                    x: Array.from({length: 50}, () => 0),
+                                    y: Array.from({length: 50}, () => -9.8),
+                                    magnitude: Array.from({length: 50}, () => 9.8)
+                                },
+                                energy: {
+                                    kinetic: Array.from({length: 50}, (_, i) => 25 + Math.pow(10 - 9.8 * (i/10), 2)),
+                                    potential: Array.from({length: 50}, (_, i) => 9.8 * (10 * (i/10) - 4.9 * Math.pow(i/10, 2))),
+                                    total: Array.from({length: 50}, (_, i) => 25 + Math.pow(10 - 9.8 * (i/10), 2) + 9.8 * (10 * (i/10) - 4.9 * Math.pow(i/10, 2)))
+                                }
+                            };
+                            dataAnalyzer.updateData(sampleData);
+                        }
+                    } catch (error) {
+                        console.error('[Main] Error creating DataAnalyzer:', error);
+                    }
+                } catch (error) {
+                    console.error('[Main] Error creating ProjectileMotionSimulator:', error);
+                    
+                    // Try to initialize just the data analyzer with sample data
+                    console.log('[Main] Attempting to initialize DataAnalyzer with sample data...');
+                    try {
+                        const dataAnalyzer = new DataAnalyzer('data-graph');
+                        
+                        // Create sample data
+                        const sampleData = {
+                            time: Array.from({length: 50}, (_, i) => i/10),
+                            position: {
+                                x: Array.from({length: 50}, (_, i) => 5 * i/10),
+                                y: Array.from({length: 50}, (_, i) => 10 * (i/10) - 4.9 * Math.pow(i/10, 2))
+                            },
+                            velocity: {
+                                x: Array.from({length: 50}, () => 5),
+                                y: Array.from({length: 50}, (_, i) => 10 - 9.8 * (i/10)),
+                                magnitude: Array.from({length: 50}, (_, i) => Math.sqrt(25 + Math.pow(10 - 9.8 * (i/10), 2)))
+                            },
+                            acceleration: {
+                                x: Array.from({length: 50}, () => 0),
+                                y: Array.from({length: 50}, () => -9.8),
+                                magnitude: Array.from({length: 50}, () => 9.8)
+                            },
+                            energy: {
+                                kinetic: Array.from({length: 50}, (_, i) => 25 + Math.pow(10 - 9.8 * (i/10), 2)),
+                                potential: Array.from({length: 50}, (_, i) => 9.8 * (10 * (i/10) - 4.9 * Math.pow(i/10, 2))),
+                                total: Array.from({length: 50}, (_, i) => 25 + Math.pow(10 - 9.8 * (i/10), 2) + 9.8 * (10 * (i/10) - 4.9 * Math.pow(i/10, 2)))
+                            }
+                        };
+                        
+                        dataAnalyzer.updateData(sampleData);
+                    } catch (error) {
+                        console.error('[Main] Error in fallback initialization:', error);
+                    }
+                }
+            } catch (error) {
+                console.error('[Main] General initialization error:', error);
+            }
         });
     </script>
 </body>
