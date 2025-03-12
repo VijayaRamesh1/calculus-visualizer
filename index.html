@@ -10,17 +10,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
+    <!-- Core Stylesheets -->
     <link rel="stylesheet" href="css/modern-redesign.css">
+    <link rel="stylesheet" href="css/educational-features.css">
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
 </head>
-<body>
+<body data-active-concept="derivatives">
     <div class="app-layout">
-        <header class="app-header">
+        <header class="app-header concept-theme-element">
             <div class="container header-container">
                 <a href="#" class="app-logo">
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,6 +143,48 @@
                     </div>
                 </div>
                 
+                <!-- Module Card for Derivatives -->
+                <div class="card concept-card" id="derivatives-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Derivatives</h3>
+                    </div>
+                    <div class="module-content">
+                        <p class="module-description">Learn about rates of change and the slopes of curves.</p>
+                        
+                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
+                        
+                        <!-- Knowledge Check section added by QuizManager -->
+                    </div>
+                </div>
+                
+                <!-- Module Card for Integrals (initially hidden) -->
+                <div class="card concept-card" id="integrals-card" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">Integrals</h3>
+                    </div>
+                    <div class="module-content">
+                        <p class="module-description">Explore accumulation and the area under curves.</p>
+                        
+                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
+                        
+                        <!-- Knowledge Check section added by QuizManager -->
+                    </div>
+                </div>
+                
+                <!-- Module Card for Limits (initially hidden) -->
+                <div class="card concept-card" id="limits-card" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">Limits</h3>
+                    </div>
+                    <div class="module-content">
+                        <p class="module-description">Understand function behavior as variables approach specific values.</p>
+                        
+                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
+                        
+                        <!-- Knowledge Check section added by QuizManager -->
+                    </div>
+                </div>
+                
                 <!-- Examples Card -->
                 <div class="card" id="examples-card">
                     <div class="card-header">
@@ -168,6 +211,12 @@
                         </select>
                     </div>
                 </div>
+                
+                <!-- Progress Cards will be added by ProgressTracker -->
+                
+                <!-- Learning Path Card will be added by LearningPathManager -->
+                
+                <!-- Summary Cards will be added by ModuleSummaryManager -->
                 
                 <!-- Explanation Card -->
                 <div class="card" id="explanation-card">
@@ -220,6 +269,18 @@
         </footer>
     </div>
 
+    <!-- Core -->
+    <script src="js/engine.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Educational Features -->
+    <script src="js/walkthrough.js"></script>
+    <script src="js/quiz-manager.js"></script>
+    <script src="js/progress-tracker.js"></script>
+    <script src="js/learning-path.js"></script>
+    <script src="js/modules-summary.js"></script>
+    
     <!-- Examples -->
     <script src="js/examples/car-acceleration.js"></script>
     <script src="js/examples/examples-loader.js"></script>
@@ -271,6 +332,7 @@
             const conceptLinks = document.querySelectorAll('.nav-link');
             const conceptTitle = document.getElementById('concept-title');
             const conceptExplanation = document.getElementById('concept-explanation');
+            const conceptCards = document.querySelectorAll('.concept-card');
             
             conceptLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -283,10 +345,31 @@
                     // Get concept
                     const concept = this.getAttribute('data-concept');
                     
-                    // Update title and content (would be more dynamic in real implementation)
+                    // Update body data attribute for theme
+                    document.body.setAttribute('data-active-concept', concept);
+                    
+                    // Update content
                     conceptTitle.textContent = concept.charAt(0).toUpperCase() + concept.slice(1);
                     
-                    // In a real app, you would load concept-specific controls and explanations here
+                    // Show the relevant concept card, hide others
+                    conceptCards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                    
+                    const activeCard = document.getElementById(`${concept}-card`);
+                    if (activeCard) {
+                        activeCard.style.display = 'block';
+                    }
+                    
+                    // Update progress display if available
+                    if (window.progressTracker) {
+                        window.progressTracker.showModuleProgress(concept);
+                    }
+                    
+                    // Update learning path if available
+                    if (window.learningPathManager) {
+                        window.learningPathManager.refreshForConcept(concept);
+                    }
                 });
             });
             
