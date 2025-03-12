@@ -8,9 +8,7 @@
  * - Animation and controls
  */
 
-import ThreeUtils from '../../../core/3d-utils.js';
-
-export default class SceneView {
+class SceneView {
     constructor(container) {
         // Initialize Three.js scene with ThreeUtils
         this.threeUtils = new ThreeUtils(container);
@@ -246,3 +244,6 @@ export default class SceneView {
         this.threeUtils.controls.update();
     }
 }
+
+// Make the class globally available
+window.SceneView = SceneView;
