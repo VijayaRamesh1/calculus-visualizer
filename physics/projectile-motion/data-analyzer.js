@@ -12,6 +12,8 @@ class DataAnalyzer {
     this.chart = null;
     this.currentGraph = 'position';
     
+    console.log('[DataAnalyzer] Initialized with container:', containerId);
+    
     // Connect graph selector buttons
     this.setupGraphSelectors();
   }
@@ -22,6 +24,8 @@ class DataAnalyzer {
   setupGraphSelectors() {
     const graphButtons = document.querySelectorAll('.graph-btn');
     
+    console.log('[DataAnalyzer] Found graph buttons:', graphButtons.length);
+    
     graphButtons.forEach(button => {
       button.addEventListener('click', () => {
         // Update active button
@@ -30,6 +34,7 @@ class DataAnalyzer {
         
         // Update current graph
         this.currentGraph = button.dataset.graph;
+        console.log('[DataAnalyzer] Graph changed to:', this.currentGraph);
         
         // Refresh graph
         if (this.data) {
@@ -43,6 +48,7 @@ class DataAnalyzer {
    * Update data and refresh graph
    */
   updateData(flightData) {
+    console.log('[DataAnalyzer] Updating data:', flightData);
     this.data = flightData;
     this.renderGraph();
   }
@@ -51,7 +57,11 @@ class DataAnalyzer {
    * Render current graph type
    */
   renderGraph() {
-    if (!this.data || !this.container) return;
+    console.log('[DataAnalyzer] Rendering graph:', this.currentGraph);
+    if (!this.data || !this.container) {
+      console.warn('[DataAnalyzer] Cannot render: missing data or container');
+      return;
+    }
     
     // Destroy existing chart if it exists
     if (this.chart) {
@@ -72,6 +82,8 @@ class DataAnalyzer {
       case 'energy':
         this.createEnergyGraph();
         break;
+      default:
+        console.error('[DataAnalyzer] Unknown graph type:', this.currentGraph);
     }
   }
   
@@ -79,8 +91,12 @@ class DataAnalyzer {
    * Create position vs. time graph
    */
   createPositionGraph() {
+    console.log('[DataAnalyzer] Creating position graph');
     const ctx = this.getChartContext();
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('[DataAnalyzer] Failed to get chart context');
+      return;
+    }
     
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -116,8 +132,12 @@ class DataAnalyzer {
    * Create velocity vs. time graph
    */
   createVelocityGraph() {
+    console.log('[DataAnalyzer] Creating velocity graph');
     const ctx = this.getChartContext();
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('[DataAnalyzer] Failed to get chart context');
+      return;
+    }
     
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -162,8 +182,12 @@ class DataAnalyzer {
    * Create acceleration vs. time graph
    */
   createAccelerationGraph() {
+    console.log('[DataAnalyzer] Creating acceleration graph');
     const ctx = this.getChartContext();
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('[DataAnalyzer] Failed to get chart context');
+      return;
+    }
     
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -208,8 +232,12 @@ class DataAnalyzer {
    * Create energy vs. time graph
    */
   createEnergyGraph() {
+    console.log('[DataAnalyzer] Creating energy graph');
     const ctx = this.getChartContext();
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('[DataAnalyzer] Failed to get chart context');
+      return;
+    }
     
     this.chart = new Chart(ctx, {
       type: 'line',
@@ -255,13 +283,18 @@ class DataAnalyzer {
    */
   getChartContext() {
     // Check if container exists
-    if (!this.container) return null;
+    if (!this.container) {
+      console.warn('[DataAnalyzer] No container available');
+      return null;
+    }
     
     // Check if canvas already exists in container
     let canvas = this.container.querySelector('canvas');
+    console.log('[DataAnalyzer] Existing canvas found:', !!canvas);
     
     // Create canvas if it doesn't exist
     if (!canvas) {
+      console.log('[DataAnalyzer] Creating new canvas');
       canvas = document.createElement('canvas');
       this.container.appendChild(canvas);
     }
@@ -349,6 +382,7 @@ class DataAnalyzer {
    */
   updateInsightText(text) {
     const insightElement = document.querySelector('.data-insight p');
+    console.log('[DataAnalyzer] Updating insight text, element found:', !!insightElement);
     if (insightElement) {
       insightElement.innerHTML = text;
     }
