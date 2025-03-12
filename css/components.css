@@ -1,0 +1,462 @@
+/* 
+ * Components CSS
+ * Specific UI components for Calculus Visualizer
+ */
+
+/* Category Icons - Physics */
+.physics-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" stroke="%237209b7" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+
+/* Category Icons - Economics */
+.economics-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" stroke="%234cc9f0" stroke-width="2" fill="none"><path d="M3 22V8h4v14H3z"/><path d="M9 22V4h4v18H9z"/><path d="M15 22V2h4v20h-4z"/><path d="M2 12h20"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+
+/* Category Icons - Biology */
+.biology-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" stroke="%2338b000" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4z"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+
+/* Category Icons - Engineering */
+.engineering-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" stroke="%23f72585" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94"/><path d="M9.69 8h11.48"/><path d="M7.38 12l5.74-9.94"/><path d="M7.38 12l5.74 9.94"/><path d="M3.95 17.94l11.48-11.48"/><path d="M2.5 8h5.74"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px;
+}
+
+/* Example Image Placeholders with content */
+.projectile-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%237209b7" opacity="0.2"/><path d="M10 80 L90 80" stroke="%237209b7" stroke-width="2"/><path d="M20 80 Q50 20 80 80" stroke="%237209b7" stroke-width="2" fill="none"/><circle cx="50" cy="40" r="4" fill="%237209b7"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.harmonic-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%235e60ce" opacity="0.2"/><path d="M10 50 L90 50" stroke="%235e60ce" stroke-width="1"/><path d="M10 20 L10 80" stroke="%235e60ce" stroke-width="1"/><path d="M10 50 Q26 20 42 50 Q58 80 74 50 Q90 20 106 50" stroke="%235e60ce" stroke-width="2" fill="none"/><circle cx="42" cy="50" r="4" fill="%235e60ce"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.circular-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%234ea8de" opacity="0.2"/><circle cx="50" cy="50" r="30" stroke="%234ea8de" stroke-width="2" fill="none"/><circle cx="50" cy="50" r="3" fill="%234ea8de"/><path d="M50 50 L75 65" stroke="%234ea8de" stroke-width="2"/><circle cx="75" cy="65" r="3" fill="%234ea8de"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fluid-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%234361ee" opacity="0.2"/><path d="M10 30 Q25 25 40 35 Q55 45 70 35 Q85 25 100 35" stroke="%234361ee" stroke-width="2" fill="none"/><path d="M10 50 Q25 45 40 55 Q55 65 70 55 Q85 45 100 55" stroke="%234361ee" stroke-width="2" fill="none"/><path d="M10 70 Q25 65 40 75 Q55 85 70 75 Q85 65 100 75" stroke="%234361ee" stroke-width="2" fill="none"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.market-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%234cc9f0" opacity="0.2"/><path d="M10 20 L10 80 L90 80" stroke="%234cc9f0" stroke-width="2"/><path d="M10 70 L90 20" stroke="%234cc9f0" stroke-width="2"/><path d="M10 20 L90 70" stroke="%234cc9f0" stroke-width="2"/><circle cx="50" cy="45" r="4" fill="%234cc9f0"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.growth-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%234895ef" opacity="0.2"/><path d="M10 20 L10 80 L90 80" stroke="%234895ef" stroke-width="2"/><path d="M10 75 C20 65, 30 60, 40 50 C50 40, 60 30, 80 10" stroke="%234895ef" stroke-width="2" fill="none"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.profit-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%23560bad" opacity="0.2"/><path d="M10 20 L10 80 L90 80" stroke="%23560bad" stroke-width="2"/><path d="M10 75 C25 65, 40 25, 50 25 C60 25, 75 65, 90 75" stroke="%23560bad" stroke-width="2" fill="none"/><circle cx="50" cy="25" r="4" fill="%23560bad"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.surplus-img {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none"><rect width="100" height="100" fill="%233a0ca3" opacity="0.2"/><path d="M10 20 L10 80 L90 80" stroke="%233a0ca3" stroke-width="2"/><path d="M10 20 L90 75" stroke="%233a0ca3" stroke-width="2"/><path d="M10 75 L70 30" stroke="%233a0ca3" stroke-width="2"/><path d="M10 75 L70 30 L90 75" stroke="%233a0ca3" stroke-width="1" fill="%233a0ca3" fill-opacity="0.2"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Math Function Display */
+.math-function {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 1rem;
+  background-color: var(--bg-hover);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+/* Data Visualization Components */
+.graph-container {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+
+.graph-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary);
+}
+
+/* Interactive Elements */
+.interactive-point {
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.interactive-point:hover {
+  transform: scale(1.5);
+}
+
+.drag-handle {
+  cursor: move;
+  touch-action: none;
+}
+
+/* Tooltips */
+.tooltip {
+  position: absolute;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 1000;
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+/* Loader */
+.loader {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--border-light);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Custom Sliders */
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: var(--border-light);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition-fast);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Custom Checkboxes */
+input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-main);
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  transition: all var(--transition-fast);
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px var(--primary-light);
+  outline: none;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: var(--space-4);
+}
+
+.tab-item {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid transparent;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tab-item:hover {
+  color: var(--text-primary);
+}
+
+.tab-item.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Progress Indicators */
+.progress-bar {
+  height: 4px;
+  background-color: var(--border-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: var(--space-2) 0;
+}
+
+.progress-value {
+  height: 100%;
+  background-color: var(--primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-4) 0;
+}
+
+.step-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  position: relative;
+}
+
+.step-indicator.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.step-indicator.completed {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.step-indicator::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bg-hover);
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.step-indicator:last-child::after {
+  display: none;
+}
+
+.step-indicator.completed::after {
+  background-color: var(--secondary);
+}
+
+/* Card Styles */
+.info-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--border-light);
+  transition: all var(--transition-normal);
+}
+
+.info-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.info-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+}
+
+/* Notification Elements */
+.badge {
+  display: inline-block;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0 var(--space-1);
+}
+
+.notification {
+  background-color: var(--bg-surface);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-md);
+}
+
+.notification.info {
+  border-left-color: var(--primary);
+}
+
+.notification.success {
+  border-left-color: var(--secondary);
+}
+
+.notification.warning {
+  border-left-color: #f59e0b;
+}
+
+.notification.error {
+  border-left-color: #ef4444;
+}
+
+/* Responsive Utility Classes */
+.hide-on-mobile {
+  display: initial;
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  
+  .show-on-mobile {
+    display: initial;
+  }
+}
+
+/* Animations */
+.rotate {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.bounce {
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
