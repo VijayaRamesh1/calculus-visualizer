@@ -333,102 +333,7 @@ class ChartUtils {
     }
     
     /**
-     * Plot a definite integral (area under curve)
-     * @param {Function} func - Function that takes x and returns y
-     * @param {number} a - Lower bound
-     * @param {number} b - Upper bound
-     * @param {string} fillColor - Fill color
-     * @param {number} alpha - Fill opacity (0-1)
-     */
-    plotIntegral(func, a, b, fillColor = '#00ff00', alpha = 0.3) {
-        const steps = Math.max(Math.floor((b - a) * 100), 100);
-        const dx = (b - a) / steps;
-        
-        this.ctx.fillStyle = fillColor;
-        this.ctx.globalAlpha = alpha;
-        this.ctx.beginPath();
-        
-        // Start at the lower bound
-        this.ctx.moveTo(this.xToCanvas(a), this.yToCanvas(0));
-        
-        // Draw upper curve
-        for (let i = 0; i <= steps; i++) {
-            const x = a + i * dx;
-            const y = func(x);
-            
-            if (!isNaN(y) && isFinite(y)) {
-                this.ctx.lineTo(this.xToCanvas(x), this.yToCanvas(y));
-            }
-        }
-        
-        // Back to the x-axis
-        this.ctx.lineTo(this.xToCanvas(b), this.yToCanvas(0));
-        this.ctx.closePath();
-        this.ctx.fill();
-        
-        // Reset opacity
-        this.ctx.globalAlpha = 1.0;
-        
-        // Draw the bounding lines
-        this.ctx.strokeStyle = fillColor;
-        this.ctx.lineWidth = 1;
-        this.ctx.setLineDash([5, 3]);
-        
-        // Lower bound line
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.xToCanvas(a), this.yToCanvas(0));
-        this.ctx.lineTo(this.xToCanvas(a), this.yToCanvas(func(a)));
-        this.ctx.stroke();
-        
-        // Upper bound line
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.xToCanvas(b), this.yToCanvas(0));
-        this.ctx.lineTo(this.xToCanvas(b), this.yToCanvas(func(b)));
-        this.ctx.stroke();
-        
-        // Reset dash setting
-        this.ctx.setLineDash([]);
-    }
-    
-    /**
-     * Plot a tangent line at a specific point on a function
-     * @param {Function} func - Function that takes x and returns y
-     * @param {number} x0 - x-coordinate of the point
-     * @param {string} color - Line color
-     * @param {number} lineWidth - Line width
-     * @param {number} length - Length of the tangent line
-     * @param {number} h - Step size for numerical differentiation
-     */
-    plotTangent(func, x0, color = '#ff00ff', lineWidth = 2, length = 2, h = 0.001) {
-        const y0 = func(x0);
-        
-        // Calculate derivative at x0
-        const derivative = (func(x0 + h) - func(x0 - h)) / (2 * h);
-        
-        // Calculate points on the tangent line
-        const x1 = x0 - length / 2;
-        const y1 = y0 - derivative * (length / 2);
-        
-        const x2 = x0 + length / 2;
-        const y2 = y0 + derivative * (length / 2);
-        
-        // Draw the tangent line
-        this.ctx.strokeStyle = color;
-        this.ctx.lineWidth = lineWidth;
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.xToCanvas(x1), this.yToCanvas(y1));
-        this.ctx.lineTo(this.xToCanvas(x2), this.yToCanvas(y2));
-        this.ctx.stroke();
-        
-        // Draw the point of tangency
-        this.ctx.fillStyle = color;
-        this.ctx.beginPath();
-        this.ctx.arc(this.xToCanvas(x0), this.yToCanvas(y0), 4, 0, Math.PI * 2);
-        this.ctx.fill();
-    }
-    
-    /**
-     * Plot a series of points (scatter plot)
+     * Plot points
      * @param {Array} points - Array of {x, y} objects
      * @param {string} color - Point color
      * @param {number} radius - Point radius
@@ -443,45 +348,6 @@ class ChartUtils {
                 this.ctx.fill();
             }
         });
-    }
-    
-    /**
-     * Plot a vector from origin to a point
-     * @param {Object} point - End point {x, y}
-     * @param {Object} start - Start point {x, y}, defaults to origin
-     * @param {string} color - Vector color
-     * @param {number} lineWidth - Line width
-     */
-    plotVector(point, start = {x: 0, y: 0}, color = '#ff9900', lineWidth = 2) {
-        const headLength = 10; // Length of the arrow head in pixels
-        const headAngle = Math.PI / 6; // 30 degrees
-        
-        // Draw the line
-        this.ctx.strokeStyle = color;
-        this.ctx.fillStyle = color;
-        this.ctx.lineWidth = lineWidth;
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.xToCanvas(start.x), this.yToCanvas(start.y));
-        this.ctx.lineTo(this.xToCanvas(point.x), this.yToCanvas(point.y));
-        this.ctx.stroke();
-        
-        // Calculate the arrow head
-        const angle = Math.atan2(this.yToCanvas(start.y) - this.yToCanvas(point.y), 
-                                 this.xToCanvas(point.x) - this.xToCanvas(start.x));
-        
-        // Draw the arrow head
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.xToCanvas(point.x), this.yToCanvas(point.y));
-        this.ctx.lineTo(
-            this.xToCanvas(point.x) - headLength * Math.cos(angle - headAngle),
-            this.yToCanvas(point.y) + headLength * Math.sin(angle - headAngle)
-        );
-        this.ctx.lineTo(
-            this.xToCanvas(point.x) - headLength * Math.cos(angle + headAngle),
-            this.yToCanvas(point.y) + headLength * Math.sin(angle + headAngle)
-        );
-        this.ctx.closePath();
-        this.ctx.fill();
     }
     
     /**
@@ -532,5 +398,5 @@ class ChartUtils {
     }
 }
 
-// Export the ChartUtils class for use in other modules
-export default ChartUtils;
+// Make the class globally available
+window.ChartUtils = ChartUtils;

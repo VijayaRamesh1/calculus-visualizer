@@ -11,16 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="css/minimalist.css">
-    <link rel="stylesheet" href="css/components.css">
-    
-    <!-- External libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body data-theme="light">
-    <div class="app-container">
+    <div class="container">
         <!-- Header -->
         <header class="app-header">
             <div class="logo-container">
@@ -52,312 +46,66 @@
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                
-                <div class="user-level-control">
-                    <button class="level-btn active" data-level="beginner">Beginner</button>
-                    <button class="level-btn" data-level="intermediate">Intermediate</button>
-                    <button class="level-btn" data-level="advanced">Advanced</button>
-                </div>
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Intro Screen (visible by default) -->
-            <section class="intro-screen active" id="intro-screen">
-                <div class="intro-content">
-                    <h1>Learn Calculus Through Real-World Examples</h1>
-                    <p>Select a real-world scenario to explore the calculus concepts behind it</p>
-                    
-                    <div class="category-grid">
-                        <div class="category-card" data-category="physics">
-                            <div class="category-icon physics-icon"></div>
-                            <h3>Physics</h3>
-                            <p>Explore velocity, acceleration, forces, and motion</p>
-                        </div>
-                        
-                        <div class="category-card" data-category="economics">
-                            <div class="category-icon economics-icon"></div>
-                            <h3>Economics</h3>
-                            <p>Understand rates of change in markets and growth</p>
-                        </div>
-                        
-                        <div class="category-card" data-category="biology">
-                            <div class="category-icon biology-icon"></div>
-                            <h3>Biology</h3>
-                            <p>Model population growth and ecosystem dynamics</p>
-                        </div>
-                        
-                        <div class="category-card" data-category="engineering">
-                            <div class="category-icon engineering-icon"></div>
-                            <h3>Engineering</h3>
-                            <p>Analyze structural forces and electrical systems</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div class="intro-section fade-in">
+                <h1>Interactive Calculus Visualizations</h1>
+                <p>Explore calculus concepts through real-world applications and 3D visualizations</p>
+            </div>
             
-            <!-- Example Selection Screen (initially hidden) -->
-            <section class="example-select-screen" id="example-select-screen">
-                <div class="screen-header">
-                    <button class="back-btn" id="back-to-intro">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Back
-                    </button>
-                    <h2 id="category-title">Physics Examples</h2>
+            <h2>Modules</h2>
+            <div class="module-cards">
+                <div class="module-card" onclick="window.location.href='modules/projectile-motion/index.html'">
+                    <div class="module-card-image" style="background-color: #7209b7;"></div>
+                    <h3>Projectile Motion</h3>
+                    <p>Explore derivatives through the physics of projectile motion</p>
                 </div>
                 
-                <div class="examples-grid" id="physics-examples">
-                    <div class="example-card" data-example="projectile-motion">
-                        <div class="example-img projectile-img"></div>
-                        <h3>Projectile Motion</h3>
-                        <p>How calculus explains the path of a thrown ball</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="simple-harmonic">
-                        <div class="example-img harmonic-img"></div>
-                        <h3>Simple Harmonic Motion</h3>
-                        <p>The mathematics of pendulums and springs</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="circular-motion">
-                        <div class="example-img circular-img"></div>
-                        <h3>Circular Motion</h3>
-                        <p>Angular velocity and centripetal acceleration</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="fluid-flow">
-                        <div class="example-img fluid-img"></div>
-                        <h3>Fluid Flow</h3>
-                        <p>Rates of change in moving fluids</p>
-                    </div>
+                <div class="module-card">
+                    <div class="module-card-image" style="background-color: #5e60ce;"></div>
+                    <h3>Harmonic Motion</h3>
+                    <p>Understand oscillation with derivatives and integrals</p>
                 </div>
                 
-                <div class="examples-grid" id="economics-examples">
-                    <div class="example-card" data-example="market-equilibrium">
-                        <div class="example-img market-img"></div>
-                        <h3>Market Equilibrium</h3>
-                        <p>How prices and quantities adjust over time</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="economic-growth">
-                        <div class="example-img growth-img"></div>
-                        <h3>Economic Growth</h3>
-                        <p>Modeling changes in productivity and output</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="profit-maximization">
-                        <div class="example-img profit-img"></div>
-                        <h3>Profit Maximization</h3>
-                        <p>Using derivatives to find optimal production</p>
-                    </div>
-                    
-                    <div class="example-card" data-example="consumer-surplus">
-                        <div class="example-img surplus-img"></div>
-                        <h3>Consumer Surplus</h3>
-                        <p>Integration and economic benefit measurement</p>
-                    </div>
+                <div class="module-card">
+                    <div class="module-card-image" style="background-color: #4ea8de;"></div>
+                    <h3>Area Under Curves</h3>
+                    <p>Visualize the concept of definite integrals</p>
                 </div>
                 
-                <!-- Biology and Engineering example grids would be similar -->
-            </section>
-            
-            <!-- Visualization Screen (initially hidden) -->
-            <section class="visualization-screen" id="visualization-screen">
-                <div class="screen-header">
-                    <button class="back-btn" id="back-to-examples">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Back
-                    </button>
-                    <h2 id="example-title">Projectile Motion</h2>
+                <div class="module-card">
+                    <div class="module-card-image" style="background-color: #4361ee;"></div>
+                    <h3>Vector Calculus</h3>
+                    <p>Explore gradients, divergence and curl in 3D space</p>
                 </div>
                 
-                <div class="visualization-layout">
-                    <div class="visualization-container">
-                        <canvas id="visualization-canvas"></canvas>
-                        
-                        <!-- Visualization Controls -->
-                        <div class="viz-controls">
-                            <button class="viz-btn" id="toggle-animation" title="Play/Pause Animation">
-                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <svg class="pause-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 4H6V20H10V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M18 4H14V20H18V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                            
-                            <button class="viz-btn" id="toggle-dimension" title="Switch 2D/3D View">
-                                <span>3D</span>
-                            </button>
-                            
-                            <button class="viz-btn" id="reset-view" title="Reset View">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="controls-panel">
-                        <div class="panel-section">
-                            <h3 class="section-title" id="concept-heading">Derivatives: Position, Velocity, Acceleration</h3>
-                            <p class="concept-description" id="concept-description">In projectile motion, derivatives show how position changes over time. The first derivative gives velocity, while the second derivative gives acceleration.</p>
-                        </div>
-                        
-                        <div class="panel-section parameters-section">
-                            <h3 class="section-title collapsible">Parameters</h3>
-                            <div class="section-content">
-                                <div class="parameter-control">
-                                    <label for="initial-velocity">Initial Velocity</label>
-                                    <div class="slider-with-value">
-                                        <input type="range" id="initial-velocity" min="1" max="20" value="10" class="parameter-slider">
-                                        <span class="parameter-value">10 m/s</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="parameter-control">
-                                    <label for="launch-angle">Launch Angle</label>
-                                    <div class="slider-with-value">
-                                        <input type="range" id="launch-angle" min="0" max="90" value="45" class="parameter-slider">
-                                        <span class="parameter-value">45°</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="parameter-control">
-                                    <label for="gravity">Gravity</label>
-                                    <div class="slider-with-value">
-                                        <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" class="parameter-slider">
-                                        <span class="parameter-value">9.8 m/s²</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-section visualizations-section">
-                            <h3 class="section-title collapsible">Visualization Options</h3>
-                            <div class="section-content">
-                                <div class="checkbox-control">
-                                    <input type="checkbox" id="show-trajectory" checked>
-                                    <label for="show-trajectory">Show Trajectory</label>
-                                </div>
-                                
-                                <div class="checkbox-control">
-                                    <input type="checkbox" id="show-velocity-vectors">
-                                    <label for="show-velocity-vectors">Show Velocity Vectors</label>
-                                </div>
-                                
-                                <div class="checkbox-control">
-                                    <input type="checkbox" id="show-acceleration">
-                                    <label for="show-acceleration">Show Acceleration</label>
-                                </div>
-                                
-                                <div class="checkbox-control">
-                                    <input type="checkbox" id="show-math-functions">
-                                    <label for="show-math-functions">Show Mathematical Functions</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-section formulas-section">
-                            <h3 class="section-title collapsible">Mathematical Formulation</h3>
-                            <div class="section-content">
-                                <div class="formula-display">
-                                    <div class="formula-label">Position Function:</div>
-                                    <div class="formula">
-                                        <span>x(t) = v₀·cos(θ)·t</span>
-                                        <span>y(t) = v₀·sin(θ)·t - ½·g·t²</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="formula-display">
-                                    <div class="formula-label">Velocity (First Derivative):</div>
-                                    <div class="formula">
-                                        <span>v<sub>x</sub>(t) = v₀·cos(θ)</span>
-                                        <span>v<sub>y</sub>(t) = v₀·sin(θ) - g·t</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="formula-display">
-                                    <div class="formula-label">Acceleration (Second Derivative):</div>
-                                    <div class="formula">
-                                        <span>a<sub>x</sub>(t) = 0</span>
-                                        <span>a<sub>y</sub>(t) = -g</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-section learning-section">
-                            <h3 class="section-title collapsible">Learning Points</h3>
-                            <div class="section-content">
-                                <ul class="learning-points">
-                                    <li>The derivative of position with respect to time gives velocity</li>
-                                    <li>The derivative of velocity with respect to time gives acceleration</li>
-                                    <li>In projectile motion, only vertical velocity changes due to gravity</li>
-                                    <li>The horizontal velocity remains constant (derivative = 0)</li>
-                                    <li>This is a practical example of vector calculus in physics</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-actions">
-                            <button id="focus-mode-btn" class="action-btn">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M3 16V19C3 20.1046 3.89543 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                Focus Mode
-                            </button>
-                            
-                            <button id="next-concept-btn" class="action-btn primary-btn">
-                                Next Concept
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                <div class="module-card">
+                    <div class="module-card-image" style="background-color: #4cc9f0;"></div>
+                    <h3>Taylor Series</h3>
+                    <p>Visualize polynomial approximations of functions</p>
                 </div>
-            </section>
+                
+                <div class="module-card">
+                    <div class="module-card-image" style="background-color: #4895ef;"></div>
+                    <h3>Population Growth</h3>
+                    <p>Differential equations in biological systems</p>
+                </div>
+            </div>
         </main>
-
-        <!-- Footer -->
-        <footer class="app-footer">
+        
+        <footer>
             <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
         </footer>
     </div>
 
-    <!-- Core Scripts -->
-    <script src="js/engine.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/examples-loader.js"></script>
-    <script src="js/ui-controller.js"></script>
-    
-    <!-- Example-specific Scripts -->
-    <script src="js/examples/projectile-motion.js"></script>
-    <script src="js/examples/simple-harmonic.js"></script>
-    
-    <!-- Init Script -->
+    <!-- Core JavaScript -->
+    <script src="core/ui-core.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize UI controller
-            const uiController = new UIController();
-            
-            // Initialize navigation
-            const navigation = new Navigation();
-            
-            // Initialize examples loader
-            const examplesLoader = new ExamplesLoader();
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize UI
+            const ui = new UICore();
         });
     </script>
 </body>
