@@ -16,101 +16,8 @@ class DataAnalyzer {
     this.chart = null;
     this.currentGraph = 'position';
     
-    // Create a default dataset for initial display
-    this.createDefaultDataset();
-    
     // Connect graph selector buttons
     this.setupGraphSelectors();
-    
-    // Render initial graph
-    this.renderGraph();
-  }
-  
-  /**
-   * Create default dataset for initial display
-   */
-  createDefaultDataset() {
-    // Simple parabolic trajectory data
-    const timePoints = 100;
-    const maxTime = 5;
-    
-    const time = [];
-    const posX = [];
-    const posY = [];
-    const velX = [];
-    const velY = [];
-    const accX = [];
-    const accY = [];
-    const kinetic = [];
-    const potential = [];
-    const total = [];
-    
-    // Initial values
-    const v0 = 10;
-    const angle = 45 * Math.PI / 180;
-    const g = 9.8;
-    
-    for (let i = 0; i < timePoints; i++) {
-      const t = (i / (timePoints - 1)) * maxTime;
-      
-      // Position
-      const x = v0 * Math.cos(angle) * t;
-      const y = v0 * Math.sin(angle) * t - 0.5 * g * t * t;
-      
-      // Velocity
-      const vx = v0 * Math.cos(angle);
-      const vy = v0 * Math.sin(angle) - g * t;
-      
-      // Acceleration
-      const ax = 0;
-      const ay = -g;
-      
-      // Magnitude
-      const vMag = Math.sqrt(vx * vx + vy * vy);
-      const aMag = Math.sqrt(ax * ax + ay * ay);
-      
-      // Energy (assume unit mass)
-      const ke = 0.5 * (vx * vx + vy * vy);
-      const pe = g * y;
-      
-      // Store data
-      time.push(t);
-      posX.push(x);
-      posY.push(y);
-      velX.push(vx);
-      velY.push(vy);
-      accX.push(ax);
-      accY.push(ay);
-      kinetic.push(ke);
-      potential.push(pe);
-      total.push(ke + pe);
-    }
-    
-    // Store in format expected by visualization methods
-    this.data = {
-      time: time,
-      position: {
-        x: posX,
-        y: posY
-      },
-      velocity: {
-        x: velX,
-        y: velY,
-        magnitude: velX.map((vx, i) => Math.sqrt(vx * vx + velY[i] * velY[i]))
-      },
-      acceleration: {
-        x: accX,
-        y: accY,
-        magnitude: accX.map((ax, i) => Math.sqrt(ax * ax + accY[i] * accY[i]))
-      },
-      energy: {
-        kinetic: kinetic,
-        potential: potential,
-        total: total
-      }
-    };
-    
-    console.log('[DataAnalyzer] Created default dataset');
   }
   
   /**
@@ -132,7 +39,11 @@ class DataAnalyzer {
         this.currentGraph = button.dataset.graph;
         
         // Refresh graph
-        this.renderGraph();
+        if (this.data) {
+          this.renderGraph();
+        } else {
+          console.warn('[DataAnalyzer] No data available for graph rendering');
+        }
       });
     });
   }
@@ -146,8 +57,52 @@ class DataAnalyzer {
       console.warn('[DataAnalyzer] No data provided to updateData');
       return;
     }
+    
+    // Validate data structure
+    if (!this.validateData(flightData)) {
+      console.error('[DataAnalyzer] Invalid data structure provided');
+      return;
+    }
+    
     this.data = flightData;
     this.renderGraph();
+  }
+  
+  /**
+   * Validate data structure
+   */
+  validateData(data) {
+    try {
+      if (!data.time || !Array.isArray(data.time) || data.time.length === 0) {
+        console.error('[DataAnalyzer] Missing or invalid time array');
+        return false;
+      }
+      
+      if (!data.position || !data.position.x || !data.position.y) {
+        console.error('[DataAnalyzer] Missing position data');
+        return false;
+      }
+      
+      if (!data.velocity || !data.velocity.x || !data.velocity.y) {
+        console.error('[DataAnalyzer] Missing velocity data');
+        return false;
+      }
+      
+      if (!data.acceleration || !data.acceleration.x || !data.acceleration.y) {
+        console.error('[DataAnalyzer] Missing acceleration data');
+        return false;
+      }
+      
+      if (!data.energy || !data.energy.kinetic || !data.energy.potential || !data.energy.total) {
+        console.error('[DataAnalyzer] Missing energy data');
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('[DataAnalyzer] Error validating data:', error);
+      return false;
+    }
   }
   
   /**
@@ -169,7 +124,11 @@ class DataAnalyzer {
     // Destroy existing chart if it exists
     if (this.chart) {
       console.log('[DataAnalyzer] Destroying existing chart');
-      this.chart.destroy();
+      try {
+        this.chart.destroy();
+      } catch (error) {
+        console.warn('[DataAnalyzer] Error destroying chart:', error);
+      }
     }
     
     // Create appropriate graph based on selection
@@ -207,6 +166,12 @@ class DataAnalyzer {
     }
     
     try {
+      // Check if Chart is available
+      if (typeof Chart === 'undefined') {
+        console.error('[DataAnalyzer] Chart.js is not loaded');
+        return;
+      }
+      
       this.chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -235,6 +200,8 @@ class DataAnalyzer {
       
       // Update insight text for position graph
       this.updateInsightText('The parabolic shape of the y position graph is the result of constant acceleration due to gravity. The first derivative of position gives velocity, and the second derivative gives acceleration.');
+      
+      console.log('[DataAnalyzer] Position graph created successfully');
     } catch (error) {
       console.error('[DataAnalyzer] Error creating position graph:', error);
     }
@@ -289,6 +256,8 @@ class DataAnalyzer {
       
       // Update insight text for velocity graph
       this.updateInsightText('The horizontal velocity (vx) is constant without air resistance. The vertical velocity (vy) decreases linearly due to constant acceleration of gravity. The slope of this line is -g = -9.8 m/s².');
+      
+      console.log('[DataAnalyzer] Velocity graph created successfully');
     } catch (error) {
       console.error('[DataAnalyzer] Error creating velocity graph:', error);
     }
@@ -343,6 +312,8 @@ class DataAnalyzer {
       
       // Update insight text for acceleration graph
       this.updateInsightText('The horizontal acceleration (ax) is zero without air resistance. The vertical acceleration (ay) is constant at -9.8 m/s² due to gravity. This constant acceleration is what defines projectile motion.');
+      
+      console.log('[DataAnalyzer] Acceleration graph created successfully');
     } catch (error) {
       console.error('[DataAnalyzer] Error creating acceleration graph:', error);
     }
@@ -397,6 +368,8 @@ class DataAnalyzer {
       
       // Update insight text for energy graph
       this.updateInsightText('Without air resistance, total energy remains constant (conservation of energy). Kinetic energy decreases as the arrow rises (velocity decreases) while potential energy increases. At the peak, KE is minimum and PE is maximum.');
+      
+      console.log('[DataAnalyzer] Energy graph created successfully');
     } catch (error) {
       console.error('[DataAnalyzer] Error creating energy graph:', error);
     }
@@ -423,7 +396,16 @@ class DataAnalyzer {
       this.container.appendChild(canvas);
     }
     
-    return canvas.getContext('2d');
+    try {
+      const context = canvas.getContext('2d');
+      if (!context) {
+        console.error('[DataAnalyzer] Failed to get 2D context from canvas');
+      }
+      return context;
+    } catch (error) {
+      console.error('[DataAnalyzer] Error getting canvas context:', error);
+      return null;
+    }
   }
   
   /**
