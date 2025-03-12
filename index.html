@@ -11,18 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="css/modern-redesign.css">
-    <link rel="stylesheet" href="css/educational-features.css">
+    <link rel="stylesheet" href="css/minimalist.css">
+    <link rel="stylesheet" href="css/components.css">
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
 </head>
-<body data-active-concept="derivatives">
-    <div class="app-layout">
-        <header class="app-header concept-theme-element">
-            <div class="container header-container">
+<body data-theme="light">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-container">
                 <a href="#" class="app-logo">
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
@@ -30,388 +31,333 @@
                         <path d="M12 5L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         <path d="M19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
-                    Calculus Visualizer
+                    <span>Calculus Visualizer</span>
                 </a>
+            </div>
+            
+            <div class="header-controls">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.22021 4.22021L5.64021 5.64021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.3599 18.3599L19.7799 19.7799" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.22021 19.7799L5.64021 18.3599" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.3599 5.64021L19.7799 4.22021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
                 
-                <nav class="primary-nav">
-                    <a href="#" class="nav-link active" data-concept="derivatives">Derivatives</a>
-                    <a href="#" class="nav-link" data-concept="integrals">Integrals</a>
-                    <a href="#" class="nav-link" data-concept="limits">Limits</a>
-                    
-                    <!-- User Level Control -->
-                    <div class="segmented-control" id="user-level-control">
-                        <div class="segmented-option active" data-level="beginner">Beginner</div>
-                        <div class="segmented-option" data-level="expert">Expert</div>
-                        <div class="segmented-option" data-level="pro">Pro</div>
-                        <div class="segment-indicator" style="width: 33.33%; transform: translateX(0%);"></div>
-                    </div>
-                </nav>
+                <div class="user-level-control">
+                    <button class="level-btn active" data-level="beginner">Beginner</button>
+                    <button class="level-btn" data-level="intermediate">Intermediate</button>
+                    <button class="level-btn" data-level="advanced">Advanced</button>
+                </div>
             </div>
         </header>
 
-        <main class="container main-content">
-            <div class="visualization-wrapper">
-                <canvas id="visualization" class="visualization-canvas"></canvas>
-                
-                <!-- Dimension Toggle -->
-                <button class="dimension-toggle" id="dimension-toggle" title="Toggle 2D/3D View">
-                    <span id="dimension-mode">3D</span>
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 7V17M17 20L10 17L3 20V10L10 7L17 10M17 20V10M17 20L10 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                
-                <!-- Animation Controls -->
-                <div class="viz-controls top">
-                    <button class="viz-control-btn" id="toggle-animation" title="Toggle Animation">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 5V19L19 12L5 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- View Controls -->
-                <div class="viz-controls">
-                    <button class="viz-control-btn" id="reset-view" title="Reset View">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5V1.5L7.5 6L12 10.5V7.5C15.59 7.5 18.5 10.41 18.5 14C18.5 17.59 15.59 20.5 12 20.5C8.41 20.5 5.5 17.59 5.5 14H3.5C3.5 18.69 7.31 22.5 12 22.5C16.69 22.5 20.5 18.69 20.5 14C20.5 9.31 16.69 5.5 12 5.5V4.5Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                    <button class="viz-control-btn" id="zoom-in" title="Zoom In">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 3H9V9H3V15H9V21H15V15H21V9H15V3Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                    <button class="viz-control-btn" id="zoom-out" title="Zoom Out">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 9H21V15H3V9Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Color Theme Selector -->
-                <div class="viz-controls right">
-                    <button class="viz-control-btn color-theme-option theme-gradient active" id="gradient-theme" title="Gradient Theme"></button>
-                    <button class="viz-control-btn color-theme-option theme-height" id="height-theme" title="Height Theme"></button>
-                    <button class="viz-control-btn color-theme-option theme-solid" id="solid-theme" title="Solid Theme"></button>
-                </div>
-            </div>
-
-            <div class="controls-sidebar">
-                <!-- Function Input Card -->
-                <div class="card" id="function-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Function Input</h3>
-                    </div>
-                    <div class="form-group">
-                        <label for="function" class="form-label">f(x) =</label>
-                        <div class="input-group">
-                            <input type="text" id="function" class="form-input" value="x^2">
-                            <button id="update-function" class="btn btn-primary">Update</button>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Intro Screen (visible by default) -->
+            <section class="intro-screen active" id="intro-screen">
+                <div class="intro-content">
+                    <h1>Learn Calculus Through Real-World Examples</h1>
+                    <p>Select a real-world scenario to explore the calculus concepts behind it</p>
+                    
+                    <div class="category-grid">
+                        <div class="category-card" data-category="physics">
+                            <div class="category-icon physics-icon"></div>
+                            <h3>Physics</h3>
+                            <p>Explore velocity, acceleration, forces, and motion</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="economics">
+                            <div class="category-icon economics-icon"></div>
+                            <h3>Economics</h3>
+                            <p>Understand rates of change in markets and growth</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="biology">
+                            <div class="category-icon biology-icon"></div>
+                            <h3>Biology</h3>
+                            <p>Model population growth and ecosystem dynamics</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="engineering">
+                            <div class="category-icon engineering-icon"></div>
+                            <h3>Engineering</h3>
+                            <p>Analyze structural forces and electrical systems</p>
                         </div>
                     </div>
                 </div>
+            </section>
+            
+            <!-- Example Selection Screen (initially hidden) -->
+            <section class="example-select-screen" id="example-select-screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="back-to-intro">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Back
+                    </button>
+                    <h2 id="category-title">Physics Examples</h2>
+                </div>
                 
-                <!-- Concept Controls Card -->
-                <div class="card" id="concept-controls-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Controls</h3>
+                <div class="examples-grid" id="physics-examples">
+                    <div class="example-card" data-example="projectile-motion">
+                        <div class="example-img projectile-img"></div>
+                        <h3>Projectile Motion</h3>
+                        <p>How calculus explains the path of a thrown ball</p>
                     </div>
                     
-                    <!-- Dynamic controls will be inserted here based on selected concept -->
-                    <div id="concept-controls">
-                        <!-- Example controls for derivatives (initially visible) -->
-                        <div class="control-group" id="derivative-controls">
-                            <div class="form-group">
-                                <label class="form-label">
-                                    <input type="checkbox" id="show-derivative" checked>
-                                    Show Derivative
-                                </label>
+                    <div class="example-card" data-example="simple-harmonic">
+                        <div class="example-img harmonic-img"></div>
+                        <h3>Simple Harmonic Motion</h3>
+                        <p>The mathematics of pendulums and springs</p>
+                    </div>
+                    
+                    <div class="example-card" data-example="circular-motion">
+                        <div class="example-img circular-img"></div>
+                        <h3>Circular Motion</h3>
+                        <p>Angular velocity and centripetal acceleration</p>
+                    </div>
+                    
+                    <div class="example-card" data-example="fluid-flow">
+                        <div class="example-img fluid-img"></div>
+                        <h3>Fluid Flow</h3>
+                        <p>Rates of change in moving fluids</p>
+                    </div>
+                </div>
+                
+                <div class="examples-grid" id="economics-examples">
+                    <div class="example-card" data-example="market-equilibrium">
+                        <div class="example-img market-img"></div>
+                        <h3>Market Equilibrium</h3>
+                        <p>How prices and quantities adjust over time</p>
+                    </div>
+                    
+                    <div class="example-card" data-example="economic-growth">
+                        <div class="example-img growth-img"></div>
+                        <h3>Economic Growth</h3>
+                        <p>Modeling changes in productivity and output</p>
+                    </div>
+                    
+                    <div class="example-card" data-example="profit-maximization">
+                        <div class="example-img profit-img"></div>
+                        <h3>Profit Maximization</h3>
+                        <p>Using derivatives to find optimal production</p>
+                    </div>
+                    
+                    <div class="example-card" data-example="consumer-surplus">
+                        <div class="example-img surplus-img"></div>
+                        <h3>Consumer Surplus</h3>
+                        <p>Integration and economic benefit measurement</p>
+                    </div>
+                </div>
+                
+                <!-- Biology and Engineering example grids would be similar -->
+            </section>
+            
+            <!-- Visualization Screen (initially hidden) -->
+            <section class="visualization-screen" id="visualization-screen">
+                <div class="screen-header">
+                    <button class="back-btn" id="back-to-examples">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Back
+                    </button>
+                    <h2 id="example-title">Projectile Motion</h2>
+                </div>
+                
+                <div class="visualization-layout">
+                    <div class="visualization-container">
+                        <canvas id="visualization-canvas"></canvas>
+                        
+                        <!-- Visualization Controls -->
+                        <div class="viz-controls">
+                            <button class="viz-btn" id="toggle-animation" title="Play/Pause Animation">
+                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <svg class="pause-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 4H6V20H10V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18 4H14V20H18V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            
+                            <button class="viz-btn" id="toggle-dimension" title="Switch 2D/3D View">
+                                <span>3D</span>
+                            </button>
+                            
+                            <button class="viz-btn" id="reset-view" title="Reset View">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-panel">
+                        <div class="panel-section">
+                            <h3 class="section-title" id="concept-heading">Derivatives: Position, Velocity, Acceleration</h3>
+                            <p class="concept-description" id="concept-description">In projectile motion, derivatives show how position changes over time. The first derivative gives velocity, while the second derivative gives acceleration.</p>
+                        </div>
+                        
+                        <div class="panel-section parameters-section">
+                            <h3 class="section-title collapsible">Parameters</h3>
+                            <div class="section-content">
+                                <div class="parameter-control">
+                                    <label for="initial-velocity">Initial Velocity</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="initial-velocity" min="1" max="20" value="10" class="parameter-slider">
+                                        <span class="parameter-value">10 m/s</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="parameter-control">
+                                    <label for="launch-angle">Launch Angle</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="launch-angle" min="0" max="90" value="45" class="parameter-slider">
+                                        <span class="parameter-value">45°</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="parameter-control">
+                                    <label for="gravity">Gravity</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" class="parameter-slider">
+                                        <span class="parameter-value">9.8 m/s²</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">
-                                    <input type="checkbox" id="show-tangent">
-                                    Show Tangent Line
-                                </label>
+                        </div>
+                        
+                        <div class="panel-section visualizations-section">
+                            <h3 class="section-title collapsible">Visualization Options</h3>
+                            <div class="section-content">
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-trajectory" checked>
+                                    <label for="show-trajectory">Show Trajectory</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-velocity-vectors">
+                                    <label for="show-velocity-vectors">Show Velocity Vectors</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-acceleration">
+                                    <label for="show-acceleration">Show Acceleration</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-math-functions">
+                                    <label for="show-math-functions">Show Mathematical Functions</label>
+                                </div>
                             </div>
-                            <div class="form-group" id="tangent-point-group" style="display: none;">
-                                <label for="tangent-point" class="form-label">Tangent Point (x)</label>
-                                <input type="range" id="tangent-point" min="-5" max="5" step="0.1" value="0" class="form-range">
-                                <div id="tangent-point-value">x = 0</div>
+                        </div>
+                        
+                        <div class="panel-section formulas-section">
+                            <h3 class="section-title collapsible">Mathematical Formulation</h3>
+                            <div class="section-content">
+                                <div class="formula-display">
+                                    <div class="formula-label">Position Function:</div>
+                                    <div class="formula">
+                                        <span>x(t) = v₀·cos(θ)·t</span>
+                                        <span>y(t) = v₀·sin(θ)·t - ½·g·t²</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="formula-display">
+                                    <div class="formula-label">Velocity (First Derivative):</div>
+                                    <div class="formula">
+                                        <span>v<sub>x</sub>(t) = v₀·cos(θ)</span>
+                                        <span>v<sub>y</sub>(t) = v₀·sin(θ) - g·t</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="formula-display">
+                                    <div class="formula-label">Acceleration (Second Derivative):</div>
+                                    <div class="formula">
+                                        <span>a<sub>x</sub>(t) = 0</span>
+                                        <span>a<sub>y</sub>(t) = -g</span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        
+                        <div class="panel-section learning-section">
+                            <h3 class="section-title collapsible">Learning Points</h3>
+                            <div class="section-content">
+                                <ul class="learning-points">
+                                    <li>The derivative of position with respect to time gives velocity</li>
+                                    <li>The derivative of velocity with respect to time gives acceleration</li>
+                                    <li>In projectile motion, only vertical velocity changes due to gravity</li>
+                                    <li>The horizontal velocity remains constant (derivative = 0)</li>
+                                    <li>This is a practical example of vector calculus in physics</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-actions">
+                            <button id="focus-mode-btn" class="action-btn">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M3 16V19C3 20.1046 3.89543 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Focus Mode
+                            </button>
+                            
+                            <button id="next-concept-btn" class="action-btn primary-btn">
+                                Next Concept
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Module Card for Derivatives -->
-                <div class="card concept-card" id="derivatives-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Derivatives</h3>
-                    </div>
-                    <div class="module-content">
-                        <p class="module-description">Learn about rates of change and the slopes of curves.</p>
-                        
-                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
-                        
-                        <!-- Knowledge Check section added by QuizManager -->
-                    </div>
-                </div>
-                
-                <!-- Module Card for Integrals (initially hidden) -->
-                <div class="card concept-card" id="integrals-card" style="display: none;">
-                    <div class="card-header">
-                        <h3 class="card-title">Integrals</h3>
-                    </div>
-                    <div class="module-content">
-                        <p class="module-description">Explore accumulation and the area under curves.</p>
-                        
-                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
-                        
-                        <!-- Knowledge Check section added by QuizManager -->
-                    </div>
-                </div>
-                
-                <!-- Module Card for Limits (initially hidden) -->
-                <div class="card concept-card" id="limits-card" style="display: none;">
-                    <div class="card-header">
-                        <h3 class="card-title">Limits</h3>
-                    </div>
-                    <div class="module-content">
-                        <p class="module-description">Understand function behavior as variables approach specific values.</p>
-                        
-                        <!-- Interactive Walkthroughs section added by WalkthroughManager -->
-                        
-                        <!-- Knowledge Check section added by QuizManager -->
-                    </div>
-                </div>
-                
-                <!-- Examples Card -->
-                <div class="card" id="examples-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Examples</h3>
-                    </div>
-                    <div class="form-group">
-                        <select id="examples" class="form-select">
-                            <option value="">Select an example</option>
-                            <optgroup label="Physics">
-                                <option value="carAcceleration">Car Acceleration</option>
-                                <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
-                                <option value="wave-propagation" class="expert-only">Wave Propagation</option>
-                                <option value="heat-distribution" class="expert-only">3D Heat Distribution</option>
-                                <option value="electric-potential" class="professional-only">3D Electric Potential</option>
-                            </optgroup>
-                            <optgroup label="Everyday">
-                                <option value="car-acceleration">Car Acceleration</option>
-                                <option value="population-growth" class="expert-only">Population Growth</option>
-                                <option value="market-equilibrium" class="expert-only">Market Equilibrium</option>
-                                <option value="loan-repayment" class="expert-only">Loan Repayment</option>
-                                <option value="consumer-preference" class="professional-only">3D Consumer Utility</option>
-                                <option value="retail-location" class="professional-only">3D Geographic Sales</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Progress Cards will be added by ProgressTracker -->
-                
-                <!-- Learning Path Card will be added by LearningPathManager -->
-                
-                <!-- Summary Cards will be added by ModuleSummaryManager -->
-                
-                <!-- Explanation Card -->
-                <div class="card" id="explanation-card">
-                    <div class="card-header">
-                        <h3 class="card-title" id="concept-title">Derivatives</h3>
-                    </div>
-                    <div id="concept-explanation">
-                        <p>Derivatives measure the rate of change of a function at a given point. For a function f(x), the derivative f'(x) tells us the slope of the tangent line at any point x.</p>
-                        <p>In this visualization, you can see how the derivative of f(x) = x² varies across different values of x. Try modifying the function or enabling the tangent line to see how derivatives work in practice.</p>
-                        
-                        <div class="expert-only" style="display: none;">
-                            <h4>Mathematical Definition</h4>
-                            <p>The derivative is formally defined as the limit:</p>
-                            <div class="math-formula">f'(x) = lim<sub>h→0</sub> (f(x+h) - f(x)) / h</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Professional Tools Card (hidden by default) -->
-                <div class="card professional-only" id="pro-tools-card" style="display: none;">
-                    <div class="card-header">
-                        <h3 class="card-title">Professional Tools</h3>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">
-                            <input type="checkbox" id="enable-high-precision">
-                            Enable High-Precision
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="precision-digits" class="form-label">Significant Digits:</label>
-                        <select id="precision-digits" class="form-select">
-                            <option value="2">2</option>
-                            <option value="4">4</option>
-                            <option value="6" selected>6</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button id="export-visualization" class="btn btn-secondary">Export Visualization</button>
-                    </div>
-                </div>
-            </div>
+            </section>
         </main>
 
+        <!-- Footer -->
         <footer class="app-footer">
-            <div class="container footer-content">
-                <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
-            </div>
+            <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
         </footer>
     </div>
 
-    <!-- Core -->
+    <!-- Core Scripts -->
     <script src="js/engine.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/examples-loader.js"></script>
+    <script src="js/ui-controller.js"></script>
     
-    <!-- Educational Features -->
-    <script src="js/walkthrough.js"></script>
-    <script src="js/quiz-manager.js"></script>
-    <script src="js/progress-tracker.js"></script>
-    <script src="js/learning-path.js"></script>
-    <script src="js/modules-summary.js"></script>
+    <!-- Example-specific Scripts -->
+    <script src="js/examples/projectile-motion.js"></script>
+    <script src="js/examples/simple-harmonic.js"></script>
     
-    <!-- Examples -->
-    <script src="js/examples/car-acceleration.js"></script>
-    <script src="js/examples/examples-loader.js"></script>
-
-    <!-- User Interface JS -->
+    <!-- Init Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize user level segmented control
-            const segmentedControl = document.getElementById('user-level-control');
-            const segmentOptions = segmentedControl.querySelectorAll('.segmented-option');
-            const segmentIndicator = segmentedControl.querySelector('.segment-indicator');
+            // Initialize UI controller
+            const uiController = new UIController();
             
-            segmentOptions.forEach((option, index) => {
-                option.addEventListener('click', function() {
-                    // Update active state
-                    segmentOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Move the indicator
-                    const optionWidth = 100 / segmentOptions.length;
-                    segmentIndicator.style.transform = `translateX(${optionWidth * index}%)`;
-                    
-                    // Get selected level
-                    const level = this.getAttribute('data-level');
-                    document.body.className = `user-level-${level}`;
-                    
-                    // Show/hide level-specific elements
-                    updateLevelSpecificElements(level);
-                });
-            });
+            // Initialize navigation
+            const navigation = new Navigation();
             
-            // Show/hide tangent point slider when checkbox is clicked
-            const showTangentCheckbox = document.getElementById('show-tangent');
-            const tangentPointGroup = document.getElementById('tangent-point-group');
-            
-            showTangentCheckbox.addEventListener('change', function() {
-                tangentPointGroup.style.display = this.checked ? 'block' : 'none';
-            });
-            
-            // Update tangent point value display
-            const tangentPointSlider = document.getElementById('tangent-point');
-            const tangentPointValue = document.getElementById('tangent-point-value');
-            
-            tangentPointSlider.addEventListener('input', function() {
-                tangentPointValue.textContent = `x = ${this.value}`;
-            });
-            
-            // Initialize concept navigation
-            const conceptLinks = document.querySelectorAll('.nav-link');
-            const conceptTitle = document.getElementById('concept-title');
-            const conceptExplanation = document.getElementById('concept-explanation');
-            const conceptCards = document.querySelectorAll('.concept-card');
-            
-            conceptLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Update active state
-                    conceptLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Get concept
-                    const concept = this.getAttribute('data-concept');
-                    
-                    // Update body data attribute for theme
-                    document.body.setAttribute('data-active-concept', concept);
-                    
-                    // Update content
-                    conceptTitle.textContent = concept.charAt(0).toUpperCase() + concept.slice(1);
-                    
-                    // Show the relevant concept card, hide others
-                    conceptCards.forEach(card => {
-                        card.style.display = 'none';
-                    });
-                    
-                    const activeCard = document.getElementById(`${concept}-card`);
-                    if (activeCard) {
-                        activeCard.style.display = 'block';
-                    }
-                    
-                    // Update progress display if available
-                    if (window.progressTracker) {
-                        window.progressTracker.showModuleProgress(concept);
-                    }
-                    
-                    // Update learning path if available
-                    if (window.learningPathManager) {
-                        window.learningPathManager.refreshForConcept(concept);
-                    }
-                });
-            });
-            
-            // Color theme selectors
-            const themeOptions = document.querySelectorAll('.color-theme-option');
-            
-            themeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    themeOptions.forEach(o => o.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // In a real app, you would update the visualization colors here
-                });
-            });
-            
-            // Initialize 2D/3D toggle
-            const dimensionToggle = document.getElementById('dimension-toggle');
-            const dimensionMode = document.getElementById('dimension-mode');
-            
-            dimensionToggle.addEventListener('click', function() {
-                const is3D = dimensionMode.textContent === '3D';
-                dimensionMode.textContent = is3D ? '2D' : '3D';
-                
-                // In a real app, you would toggle the visualization between 2D and 3D here
-            });
-            
-            // Function to update level-specific elements
-            function updateLevelSpecificElements(level) {
-                const expertElements = document.querySelectorAll('.expert-only');
-                const proElements = document.querySelectorAll('.professional-only');
-                
-                if (level === 'beginner') {
-                    expertElements.forEach(el => el.style.display = 'none');
-                    proElements.forEach(el => el.style.display = 'none');
-                } else if (level === 'expert') {
-                    expertElements.forEach(el => el.style.display = 'block');
-                    proElements.forEach(el => el.style.display = 'none');
-                } else if (level === 'pro') {
-                    expertElements.forEach(el => el.style.display = 'block');
-                    proElements.forEach(el => el.style.display = 'block');
-                }
-            }
+            // Initialize examples loader
+            const examplesLoader = new ExamplesLoader();
         });
     </script>
 </body>
