@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Graph Rendering</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .graph-container { 
+            height: 400px; 
+            margin: 20px 0; 
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .graph-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .graph-btn {
+            padding: 8px 16px;
+            background: #eee;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .graph-btn.active {
+            background: #3a86ff;
+            color: white;
+        }
+        .data-insight {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-left: 3px solid #3a86ff;
+        }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Projectile Motion Data Visualization</h1>
+    <p>This is a direct rendering of the data graphs that should appear in the main application.</p>
+    
+    <div class="graph-selector">
+        <button class="graph-btn active" data-graph="position">Position</button>
+        <button class="graph-btn" data-graph="velocity">Velocity</button>
+        <button class="graph-btn" data-graph="acceleration">Acceleration</button>
+        <button class="graph-btn" data-graph="energy">Energy</button>
+    </div>
+    
+    <div class="graph-container" id="chart-container"></div>
+    
+    <div class="data-insight">
+        <p id="insight-text">The parabolic shape of the y position graph is the result of constant acceleration due to gravity. The first derivative of position gives velocity, and the second derivative gives acceleration.</p>
+    </div>
+    
+    <script>
+        // Generate sample projectile motion data
+        function generateData() {
+            const data = {
+                time: [],
+                position: { x: [], y: [] },
+                velocity: { x: [], y: [], magnitude: [] },
+                acceleration: { x: [], y: [], magnitude: [] },
+                energy: { kinetic: [], potential: [], total: [] }
+            };
+            
+            for (let i = 0; i < 50; i++) {
+                const t = i / 10;
+                data.time.push(t);
+                
+                // Basic parabolic motion
+                data.position.x.push(5 * t);
+                data.position.y.push(10 * t - 4.9 * t * t);
+                
+                data.velocity.x.push(5);
+                data.velocity.y.push(10 - 9.8 * t);
+                data.velocity.magnitude.push(Math.sqrt(25 + Math.pow(10 - 9.8 * t, 2)));
+                
+                data.acceleration.x.push(0);
+                data.acceleration.y.push(-9.8);
+                data.acceleration.magnitude.push(9.8);
+                
+                data.energy.kinetic.push(25 + Math.pow(10 - 9.8 * t, 2));
+                data.energy.potential.push(9.8 * (10 * t - 4.9 * t * t));
+                data.energy.total.push(25 + Math.pow(10 - 9.8 * t, 2) + 9.8 * (10 * t - 4.9 * t * t));
+            }
+            
+            return data;
+        }
+        
+        // Initialize chart
+        let chart;
+        let currentGraph = 'position';
+        const data = generateData();
+        
+        // Set up graph selectors
+        const buttons = document.querySelectorAll('.graph-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update graph
+                currentGraph = button.dataset.graph;
+                renderGraph();
+            });
+        });
+        
+        function renderGraph() {
+            const container = document.getElementById('chart-container');
+            const insightText = document.getElementById('insight-text');
+            
+            // Destroy existing chart
+            if (chart) {
+                chart.destroy();
+            }
+            
+            // Create appropriate graph based on selection
+            switch (currentGraph) {
+                case 'position':
+                    createPositionGraph();
+                    insightText.textContent = 'The parabolic shape of the y position graph is the result of constant acceleration due to gravity. The first derivative of position gives velocity, and the second derivative gives acceleration.';
+                    break;
+                case 'velocity':
+                    createVelocityGraph();
+                    insightText.textContent = 'The horizontal velocity (vx) is constant without air resistance. The vertical velocity (vy) decreases linearly due to constant acceleration of gravity. The slope of this line is -g = -9.8 m/s².';
+                    break;
+                case 'acceleration':
+                    createAccelerationGraph();
+                    insightText.textContent = 'The horizontal acceleration (ax) is zero without air resistance. The vertical acceleration (ay) is constant at -9.8 m/s² due to gravity. This constant acceleration is what defines projectile motion.';
+                    break;
+                case 'energy':
+                    createEnergyGraph();
+                    insightText.textContent = 'Without air resistance, total energy remains constant (conservation of energy). Kinetic energy decreases as the arrow rises (velocity decreases) while potential energy increases. At the peak, KE is minimum and PE is maximum.';
+                    break;
+            }
+        }
+        
+        function createPositionGraph() {
+            const ctx = document.getElementById('chart-container').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.time.map(t => t.toFixed(1)),
+                    datasets: [
+                        {
+                            label: 'x position (m)',
+                            data: data.position.x,
+                            borderColor: '#3a86ff',
+                            backgroundColor: 'rgba(58, 134, 255, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'y position (m)',
+                            data: data.position.y,
+                            borderColor: '#ff006e',
+                            backgroundColor: 'rgba(255, 0, 110, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: getChartOptions('Position vs. Time', 'Time (s)', 'Position (m)')
+            });
+        }
+        
+        function createVelocityGraph() {
+            const ctx = document.getElementById('chart-container').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.time.map(t => t.toFixed(1)),
+                    datasets: [
+                        {
+                            label: 'vx (m/s)',
+                            data: data.velocity.x,
+                            borderColor: '#3a86ff',
+                            backgroundColor: 'rgba(58, 134, 255, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'vy (m/s)',
+                            data: data.velocity.y,
+                            borderColor: '#ff006e',
+                            backgroundColor: 'rgba(255, 0, 110, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Magnitude (m/s)',
+                            data: data.velocity.magnitude,
+                            borderColor: '#fb5607',
+                            backgroundColor: 'rgba(251, 86, 7, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: getChartOptions('Velocity vs. Time', 'Time (s)', 'Velocity (m/s)')
+            });
+        }
+        
+        function createAccelerationGraph() {
+            const ctx = document.getElementById('chart-container').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.time.map(t => t.toFixed(1)),
+                    datasets: [
+                        {
+                            label: 'ax (m/s²)',
+                            data: data.acceleration.x,
+                            borderColor: '#3a86ff',
+                            backgroundColor: 'rgba(58, 134, 255, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'ay (m/s²)',
+                            data: data.acceleration.y,
+                            borderColor: '#ff006e',
+                            backgroundColor: 'rgba(255, 0, 110, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Magnitude (m/s²)',
+                            data: data.acceleration.magnitude,
+                            borderColor: '#fb5607',
+                            backgroundColor: 'rgba(251, 86, 7, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: getChartOptions('Acceleration vs. Time', 'Time (s)', 'Acceleration (m/s²)')
+            });
+        }
+        
+        function createEnergyGraph() {
+            const ctx = document.getElementById('chart-container').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.time.map(t => t.toFixed(1)),
+                    datasets: [
+                        {
+                            label: 'Kinetic Energy (J)',
+                            data: data.energy.kinetic,
+                            borderColor: '#ff006e',
+                            backgroundColor: 'rgba(255, 0, 110, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Potential Energy (J)',
+                            data: data.energy.potential,
+                            borderColor: '#06d6a0',
+                            backgroundColor: 'rgba(6, 214, 160, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Total Energy (J)',
+                            data: data.energy.total,
+                            borderColor: '#3a86ff',
+                            backgroundColor: 'rgba(58, 134, 255, 0.1)',
+                            tension: 0.4,
+                            pointRadius: 0,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: getChartOptions('Energy vs. Time', 'Time (s)', 'Energy (J)')
+            });
+        }
+        
+        function getChartOptions(title, xLabel, yLabel) {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: title,
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 10,
+                            bottom: 20
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: xLabel,
+                            font: {
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: yLabel,
+                            font: {
+                                weight: 'bold'
+                            },
+                            padding: {
+                                bottom: 10
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                animation: {
+                    duration: 500
+                }
+            };
+        }
+        
+        // Initial render
+        renderGraph();
+    </script>
+</body>
+</html>
