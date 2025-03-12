@@ -151,7 +151,7 @@
                         <select id="examples" class="form-select">
                             <option value="">Select an example</option>
                             <optgroup label="Physics">
-                                <option value="projectile-motion">Projectile Motion</option>
+                                <option value="carAcceleration">Car Acceleration</option>
                                 <option value="spring-oscillation" class="expert-only">Spring Oscillation</option>
                                 <option value="wave-propagation" class="expert-only">Wave Propagation</option>
                                 <option value="heat-distribution" class="expert-only">3D Heat Distribution</option>
@@ -219,6 +219,10 @@
             </div>
         </footer>
     </div>
+
+    <!-- Examples -->
+    <script src="js/examples/car-acceleration.js"></script>
+    <script src="js/examples/examples-loader.js"></script>
 
     <!-- User Interface JS -->
     <script>
@@ -309,15 +313,6 @@
                 // In a real app, you would toggle the visualization between 2D and 3D here
             });
             
-            // Initialize animation toggle
-            const toggleAnimation = document.getElementById('toggle-animation');
-            
-            toggleAnimation.addEventListener('click', function() {
-                this.classList.toggle('active');
-                
-                // In a real app, you would start/stop animation here
-            });
-            
             // Function to update level-specific elements
             function updateLevelSpecificElements(level) {
                 const expertElements = document.querySelectorAll('.expert-only');
@@ -334,168 +329,6 @@
                     proElements.forEach(el => el.style.display = 'block');
                 }
             }
-        });
-    </script>
-    
-    <!-- Visualization Engine JS -->
-    <script>
-        // This would be connected to your existing engine.js, but with updated interfaces
-        // For demo purposes, let's create a simple placeholder visualization
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('visualization');
-            
-            // Set canvas size to match container
-            function resizeCanvas() {
-                const container = canvas.parentElement;
-                canvas.width = container.clientWidth;
-                canvas.height = container.clientHeight;
-            }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Initialize Three.js scene (simplified placeholder)
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-            
-            // Basic lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
-            
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(1, 1, 1);
-            scene.add(directionalLight);
-            
-            // Add coordinate axes
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
-            
-            // Set camera position
-            camera.position.set(3, 3, 5);
-            camera.lookAt(0, 0, 0);
-            
-            // Add orbit controls
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.1;
-            
-            // Create function visualization (placeholder - would be more complex in real app)
-            const resolution = 50;
-            const size = 10;
-            
-            function createFunctionMesh(func) {
-                const geometry = new THREE.BufferGeometry();
-                const vertices = [];
-                const colors = [];
-                
-                const colorPrimary = new THREE.Color(0x6366f1);
-                const colorAccent = new THREE.Color(0xf43f5e);
-                
-                for (let i = 0; i <= resolution; i++) {
-                    for (let j = 0; j <= resolution; j++) {
-                        const x = (i / resolution - 0.5) * size;
-                        const z = (j / resolution - 0.5) * size;
-                        const y = func(x, z);
-                        
-                        vertices.push(x, y, z);
-                        
-                        const color = colorPrimary.clone().lerp(colorAccent, (y + size/4) / (size/2));
-                        colors.push(color.r, color.g, color.b);
-                    }
-                }
-                
-                const indices = [];
-                for (let i = 0; i < resolution; i++) {
-                    for (let j = 0; j < resolution; j++) {
-                        const a = i * (resolution + 1) + j;
-                        const b = i * (resolution + 1) + j + 1;
-                        const c = (i + 1) * (resolution + 1) + j;
-                        const d = (i + 1) * (resolution + 1) + j + 1;
-                        
-                        indices.push(a, b, d);
-                        indices.push(a, d, c);
-                    }
-                }
-                
-                geometry.setIndex(indices);
-                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-                geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-                
-                const material = new THREE.MeshPhongMaterial({
-                    vertexColors: true,
-                    side: THREE.DoubleSide,
-                    shininess: 50
-                });
-                
-                return new THREE.Mesh(geometry, material);
-            }
-            
-            function parseFunction(expression) {
-                return function(x, z) {
-                    try {
-                        return math.evaluate(expression, { x, z: z || 0 });
-                    } catch (e) {
-                        return 0;
-                    }
-                };
-            }
-            
-            // Initial function
-            let currentExpression = 'x^2';
-            let currentFunction = parseFunction(currentExpression);
-            let functionMesh = createFunctionMesh(currentFunction);
-            scene.add(functionMesh);
-            
-            // Update function
-            const updateButton = document.getElementById('update-function');
-            const functionInput = document.getElementById('function');
-            
-            updateButton.addEventListener('click', function() {
-                const newExpression = functionInput.value;
-                currentExpression = newExpression;
-                currentFunction = parseFunction(newExpression);
-                
-                scene.remove(functionMesh);
-                functionMesh = createFunctionMesh(currentFunction);
-                scene.add(functionMesh);
-            });
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Expose control functions
-            window.calcEngine = {
-                camera: camera,
-                controls: controls,
-                scene: scene,
-                is3DMode: true,
-                
-                toggleDimension: function() {
-                    this.is3DMode = !this.is3DMode;
-                    
-                    if (this.is3DMode) {
-                        camera.position.set(3, 3, 5);
-                        controls.enableRotate = true;
-                    } else {
-                        camera.position.set(0, 5, 0);
-                        camera.lookAt(0, 0, 0);
-                        controls.enableRotate = false;
-                    }
-                },
-                
-                updateVisualizationOptions: function(options) {
-                    // Would update visualization options in a real app
-                    console.log('Updating visualization options:', options);
-                }
-            };
         });
     </script>
 </body>
