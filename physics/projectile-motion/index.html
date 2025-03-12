@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archery Adventures: Projectile Motion - Calculus Visualizer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="../../css/minimalist.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../physics.css">
+    <link rel="stylesheet" href="projectile-motion.css">
+    
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+</head>
+<body data-theme="light">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-container">
+                <a href="../../index.html" class="app-logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 5L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Calculus Visualizer</span>
+                </a>
+            </div>
+            
+            <div class="module-indicator">
+                <a href="../index.html" class="module-link">Physics</a>
+                <span class="separator">/</span>
+                <span class="current-page">Archery Adventures</span>
+            </div>
+            
+            <div class="header-controls">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.22021 4.22021L5.64021 5.64021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.3599 18.3599L19.7799 19.7799" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.22021 19.7799L5.64021 18.3599" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18.3599 5.64021L19.7799 4.22021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <div class="difficulty-control">
+                    <button class="difficulty-btn active" data-level="beginner">Beginner</button>
+                    <button class="difficulty-btn" data-level="intermediate">Intermediate</button>
+                    <button class="difficulty-btn" data-level="advanced">Advanced</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="visualization-layout">
+                <div class="visualization-container">
+                    <div class="scene-info">
+                        <div class="info-card">
+                            <div class="current-target">Target Distance: <span id="target-distance">50</span>m</div>
+                            <div class="current-score">Score: <span id="current-score">0</span></div>
+                        </div>
+                    </div>
+                    
+                    <canvas id="visualization-canvas"></canvas>
+                    
+                    <!-- Visualization Controls -->
+                    <div class="viz-controls">
+                        <button class="viz-btn" id="play-pause" title="Play/Pause Animation">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 4H6V20H10V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M18 4H14V20H18V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="viz-btn" id="toggle-view" title="Change Camera View">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 9L9 3L15 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="viz-btn" id="reset-shot" title="Reset Shot">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="viz-btn" id="fire-arrow" title="Fire Arrow">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="trajectory-toggle">
+                        <button class="toggle-btn" id="toggle-trajectory" title="Show/Hide Trajectory">
+                            <span>Show Trajectory</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="controls-panel">
+                    <div class="panel-section">
+                        <h3 class="section-title">Archery: Projectile Motion</h3>
+                        <p class="concept-description">Learn how calculus explains the flight of an arrow! Adjust your bow to hit targets and see how the math works.</p>
+                    </div>
+                    
+                    <div class="panel-section parameters-section">
+                        <h3 class="section-title collapsible">Bow Settings</h3>
+                        <div class="section-content">
+                            <div class="parameter-control">
+                                <label for="draw-strength">Draw Strength</label>
+                                <div class="slider-with-value">
+                                    <input type="range" id="draw-strength" min="20" max="60" value="40" class="parameter-slider">
+                                    <span class="parameter-value">40 lbs</span>
+                                </div>
+                            </div>
+                            
+                            <div class="parameter-control">
+                                <label for="launch-angle">Launch Angle</label>
+                                <div class="slider-with-value">
+                                    <input type="range" id="launch-angle" min="0" max="90" value="45" class="parameter-slider">
+                                    <span class="parameter-value">45°</span>
+                                </div>
+                            </div>
+                            
+                            <div class="parameter-control">
+                                <label for="arrow-weight">Arrow Weight</label>
+                                <div class="slider-with-value">
+                                    <input type="range" id="arrow-weight" min="300" max="700" value="400" step="25" class="parameter-slider">
+                                    <span class="parameter-value">400 grain</span>
+                                </div>
+                            </div>
+                            
+                            <div class="parameter-control intermediate-control">
+                                <label for="air-resistance">Air Resistance</label>
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="air-resistance">
+                                    <label for="air-resistance">Include Air Resistance</label>
+                                </div>
+                            </div>
+                            
+                            <div class="parameter-control advanced-control">
+                                <label for="wind-speed">Wind Speed</label>
+                                <div class="slider-with-value">
+                                    <input type="range" id="wind-speed" min="0" max="30" value="0" step="1" class="parameter-slider">
+                                    <span class="parameter-value">0 km/h</span>
+                                </div>
+                            </div>
+                            
+                            <div class="parameter-control advanced-control">
+                                <label for="wind-direction">Wind Direction</label>
+                                <div class="slider-with-value">
+                                    <input type="range" id="wind-direction" min="0" max="360" value="90" step="5" class="parameter-slider">
+                                    <span class="parameter-value">90°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section calculus-section">
+                        <h3 class="section-title collapsible">The Calculus Behind Archery</h3>
+                        <div class="section-content">
+                            <div class="calculus-explanation">
+                                <p>The flight of an arrow is a perfect example of calculus in action! When you shoot an arrow:</p>
+                                
+                                <div class="formula-card">
+                                    <div class="formula-title">Position Function</div>
+                                    <div class="formula">
+                                        <p><strong>x(t)</strong> = v₀·cos(θ)·t</p>
+                                        <p><strong>y(t)</strong> = v₀·sin(θ)·t - ½·g·t²</p>
+                                    </div>
+                                    <div class="formula-explanation">
+                                        This calculates the arrow's <span class="highlight">position</span> at any time t.
+                                    </div>
+                                </div>
+                                
+                                <div class="calculus-step">
+                                    <div class="step-badge">1</div>
+                                    <div class="step-content">
+                                        <strong>First Derivative</strong>: Taking the derivative gives us velocity!
+                                        <div class="formula">
+                                            <p><strong>vₓ(t)</strong> = d/dt[x(t)] = v₀·cos(θ)</p>
+                                            <p><strong>vᵧ(t)</strong> = d/dt[y(t)] = v₀·sin(θ) - g·t</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="calculus-step">
+                                    <div class="step-badge">2</div>
+                                    <div class="step-content">
+                                        <strong>Second Derivative</strong>: Taking another derivative gives acceleration!
+                                        <div class="formula">
+                                            <p><strong>aₓ(t)</strong> = d/dt[vₓ(t)] = 0</p>
+                                            <p><strong>aᵧ(t)</strong> = d/dt[vᵧ(t)] = -g</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="intermediate-content">
+                                    <h4>With Air Resistance</h4>
+                                    <p>Air resistance makes the equations more complex, requiring differential equations:</p>
+                                    <div class="formula">
+                                        <p>m·a = -m·g - k·v²</p>
+                                    </div>
+                                    <p>This requires numerical integration to solve!</p>
+                                </div>
+                                
+                                <div class="advanced-content">
+                                    <h4>Complete Ballistic Model</h4>
+                                    <p>For truly accurate predictions, we must consider:</p>
+                                    <ul>
+                                        <li>Drag coefficient (varies with velocity)</li>
+                                        <li>Magnus effect (arrow spin)</li>
+                                        <li>Coriolis effect (Earth's rotation)</li>
+                                    </ul>
+                                    <p>These require systems of differential equations and vector calculus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section data-section intermediate-control">
+                        <h3 class="section-title collapsible">Flight Data Analysis</h3>
+                        <div class="section-content">
+                            <div class="data-graphs">
+                                <div class="graph-selector">
+                                    <button class="graph-btn active" data-graph="position">Position</button>
+                                    <button class="graph-btn" data-graph="velocity">Velocity</button>
+                                    <button class="graph-btn" data-graph="acceleration">Acceleration</button>
+                                    <button class="graph-btn" data-graph="energy">Energy</button>
+                                </div>
+                                
+                                <div class="graph-container" id="data-graph">
+                                    <!-- Graph will be rendered here -->
+                                </div>
+                                
+                                <div class="data-insight">
+                                    <p>Notice how the <span class="highlight">position</span> graph shows a parabola, while the <span class="highlight">velocity</span> graph shows straight lines - this is calculus in action!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section challenge-section">
+                        <h3 class="section-title collapsible">Target Challenge</h3>
+                        <div class="section-content">
+                            <div class="challenge-description">
+                                <p>Use your understanding of projectile motion to hit the target! Adjust your parameters and see if you can score a bullseye.</p>
+                            </div>
+                            
+                            <div class="challenge-controls">
+                                <button id="new-target" class="action-btn">New Target</button>
+                                <div class="target-distance">
+                                    <label for="target-distance-select">Target Distance:</label>
+                                    <select id="target-distance-select">
+                                        <option value="30">30m (Easy)</option>
+                                        <option value="50" selected>50m (Medium)</option>
+                                        <option value="70">70m (Hard)</option>
+                                        <option value="90">90m (Olympic)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="challenge-stats">
+                                <div class="stat-item">
+                                    <div class="stat-label">Attempts</div>
+                                    <div class="stat-value" id="attempt-count">0</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Best Score</div>
+                                    <div class="stat-value" id="best-score">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-actions">
+                        <button id="focus-mode-btn" class="action-btn">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M3 16V19C3 20.1046 3.89543 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Focus Mode
+                        </button>
+                        
+                        <a href="../harmonic-motion/index.html" class="action-btn primary-btn">
+                            Next Topic: Harmonic Motion
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
+        </footer>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="../../js/engine.js"></script>
+    <script src="../../js/ui-controller.js"></script>
+    
+    <!-- Physics Module Scripts -->
+    <script src="../physics-engine.js"></script>
+    <script src="projectile-motion.js"></script>
+    <script src="data-analyzer.js"></script>
+    
+    <!-- Charts library for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    
+    <!-- Init Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize UI controller
+            const uiController = new UIController();
+            
+            // Initialize projectile motion simulator
+            const projectileSimulator = new ProjectileMotionSimulator('visualization-canvas');
+            
+            // Initialize data analyzer
+            const dataAnalyzer = new DataAnalyzer('data-graph');
+            
+            // Connect them together
+            projectileSimulator.setDataAnalyzer(dataAnalyzer);
+        });
+    </script>
+</body>
+</html>
