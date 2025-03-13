@@ -16,6 +16,9 @@
     
     <!-- Accessibility Meta Tags -->
     <meta name="description" content="An interactive tool for visualizing calculus concepts through real-world applications and 3D representations">
+    
+    <!-- Base URL for routing -->
+    <base href="/calculus-visualizer/">
 </head>
 <body data-theme="light">
     <!-- Skip Navigation Link (for keyboard users) -->
@@ -25,7 +28,7 @@
         <!-- Header -->
         <header class="app-header" role="banner">
             <div class="logo-container">
-                <a href="#" class="app-logo" aria-label="Calculus Visualizer Home">
+                <a href="/calculus-visualizer/" class="app-logo" aria-label="Calculus Visualizer Home">
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                         <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
                         <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -35,6 +38,26 @@
                     <span>Calculus Visualizer</span>
                 </a>
             </div>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="/calculus-visualizer/derivatives">Derivatives</a></li>
+                    <li><a href="/calculus-visualizer/integrals">Integrals</a></li>
+                    <li><a href="/calculus-visualizer/limits">Limits</a></li>
+                    <li><a href="/calculus-visualizer/vector">Vector Calculus</a></li>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle">Examples</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/calculus-visualizer/examples/projectile-motion">Projectile Motion</a></li>
+                            <li><a href="/calculus-visualizer/examples/harmonic-motion">Harmonic Motion</a></li>
+                            <li><a href="/calculus-visualizer/examples/area-curves">Area Under Curves</a></li>
+                            <li><a href="/calculus-visualizer/examples/taylor-series">Taylor Series</a></li>
+                            <li><a href="/calculus-visualizer/examples/population-growth">Population Growth</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
             
             <div class="header-controls">
                 <button 
@@ -60,7 +83,7 @@
                 </button>
                 
                 <!-- Keyboard Shortcuts Button -->
-                <button id="keyboard-shortcuts-btn" class="keyboard-shortcuts-btn" aria-label="Show keyboard shortcuts">
+                <a href="/calculus-visualizer/shortcuts" class="keyboard-shortcuts-btn" aria-label="Show keyboard shortcuts">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                         <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
                         <path d="M7 10L7 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -68,133 +91,78 @@
                         <path d="M17 10L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                     <span class="sr-only">Keyboard Shortcuts</span>
-                </button>
+                </a>
+                
+                <!-- User Settings Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-toggle settings-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/calculus-visualizer/settings/theme">Theme Settings</a></li>
+                        <li><a href="/calculus-visualizer/settings/level">Difficulty Level</a></li>
+                    </ul>
+                </div>
             </div>
         </header>
 
         <main id="main-content" class="main-content" role="main">
-            <!-- Interactive Hero Section -->
-            <section class="hero-section">
-                <!-- 3D Visualization -->
-                <div class="visualization-wrapper">
-                    <div id="hero-visualization" class="visualization-canvas"></div>
-                </div>
-                
-                <!-- Hero Content -->
-                <div class="hero-content">
-                    <h1>Discover Calculus in 3D</h1>
-                    <p>Explore calculus concepts through interactive 3D visualizations and real-world applications</p>
-                    <a href="#modules-heading" class="cta-button pulse">Start Exploring</a>
-                </div>
-                
-                <!-- Visualization Info Box -->
-                <div class="visualization-info">
-                    <a href="modules/vector-calculus/index.html" class="try-module" aria-label="Explore Vector Calculus module">Related: <span class="related-module">Vector Calculus</span></a>
-                    <h3 class="viz-title">Saddle Surface</h3>
-                    <p class="viz-description">Explore multivariable calculus concepts like critical points and saddle points</p>
-                    <div class="visualization-controls">
-                        <button id="next-surface" class="try-me-button">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Next Example
-                        </button>
-                        <a href="modules/projectile-motion/index.html" class="try-me-button">
-                            Try Me
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Modules Section -->
-            <h2 id="modules-heading">Explore Calculus Concepts</h2>
-            <div class="module-cards" role="list" aria-labelledby="modules-heading">
-                <a href="modules/projectile-motion/index.html" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #7209b7;" aria-hidden="true"></div>
-                    <h3>Projectile Motion</h3>
-                    <p>Explore derivatives through the physics of projectile motion</p>
-                </a>
-                
-                <a href="#" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #5e60ce;" aria-hidden="true"></div>
-                    <h3>Harmonic Motion</h3>
-                    <p>Understand oscillation with derivatives and integrals</p>
-                </a>
-                
-                <a href="#" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #4ea8de;" aria-hidden="true"></div>
-                    <h3>Area Under Curves</h3>
-                    <p>Visualize the concept of definite integrals</p>
-                </a>
-                
-                <a href="#" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #4361ee;" aria-hidden="true"></div>
-                    <h3>Vector Calculus</h3>
-                    <p>Explore gradients, divergence and curl in 3D space</p>
-                </a>
-                
-                <a href="#" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #4cc9f0;" aria-hidden="true"></div>
-                    <h3>Taylor Series</h3>
-                    <p>Visualize polynomial approximations of functions</p>
-                </a>
-                
-                <a href="#" class="module-card" role="listitem">
-                    <div class="module-card-image" style="background-color: #4895ef;" aria-hidden="true"></div>
-                    <h3>Population Growth</h3>
-                    <p>Differential equations in biological systems</p>
-                </a>
-            </div>
-            
-            <!-- Features Section -->
-            <section class="features-section">
-                <h2>Why Visualize Calculus?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M15 9L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M9 9L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <h3 class="feature-title">See Abstract Concepts</h3>
-                        <p class="feature-description">Transform abstract mathematical concepts into intuitive visual representations that are easier to understand and remember.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 16V8C21 5.79086 19.2091 4 17 4H7C4.79086 4 3 5.79086 3 8V16C3 18.2091 4.79086 20 7 20H17C19.2091 20 21 18.2091 21 16Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M9 10L12 13L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <h3 class="feature-title">Interactive Learning</h3>
-                        <p class="feature-description">Manipulate parameters in real-time to see how changes affect mathematical outcomes and develop intuitive understanding.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <h3 class="feature-title">Real-World Applications</h3>
-                        <p class="feature-description">Connect calculus to real-world applications in physics, engineering, biology, and more through practical examples.</p>
-                    </div>
-                </div>
-            </section>
+            <!-- Content will be dynamically loaded by the router -->
         </main>
         
         <footer role="contentinfo">
-            <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
-            <nav class="footer-nav" aria-label="Footer Navigation">
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="accessibility.html">Accessibility Statement</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <h3>Learn</h3>
+                    <ul>
+                        <li><a href="/calculus-visualizer/derivatives">Derivatives</a></li>
+                        <li><a href="/calculus-visualizer/integrals">Integrals</a></li>
+                        <li><a href="/calculus-visualizer/limits">Limits</a></li>
+                        <li><a href="/calculus-visualizer/vector">Vector Calculus</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="/calculus-visualizer/examples/projectile-motion">Projectile Motion</a></li>
+                        <li><a href="/calculus-visualizer/examples/harmonic-motion">Harmonic Motion</a></li>
+                        <li><a href="/calculus-visualizer/examples/area-curves">Area Under Curves</a></li>
+                        <li><a href="/calculus-visualizer/examples/taylor-series">Taylor Series</a></li>
+                        <li><a href="/calculus-visualizer/examples/population-growth">Population Growth</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Applications</h3>
+                    <ul>
+                        <li><a href="/calculus-visualizer/applications/car-acceleration">Car Acceleration</a></li>
+                        <li><a href="/calculus-visualizer/applications/spring-oscillation">Spring Oscillation</a></li>
+                        <li><a href="/calculus-visualizer/applications/wave-propagation">Wave Propagation</a></li>
+                        <li><a href="/calculus-visualizer/applications/market-equilibrium">Market Equilibrium</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/calculus-visualizer/guide">User Guide</a></li>
+                        <li><a href="/calculus-visualizer/accessibility">Accessibility</a></li>
+                        <li><a href="/calculus-visualizer/about">About</a></li>
+                        <li><a href="/calculus-visualizer/contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
+            </div>
         </footer>
     </div>
 
@@ -204,57 +172,6 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
 
     <!-- Core JavaScript -->
-    <script type="module">
-        import UICore from './core/ui-core.js';
-        import LandingVisualization from './core/landing-visualization.js';
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize UI Core
-            const ui = new UICore();
-            
-            // Initialize Landing Visualization
-            const visualizationContainer = document.getElementById('hero-visualization');
-            if (visualizationContainer) {
-                const landingViz = new LandingVisualization(visualizationContainer);
-            }
-            
-            // Mouse trail effect for visual interest
-            const createMouseParticle = (e) => {
-                const particle = document.createElement('div');
-                particle.className = 'mouse-particle';
-                particle.style.left = e.pageX + 'px';
-                particle.style.top = e.pageY + 'px';
-                document.body.appendChild(particle);
-                
-                // Random color variations
-                const colors = ['#4361ee', '#4cc9f0', '#3a86ff', '#4895ef', '#5e60ce'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.backgroundColor = randomColor;
-                
-                // Random size variations
-                const size = Math.random() * 8 + 4;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                // Animate and remove
-                setTimeout(() => {
-                    particle.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(particle);
-                    }, 500);
-                }, 500);
-            };
-            
-            // Throttle mouse trail for performance
-            let lastCreated = 0;
-            document.addEventListener('mousemove', (e) => {
-                const now = Date.now();
-                if (now - lastCreated > 50) {
-                    createMouseParticle(e);
-                    lastCreated = now;
-                }
-            });
-        });
-    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
