@@ -1,0 +1,234 @@
+/*
+ * Projectile Motion Module - Specific Styles
+ * Includes styles for the entry animation and interactive elements
+ */
+
+/* Entry Animation */
+.entry-animation {
+  position: relative;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.entry-visualization {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.entry-prompt {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  text-align: center;
+  max-width: 800px;
+  gap: var(--space-8);
+}
+
+.prompt-content {
+  background-color: var(--bg-surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+}
+
+.prompt-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.prompt-content p {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-6);
+  color: var(--text-secondary);
+}
+
+/* Quick Facts */
+.quick-facts {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fact-card {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(0);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.fact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fact-icon {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--primary);
+}
+
+.fact-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Module Content */
+.module-content {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  padding-top: var(--space-6);
+}
+
+/* Try Me Overlays */
+.interactive-overlays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.try-me-overlay {
+  position: absolute;
+  background-color: var(--bg-surface);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-lg), 0 0 15px rgba(67, 97, 238, 0.4);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  animation: pulse 2s infinite;
+}
+
+.try-me-overlay:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(67, 97, 238, 0.6);
+}
+
+.overlay-text {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.overlay-hint {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  margin-top: var(--space-1);
+}
+
+/* Applications Section */
+.applications-section {
+  margin: var(--space-16) 0;
+  padding: var(--space-8);
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+}
+
+.applications-section h2 {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.application-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.application-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--bg-main);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.application-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.application-image {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--primary-light);
+}
+
+.application-content {
+  padding: var(--space-4);
+}
+
+.application-content h3 {
+  margin-bottom: var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.application-content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .prompt-content h2 {
+    font-size: 1.75rem;
+  }
+  
+  .prompt-content p {
+    font-size: 1rem;
+  }
+  
+  .quick-facts {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fact-card {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .try-me-overlay {
+    padding: var(--space-2) var(--space-3);
+    min-width: 120px;
+  }
+}
