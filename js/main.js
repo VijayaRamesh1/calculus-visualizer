@@ -1,102 +1,80 @@
 /**
- * main.js - Application initialization and main controller
+ * Main application entry point for Calculus Visualizer
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the 3D engine
-    const engine = new Engine('visualization');
-    
-    // Initialize UI manager
-    const ui = new UI(engine);
-    
-    // Start with derivatives as the default concept
-    const defaultConcept = 'derivatives';
-    ui.setActiveConcept(defaultConcept);
-    
-    // Render loop
-    function animate() {
-        requestAnimationFrame(animate);
-        engine.update();
-        engine.render();
-    }
-    
-    // Start animation loop
-    animate();
-    
-    // Window resize handler
-    window.addEventListener('resize', function() {
-        engine.resize();
-    });
-    
-    // Setup professional tools if available
-    setupProfessionalTools(engine);
-    
-    console.log('Calculus Visualizer initialized successfully!');
+import Router from './router.js';
+import { configureRoutes } from './routes.js';
+import UICore from '../core/ui-core.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize UI Core
+  const ui = new UICore();
+  
+  // Set up navigation handling
+  setupNavigation();
+  
+  // Initialize the router
+  const router = new Router();
+  configureRoutes(router);
+  router.initialize();
 });
 
 /**
- * Set up professional-level tools and functionality
- * @param {Engine} engine - The visualization engine instance
+ * Set up navigation link handling to use the router
  */
-function setupProfessionalTools(engine) {
-    // High-precision mode toggle
-    const highPrecisionCheckbox = document.getElementById('enable-high-precision');
-    if (highPrecisionCheckbox) {
-        highPrecisionCheckbox.addEventListener('change', function(e) {
-            if (e.target.checked) {
-                // Increase calculation precision
-                engine.visualizationOptions.resolution = 100; // Double the default
-                
-                // Update all calculations with higher precision
-                const currentConcept = document.querySelector('nav a.active')?.getAttribute('data-concept');
-                if (currentConcept) {
-                    const fn = engine.currentFunction;
-                    engine.updateFunction(fn); // This will refresh the visualization
-                }
-            } else {
-                // Reset to default precision
-                engine.visualizationOptions.resolution = 50;
-                
-                // Update visualization with default precision
-                const fn = engine.currentFunction;
-                engine.updateFunction(fn);
-            }
-        });
-    }
+function setupNavigation() {
+  // Intercept all internal links and route them through the router
+  document.addEventListener('click', (e) => {
+    // Find closest ancestor that is a link
+    const link = e.target.closest('a');
     
-    // Export visualization button
-    const exportButton = document.getElementById('export-visualization');
-    if (exportButton) {
-        exportButton.addEventListener('click', function() {
-            // Create a capture of the visualization
-            const canvas = document.getElementById('visualization');
-            
-            // Use toDataURL to get image data
-            try {
-                const dataUrl = canvas.toDataURL('image/png');
-                
-                // Create a temporary link element
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = 'calculus-visualization.png';
-                
-                // Trigger download
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (e) {
-                console.error('Error exporting visualization:', e);
-                alert('Failed to export visualization. Make sure you are using a secure (HTTPS) connection.');
-            }
-        });
+    if (link && isInternalLink(link.href)) {
+      e.preventDefault();
+      
+      // Get the route path from the link
+      const url = new URL(link.href);
+      const path = url.pathname.replace('/calculus-visualizer', '');
+      
+      // Route to the path
+      window.router.navigateTo(path);
+      
+      // Update active link styling
+      updateActiveLinks(path);
     }
-    
-    // Apply user level settings to engine
-    const currentUserLevel = Config.getCurrentUserLevel();
-    const levelDef = Config.getUserLevelDefinition(currentUserLevel);
-    
-    // Set precision based on user level
-    if (levelDef.precision) {
-        engine.precision = levelDef.precision;
-    }
+  });
 }
+
+/**
+ * Check if a link is internal to the application
+ * @param {string} href - The href attribute of the link
+ * @returns {boolean} - True if the link is internal
+ */
+function isInternalLink(href) {
+  if (!href) return false;
+  
+  const url = new URL(href, window.location.origin);
+  const siteUrl = new URL(window.location.origin);
+  
+  // Check if same origin and contains the base path
+  return url.origin === siteUrl.origin && 
+         url.pathname.startsWith('/calculus-visualizer');
+}
+
+/**
+ * Update active link styling based on current path
+ * @param {string} path - The current path
+ */
+function updateActiveLinks(path) {
+  // Remove active class from all navigation links
+  document.querySelectorAll('nav a').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // Add active class to links matching the current path
+  document.querySelectorAll(`nav a[href$="${path}"]`).forEach(link => {
+    link.classList.add('active');
+  });
+}
+
+// Add router to window for access in setupNavigation
+window.router = router;
