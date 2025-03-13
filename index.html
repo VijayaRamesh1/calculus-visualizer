@@ -8,10 +8,11 @@
     <!-- Preconnect for performance optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
     
     <!-- Accessibility Meta Tags -->
     <meta name="description" content="An interactive tool for visualizing calculus concepts through real-world applications and 3D representations">
@@ -72,12 +73,45 @@
         </header>
 
         <main id="main-content" class="main-content" role="main">
-            <div class="intro-section fade-in">
-                <h1>Interactive Calculus Visualizations</h1>
-                <p>Explore calculus concepts through real-world applications and 3D visualizations</p>
-            </div>
+            <!-- Interactive Hero Section -->
+            <section class="hero-section">
+                <!-- 3D Visualization -->
+                <div class="visualization-wrapper">
+                    <div id="hero-visualization" class="visualization-canvas"></div>
+                </div>
+                
+                <!-- Hero Content -->
+                <div class="hero-content">
+                    <h1>Discover Calculus in 3D</h1>
+                    <p>Explore calculus concepts through interactive 3D visualizations and real-world applications</p>
+                    <a href="#modules-heading" class="cta-button pulse">Start Exploring</a>
+                </div>
+                
+                <!-- Visualization Info Box -->
+                <div class="visualization-info">
+                    <a href="modules/vector-calculus/index.html" class="try-module" aria-label="Explore Vector Calculus module">Related: <span class="related-module">Vector Calculus</span></a>
+                    <h3 class="viz-title">Saddle Surface</h3>
+                    <p class="viz-description">Explore multivariable calculus concepts like critical points and saddle points</p>
+                    <div class="visualization-controls">
+                        <button id="next-surface" class="try-me-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Next Example
+                        </button>
+                        <a href="modules/projectile-motion/index.html" class="try-me-button">
+                            Try Me
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
             
-            <h2 id="modules-heading">Modules</h2>
+            <!-- Modules Section -->
+            <h2 id="modules-heading">Explore Calculus Concepts</h2>
             <div class="module-cards" role="list" aria-labelledby="modules-heading">
                 <a href="modules/projectile-motion/index.html" class="module-card" role="listitem">
                     <div class="module-card-image" style="background-color: #7209b7;" aria-hidden="true"></div>
@@ -115,6 +149,41 @@
                     <p>Differential equations in biological systems</p>
                 </a>
             </div>
+            
+            <!-- Features Section -->
+            <section class="features-section">
+                <h2>Why Visualize Calculus?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M15 9L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M9 9L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <h3 class="feature-title">See Abstract Concepts</h3>
+                        <p class="feature-description">Transform abstract mathematical concepts into intuitive visual representations that are easier to understand and remember.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 16V8C21 5.79086 19.2091 4 17 4H7C4.79086 4 3 5.79086 3 8V16C3 18.2091 4.79086 20 7 20H17C19.2091 20 21 18.2091 21 16Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M9 10L12 13L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="feature-title">Interactive Learning</h3>
+                        <p class="feature-description">Manipulate parameters in real-time to see how changes affect mathematical outcomes and develop intuitive understanding.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <h3 class="feature-title">Real-World Applications</h3>
+                        <p class="feature-description">Connect calculus to real-world applications in physics, engineering, biology, and more through practical examples.</p>
+                    </div>
+                </div>
+            </section>
         </main>
         
         <footer role="contentinfo">
@@ -129,14 +198,61 @@
         </footer>
     </div>
 
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+
     <!-- Core JavaScript -->
-    <script type="module" src="core/ui-core.js"></script>
-    <script>
+    <script type="module">
+        import UICore from './core/ui-core.js';
+        import LandingVisualization from './core/landing-visualization.js';
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize UI
-            import('./core/ui-core.js').then(module => {
-                const UICore = module.default;
-                const ui = new UICore();
+            // Initialize UI Core
+            const ui = new UICore();
+            
+            // Initialize Landing Visualization
+            const visualizationContainer = document.getElementById('hero-visualization');
+            if (visualizationContainer) {
+                const landingViz = new LandingVisualization(visualizationContainer);
+            }
+            
+            // Mouse trail effect for visual interest
+            const createMouseParticle = (e) => {
+                const particle = document.createElement('div');
+                particle.className = 'mouse-particle';
+                particle.style.left = e.pageX + 'px';
+                particle.style.top = e.pageY + 'px';
+                document.body.appendChild(particle);
+                
+                // Random color variations
+                const colors = ['#4361ee', '#4cc9f0', '#3a86ff', '#4895ef', '#5e60ce'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = randomColor;
+                
+                // Random size variations
+                const size = Math.random() * 8 + 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Animate and remove
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(particle);
+                    }, 500);
+                }, 500);
+            };
+            
+            // Throttle mouse trail for performance
+            let lastCreated = 0;
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+                if (now - lastCreated > 50) {
+                    createMouseParticle(e);
+                    lastCreated = now;
+                }
             });
         });
     </script>
