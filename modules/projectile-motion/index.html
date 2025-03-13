@@ -8,10 +8,12 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../assets/css/landing.css">
+    <link rel="stylesheet" href="./styles/projectile.css">
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
@@ -33,153 +35,230 @@
         </header>
 
         <main>
-            <div class="module-intro">
-                <p>
-                    Projectile motion demonstrates key calculus concepts including derivatives, position functions, and vector calculus. 
-                    In this module, we visualize how calculus explains the motion of objects under the influence of gravity.
-                </p>
+            <!-- Interactive Entry Animation -->
+            <div class="entry-animation">
+                <div id="entry-visualization" class="entry-visualization"></div>
+                <div class="entry-prompt">
+                    <div class="prompt-content">
+                        <h2>Explore Projectile Motion</h2>
+                        <p>Discover how calculus describes the motion of objects under gravity</p>
+                        <button id="start-exploring" class="cta-button pulse">Start Exploring</button>
+                    </div>
+                    
+                    <div class="quick-facts">
+                        <div class="fact-card">
+                            <div class="fact-icon">∫</div>
+                            <div class="fact-text">Position is the integral of velocity</div>
+                        </div>
+                        <div class="fact-card">
+                            <div class="fact-icon">d/dt</div>
+                            <div class="fact-text">Velocity is the derivative of position</div>
+                        </div>
+                        <div class="fact-card">
+                            <div class="fact-icon">∂²</div>
+                            <div class="fact-text">Acceleration is the second derivative</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="module-layout">
-                <!-- Visualization Container -->
-                <div class="visualization-container">
-                    <div id="visualization-canvas"></div>
+            <div class="module-content" style="display: none;">
+                <div class="module-intro">
+                    <p>
+                        Projectile motion demonstrates key calculus concepts including derivatives, position functions, and vector calculus. 
+                        In this module, we visualize how calculus explains the motion of objects under the influence of gravity.
+                    </p>
+                </div>
+                
+                <div class="module-layout">
+                    <!-- Visualization Container -->
+                    <div class="visualization-container">
+                        <div id="visualization-canvas"></div>
+                        
+                        <!-- Try Me Overlays -->
+                        <div class="interactive-overlays">
+                            <button class="try-me-overlay" data-action="change-angle" style="top: 20%; left: 20%">
+                                <span class="overlay-text">Try 45° Angle</span>
+                                <span class="overlay-hint">Perfect for maximum range</span>
+                            </button>
+                            
+                            <button class="try-me-overlay" data-action="show-vectors" style="top: 40%; left: 70%">
+                                <span class="overlay-text">See Velocity Vectors</span>
+                                <span class="overlay-hint">Visualize the first derivative</span>
+                            </button>
+                            
+                            <button class="try-me-overlay" data-action="real-world" style="top: 70%; left: 30%">
+                                <span class="overlay-text">Wind Turbine Application</span>
+                                <span class="overlay-hint">Real-world engineering example</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Visualization Controls -->
+                        <div class="visualization-controls">
+                            <button class="control-btn" id="toggle-animation" title="Play/Pause Animation">
+                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            
+                            <button class="control-btn" id="toggle-dimension" title="Switch 2D/3D View">
+                                <span>3D</span>
+                            </button>
+                            
+                            <button class="control-btn" id="reset-view" title="Reset View">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     
-                    <!-- Visualization Controls -->
-                    <div class="visualization-controls">
-                        <button class="control-btn" id="toggle-animation" title="Play/Pause Animation">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
+                    <!-- Controls Panel -->
+                    <div class="controls-panel">
+                        <div class="panel-section">
+                            <h3 class="section-title" id="concept-heading">Derivatives: Position, Velocity, Acceleration</h3>
+                            <p class="concept-description" id="concept-description">
+                                In projectile motion, position is a function of time. The first derivative gives velocity, while the second derivative gives acceleration. 
+                                This demonstrates how calculus describes the physical world.
+                            </p>
+                        </div>
                         
-                        <button class="control-btn" id="toggle-dimension" title="Switch 2D/3D View">
-                            <span>3D</span>
-                        </button>
+                        <div class="panel-section parameters-section">
+                            <h3 class="section-title collapsible">Parameters</h3>
+                            <div class="section-content">
+                                <div class="input-group">
+                                    <label class="input-label" for="initial-velocity">Initial Velocity</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="initial-velocity" min="1" max="20" value="10" class="slider-control" data-units="m/s" data-precision="1">
+                                        <span class="slider-value">10 m/s</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label class="input-label" for="launch-angle">Launch Angle</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="launch-angle" min="0" max="90" value="45" class="slider-control" data-units="°" data-precision="0">
+                                        <span class="slider-value">45°</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label class="input-label" for="gravity">Gravity</label>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" class="slider-control" data-units="m/s²" data-precision="1">
+                                        <span class="slider-value">9.8 m/s²</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <button class="control-btn" id="reset-view" title="Reset View">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
+                        <div class="panel-section visualizations-section">
+                            <h3 class="section-title collapsible">Visualization Options</h3>
+                            <div class="section-content">
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-trajectory" checked>
+                                    <label for="show-trajectory">Show Trajectory</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-velocity-vectors">
+                                    <label for="show-velocity-vectors">Show Velocity Vectors</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-acceleration">
+                                    <label for="show-acceleration">Show Acceleration</label>
+                                </div>
+                                
+                                <div class="checkbox-control">
+                                    <input type="checkbox" id="show-math-functions">
+                                    <label for="show-math-functions">Show Mathematical Functions</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-section formulas-section">
+                            <h3 class="section-title collapsible">Mathematical Formulation</h3>
+                            <div class="section-content">
+                                <div class="formula-display">
+                                    <div class="formula-label">Position Function:</div>
+                                    <div class="formula">
+                                        <span>x(t) = v₀·cos(θ)·t</span>
+                                        <span>y(t) = v₀·sin(θ)·t - ½·g·t²</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="formula-display">
+                                    <div class="formula-label">Velocity (First Derivative):</div>
+                                    <div class="formula">
+                                        <span>vₓ(t) = v₀·cos(θ)</span>
+                                        <span>vᵧ(t) = v₀·sin(θ) - g·t</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="formula-display">
+                                    <div class="formula-label">Acceleration (Second Derivative):</div>
+                                    <div class="formula">
+                                        <span>aₓ(t) = 0</span>
+                                        <span>aᵧ(t) = -g</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-section learning-section">
+                            <h3 class="section-title collapsible">Learning Points</h3>
+                            <div class="section-content">
+                                <ul class="learning-points">
+                                    <li>The derivative of position with respect to time gives velocity</li>
+                                    <li>The derivative of velocity with respect to time gives acceleration</li>
+                                    <li>In projectile motion, only vertical velocity changes due to gravity</li>
+                                    <li>The horizontal velocity remains constant (derivative = 0)</li>
+                                    <li>This is a practical example of vector calculus in physics</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-actions">
+                            <button id="focus-mode-btn" class="btn btn-secondary">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M3 16V19C3 20.1046 3.89543 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Focus Mode
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Controls Panel -->
-                <div class="controls-panel">
-                    <div class="panel-section">
-                        <h3 class="section-title" id="concept-heading">Derivatives: Position, Velocity, Acceleration</h3>
-                        <p class="concept-description" id="concept-description">
-                            In projectile motion, position is a function of time. The first derivative gives velocity, while the second derivative gives acceleration. 
-                            This demonstrates how calculus describes the physical world.
-                        </p>
-                    </div>
-                    
-                    <div class="panel-section parameters-section">
-                        <h3 class="section-title collapsible">Parameters</h3>
-                        <div class="section-content">
-                            <div class="input-group">
-                                <label class="input-label" for="initial-velocity">Initial Velocity</label>
-                                <div class="slider-with-value">
-                                    <input type="range" id="initial-velocity" min="1" max="20" value="10" class="slider-control" data-units="m/s" data-precision="1">
-                                    <span class="slider-value">10 m/s</span>
-                                </div>
-                            </div>
-                            
-                            <div class="input-group">
-                                <label class="input-label" for="launch-angle">Launch Angle</label>
-                                <div class="slider-with-value">
-                                    <input type="range" id="launch-angle" min="0" max="90" value="45" class="slider-control" data-units="°" data-precision="0">
-                                    <span class="slider-value">45°</span>
-                                </div>
-                            </div>
-                            
-                            <div class="input-group">
-                                <label class="input-label" for="gravity">Gravity</label>
-                                <div class="slider-with-value">
-                                    <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" class="slider-control" data-units="m/s²" data-precision="1">
-                                    <span class="slider-value">9.8 m/s²</span>
-                                </div>
+                <!-- Real-world Application Cards -->
+                <div class="applications-section">
+                    <h2>Real-world Applications</h2>
+                    <div class="application-cards">
+                        <div class="application-card">
+                            <div class="application-image" style="background-image: url('../../assets/images/wind-turbine.jpg')"></div>
+                            <div class="application-content">
+                                <h3>Wind Turbine Design</h3>
+                                <p>Engineers use projectile motion concepts to calculate optimal blade angles for maximum energy extraction from wind.</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="panel-section visualizations-section">
-                        <h3 class="section-title collapsible">Visualization Options</h3>
-                        <div class="section-content">
-                            <div class="checkbox-control">
-                                <input type="checkbox" id="show-trajectory" checked>
-                                <label for="show-trajectory">Show Trajectory</label>
-                            </div>
-                            
-                            <div class="checkbox-control">
-                                <input type="checkbox" id="show-velocity-vectors">
-                                <label for="show-velocity-vectors">Show Velocity Vectors</label>
-                            </div>
-                            
-                            <div class="checkbox-control">
-                                <input type="checkbox" id="show-acceleration">
-                                <label for="show-acceleration">Show Acceleration</label>
-                            </div>
-                            
-                            <div class="checkbox-control">
-                                <input type="checkbox" id="show-math-functions">
-                                <label for="show-math-functions">Show Mathematical Functions</label>
+                        
+                        <div class="application-card">
+                            <div class="application-image" style="background-image: url('../../assets/images/sports.jpg')"></div>
+                            <div class="application-content">
+                                <h3>Sports Analytics</h3>
+                                <p>Calculate the optimal angle for a basketball shot or the trajectory of a baseball based on calculus principles.</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="panel-section formulas-section">
-                        <h3 class="section-title collapsible">Mathematical Formulation</h3>
-                        <div class="section-content">
-                            <div class="formula-display">
-                                <div class="formula-label">Position Function:</div>
-                                <div class="formula">
-                                    <span>x(t) = v₀·cos(θ)·t</span>
-                                    <span>y(t) = v₀·sin(θ)·t - ½·g·t²</span>
-                                </div>
-                            </div>
-                            
-                            <div class="formula-display">
-                                <div class="formula-label">Velocity (First Derivative):</div>
-                                <div class="formula">
-                                    <span>vₓ(t) = v₀·cos(θ)</span>
-                                    <span>vᵧ(t) = v₀·sin(θ) - g·t</span>
-                                </div>
-                            </div>
-                            
-                            <div class="formula-display">
-                                <div class="formula-label">Acceleration (Second Derivative):</div>
-                                <div class="formula">
-                                    <span>aₓ(t) = 0</span>
-                                    <span>aᵧ(t) = -g</span>
-                                </div>
+                        
+                        <div class="application-card">
+                            <div class="application-image" style="background-image: url('../../assets/images/rocket.jpg')"></div>
+                            <div class="application-content">
+                                <h3>Rocket Trajectory</h3>
+                                <p>Aerospace engineers plot complex rocket trajectories using advanced forms of the projectile motion equations.</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="panel-section learning-section">
-                        <h3 class="section-title collapsible">Learning Points</h3>
-                        <div class="section-content">
-                            <ul class="learning-points">
-                                <li>The derivative of position with respect to time gives velocity</li>
-                                <li>The derivative of velocity with respect to time gives acceleration</li>
-                                <li>In projectile motion, only vertical velocity changes due to gravity</li>
-                                <li>The horizontal velocity remains constant (derivative = 0)</li>
-                                <li>This is a practical example of vector calculus in physics</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-actions">
-                        <button id="focus-mode-btn" class="btn btn-secondary">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M3 16V19C3 20.1046 3.89543 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Focus Mode
-                        </button>
                     </div>
                 </div>
             </div>
@@ -192,5 +271,70 @@
 
     <!-- Core Scripts -->
     <script type="module" src="./controllers/simulation.js"></script>
+    <script type="module" src="./controllers/entry-experience.js"></script>
+    
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start with the entry experience
+            const startExploringBtn = document.getElementById('start-exploring');
+            const entryAnimation = document.querySelector('.entry-animation');
+            const moduleContent = document.querySelector('.module-content');
+            
+            if (startExploringBtn) {
+                startExploringBtn.addEventListener('click', () => {
+                    // Fade out entry animation
+                    entryAnimation.style.opacity = '0';
+                    
+                    // After animation completes, hide entry and show module content
+                    setTimeout(() => {
+                        entryAnimation.style.display = 'none';
+                        moduleContent.style.display = 'block';
+                        
+                        // Fade in module content
+                        setTimeout(() => {
+                            moduleContent.style.opacity = '1';
+                        }, 50);
+                    }, 500);
+                });
+            }
+            
+            // Setup Try Me overlays
+            const tryMeOverlays = document.querySelectorAll('.try-me-overlay');
+            
+            if (tryMeOverlays) {
+                tryMeOverlays.forEach(overlay => {
+                    overlay.addEventListener('click', () => {
+                        const action = overlay.getAttribute('data-action');
+                        
+                        // Handle different actions
+                        switch(action) {
+                            case 'change-angle':
+                                document.getElementById('launch-angle').value = 45;
+                                document.getElementById('launch-angle').dispatchEvent(new Event('input'));
+                                break;
+                                
+                            case 'show-vectors':
+                                document.getElementById('show-velocity-vectors').checked = true;
+                                document.getElementById('show-velocity-vectors').dispatchEvent(new Event('change'));
+                                break;
+                                
+                            case 'real-world':
+                                // Scroll to real-world applications
+                                document.querySelector('.applications-section').scrollIntoView({ 
+                                    behavior: 'smooth' 
+                                });
+                                break;
+                        }
+                        
+                        // Hide overlay after use
+                        overlay.style.opacity = '0';
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                        }, 500);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
