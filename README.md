@@ -1,80 +1,96 @@
 # Calculus Visualizer
 
-An interactive 3D visualization tool for calculus concepts using Three.js. This web application helps students and educators visualize and understand key calculus concepts including derivatives, integrals, and limits.
+An interactive tool for visualizing calculus concepts through 3D representations and real-world examples.
 
-## Features
+## Enhanced Accessibility Features
 
-- Interactive 3D visualizations of mathematical functions
-- Explore derivatives, integrals, and limits with real-time feedback
-- Real-world examples from physics and everyday scenarios
-- Adjust parameters to see how they affect visualizations
-- Responsive design works on desktop and mobile devices
+This branch contains accessibility enhancements that implement the following key UX/UI design principles:
 
-## Concepts Covered
+### Accessibility Principles
+- **Perceptibility**: Content is perceptible to all users through improved color contrast, semantic HTML, ARIA labels, and keyboard focus indicators.
+- **Operability**: All functionality is usable through keyboard navigation and touch interfaces, with clear focus states and reduced motion options.
+- **Simplicity**: The interface is designed to be intuitive, with clear content structure and progressive disclosure of complex information.
+- **Forgiveness**: The system helps prevent errors and provides clear feedback with easy recovery options.
 
-### Derivatives
+### UI/UX Design Principles Implemented
+- **Aesthetic-Usability Effect**: Improved visual design while maintaining accessibility.
+- **Affordance**: Clear visual and interactive cues for all interface elements.
+- **Consistency**: Uniform patterns for interactions, visual style, and behavior.
+- **Constraint**: Limiting options to prevent errors, particularly in complex interactions.
+- **Control**: Users can customize their experience with theme options and focus mode.
+- **Cost-Benefit**: Optimized interactions to minimize user effort.
+- **Entry Point**: Simplified landing page with clear paths to different modules.
+- **Feedback Loop**: Immediate visual, auditory, and haptic feedback for user actions.
+- **Flexibility-Usability Tradeoff**: Balanced specialized features with overall usability.
+- **Legibility**: Enhanced typography with proper font sizes, contrast, and spacing.
+- **Mapping**: Intuitive relationship between controls and their effects.
+- **Mental Model**: Interface aligned with users' understanding of calculus concepts.
+- **Ockham's Razor**: Simplified design elements for clarity.
+- **Performance Load**: Reduced cognitive effort through clear organization.
+- **Progressive Disclosure**: Complex information presented gradually.
+- **Proximity**: Related elements grouped visually and functionally.
+- **Recognition Over Recall**: Clear labels and familiar patterns.
+- **Signal-to-Noise Ratio**: Maximized relevant information and minimized distractions.
+- **Visibility**: Clear system status and available actions.
 
-Visualize the rate of change of a function, including:
-- Slope of tangent lines
-- Relationships between a function and its derivative
-- Critical points and extrema
+## Key Improvements
 
-### Integrals
+1. **Screen Reader Support**: 
+   - Semantic HTML5 structure with proper landmarks
+   - ARIA attributes for dynamic content
+   - Live regions for updates
+   - Alternative text for visual elements
 
-Explore the area under curves and antiderivatives:
-- Definite integrals as area under a curve
-- Relationship between a function and its antiderivative
-- Applications in physics and other fields
+2. **Keyboard Navigation**:
+   - Proper focus management
+   - Visible focus indicators
+   - Skip navigation links
+   - Keyboard shortcuts with a visible reference
 
-### Limits
+3. **Visual Accessibility**:
+   - High contrast color scheme
+   - Dark mode support
+   - Proper text sizing and spacing
+   - Support for browser zoom
 
-Understand how functions behave as variables approach specific values:
-- One-sided and two-sided limits
-- Limits at points of discontinuity
-- Limits at infinity
+4. **Cognitive Accessibility**:
+   - Consistent layout and interaction patterns
+   - Clear instructions and feedback
+   - Progressive disclosure of complex information
+   - Focus mode for distraction-free learning
+   - Simplified language and consistent terminology
 
-## Examples
-
-The application includes several real-world examples:
-
-- **Physics Examples:**
-  - Projectile Motion: Visualize position, velocity, and acceleration
-  - Spring Oscillation: Explore simple harmonic motion
-
-- **Everyday Examples:**
-  - Car Acceleration: See how calculus relates to everyday driving
-  - Population Growth: Understand exponential models
-
-## Technology Stack
-
-- **Three.js**: 3D rendering and visualization
-- **Math.js**: Mathematical expression parsing and evaluation
-- **Modern JavaScript**: ES6+ features for clean, maintainable code
-- **Responsive CSS**: Works on devices of all sizes
+5. **Technical Improvements**:
+   - Responsive design for various devices
+   - Reduced motion preference detection
+   - High contrast mode support
+   - Error prevention and recovery mechanisms
+   - Proper form labeling and validation
 
 ## Getting Started
 
-1. Clone this repository
+1. Clone the repository
 2. Open `index.html` in your web browser
-3. No build step or server required!
+3. Explore the different calculus modules
 
-## Usage
+## Keyboard Shortcuts
 
-1. Select a calculus concept from the navigation menu
-2. Enter a mathematical function in the input box
-3. Use the controls to adjust visualization parameters
-4. Try the examples to see real-world applications
+- `Alt + T`: Toggle dark/light theme
+- `Alt + F`: Toggle focus mode
+- `Alt + K` or `?`: Show keyboard shortcuts
+- `Alt + R`: Reset visualization
+- `Space`: Play/pause animation (when not focused on input controls)
+- `Tab`: Navigate through interactive elements
 
-## Contributing
+## Accessibility Statement
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+See our full [Accessibility Statement](accessibility.html) for details on our approach to accessibility, conformance status, and known limitations.
 
 ## License
 
-This project is open source, feel free to use, modify and distribute as needed.
+MIT
 
 ## Acknowledgments
 
-- Three.js for the powerful 3D visualization capabilities
-- Math.js for the mathematical expression parsing
-- The calculus education community for inspiration
+- [Three.js](https://threejs.org/) for 3D visualizations
+- [MathJS](https://mathjs.org/) for mathematical functions
