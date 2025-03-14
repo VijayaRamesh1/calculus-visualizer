@@ -5,7 +5,8 @@
  * users to the projectile motion module in an engaging way
  */
 
-import ThreeUtils from '../../../core/3d-utils.js';
+// Remove import statement
+// import ThreeUtils from '../../../core/3d-utils.js';
 
 class EntryExperience {
     constructor() {
@@ -16,7 +17,8 @@ class EntryExperience {
             return;
         }
         
-        // Initialize Three.js utilities
+        // Initialize Three.js utilities using ThreeUtils from the projectile module
+        // instead of the core module
         this.threeUtils = new ThreeUtils(this.container);
         
         // Animation state
@@ -41,8 +43,8 @@ class EntryExperience {
         this.threeUtils.camera.lookAt(0, 0, 0);
         
         // Create ground and grid
-        this.threeUtils.createGroundPlane(30, 30, 0xdddddd, 0.7);
-        this.threeUtils.createGrid(30, 30);
+        this.createGroundPlane(30, 30, 0xdddddd, 0.7);
+        this.createGrid(30, 30);
         
         // Add soft ambient lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -55,6 +57,47 @@ class EntryExperience {
         this.threeUtils.controls.autoRotate = true;
         this.threeUtils.controls.autoRotateSpeed = 0.5;
     }
+
+    /**
+     * Create a ground plane (we'll implement this here since 
+     * we're not using the core ThreeUtils)
+     * @param {number} width - Width of the plane
+     * @param {number} depth - Depth of the plane
+     * @param {number} color - Color of the plane
+     * @param {number} opacity - Opacity of the plane
+     */
+    createGroundPlane(width, depth, color, opacity) {
+        const geometry = new THREE.PlaneGeometry(width, depth);
+        const material = new THREE.MeshStandardMaterial({
+            color: color,
+            transparent: true,
+            opacity: opacity,
+            side: THREE.DoubleSide
+        });
+        
+        const plane = new THREE.Mesh(geometry, material);
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.y = -0.01;
+        plane.receiveShadow = true;
+        
+        this.threeUtils.scene.add(plane);
+        return plane;
+    }
+
+    /**
+     * Create a grid (we'll implement this here since we're not using the core ThreeUtils)
+     * @param {number} width - Width of the grid
+     * @param {number} depth - Depth of the grid
+     */
+    createGrid(width, depth) {
+        const grid = new THREE.GridHelper(width, depth, 0x888888, 0x888888);
+        grid.position.y = 0.01;
+        grid.material.transparent = true;
+        grid.material.opacity = 0.4;
+        
+        this.threeUtils.scene.add(grid);
+        return grid;
+    }
     
     /**
      * Setup multiple projectiles with different launch parameters
@@ -66,7 +109,7 @@ class EntryExperience {
         
         for (let i = 0; i < 5; i++) {
             // Create projectile sphere
-            const projectile = this.threeUtils.createSphere(0.3, { x: 0, y: 0, z: 0 }, colors[i]);
+            const projectile = this.createSphere(0.3, { x: 0, y: 0, z: 0 }, colors[i]);
             this.projectiles.push({
                 mesh: projectile,
                 angle: angles[i],
@@ -79,6 +122,29 @@ class EntryExperience {
             const trajectory = this.createTrajectoryLine(angles[i], velocities[i], colors[i]);
             this.trails.push(trajectory);
         }
+    }
+
+    /**
+     * Create a sphere (we'll implement this here since we're not using the core ThreeUtils)
+     * @param {number} radius - Radius of the sphere
+     * @param {Object} position - Position of the sphere
+     * @param {number} color - Color of the sphere
+     * @returns {THREE.Mesh} Sphere mesh
+     */
+    createSphere(radius, position, color) {
+        const geometry = new THREE.SphereGeometry(radius, 32, 32);
+        const material = new THREE.MeshStandardMaterial({
+            color: color,
+            roughness: 0.4,
+            metalness: 0.6
+        });
+        
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(position.x, position.y, position.z);
+        sphere.castShadow = true;
+        
+        this.threeUtils.scene.add(sphere);
+        return sphere;
     }
     
     /**
@@ -100,11 +166,34 @@ class EntryExperience {
         for (let t = 0; t <= totalTime; t += totalTime / 50) {
             const x = velocity * Math.cos(angleRad) * t;
             const y = velocity * Math.sin(angleRad) * t - 0.5 * gravity * t * t;
-            points.push({ x, y, z: 0 });
+            points.push(new THREE.Vector3(x, y, 0));
         }
         
         // Create and return the line
-        return this.threeUtils.createTubeFromPoints(points, 0.05, color);
+        return this.createTubeFromPoints(points, 0.05, color);
+    }
+
+    /**
+     * Create a tube from points (we'll implement this here since we're not using the core ThreeUtils)
+     * @param {Array} points - Array of points
+     * @param {number} radius - Radius of the tube
+     * @param {number} color - Color of the tube
+     * @returns {THREE.Mesh} Tube mesh
+     */
+    createTubeFromPoints(points, radius, color) {
+        const path = new THREE.CatmullRomCurve3(points);
+        const geometry = new THREE.TubeGeometry(path, 50, radius, 8, false);
+        const material = new THREE.MeshStandardMaterial({
+            color: color,
+            transparent: true,
+            opacity: 0.7,
+            roughness: 0.3,
+            metalness: 0.7
+        });
+        
+        const tube = new THREE.Mesh(geometry, material);
+        this.threeUtils.scene.add(tube);
+        return tube;
     }
     
     /**
@@ -227,13 +316,34 @@ class EntryExperience {
         this.container.removeEventListener('click', this.onClick);
         
         // Dispose of Three.js resources
-        this.threeUtils.clearScene();
+        this.clearScene();
+    }
+
+    /**
+     * Clear the scene (we'll implement this here since we're not using the core ThreeUtils)
+     */
+    clearScene() {
+        while (this.threeUtils.scene.children.length > 0) {
+            const object = this.threeUtils.scene.children[0];
+            this.threeUtils.scene.remove(object);
+
+            // Dispose of geometries and materials
+            if (object.geometry) object.geometry.dispose();
+            if (object.material) {
+                if (Array.isArray(object.material)) {
+                    object.material.forEach(material => material.dispose());
+                } else {
+                    object.material.dispose();
+                }
+            }
+        }
     }
 }
 
 // Initialize the entry experience when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new EntryExperience();
+    window.entryExperience = new EntryExperience();
 });
 
-export default EntryExperience;
+// Make the class globally available
+window.EntryExperience = EntryExperience;
