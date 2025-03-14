@@ -460,3 +460,145 @@ class SceneView {
         // Update trail
         this.threeUtils.updateProjectileTrail(this.projectile);
     }
+    
+    /**
+     * Start a camera transition to a new position
+     * @param {string} viewType - 'overhead', 'side', 'follow', 'firstPerson'
+     */
+    transitionCameraTo(viewType) {
+        const cameraTransition = this.cameraTransition;
+        
+        // Set start position
+        cameraTransition.startPosition = this.threeUtils.camera.position.clone();
+        cameraTransition.startRotation = this.threeUtils.camera.quaternion.clone();
+        
+        // Set target based on view type
+        switch (viewType) {
+            case 'overhead':
+                cameraTransition.targetPosition = new THREE.Vector3(0, 20, 0);
+                cameraTransition.targetLookAt = new THREE.Vector3(0, 0, 0);
+                break;
+                
+            case 'side':
+                cameraTransition.targetPosition = new THREE.Vector3(0, 5, 20);
+                cameraTransition.targetLookAt = new THREE.Vector3(0, 0, 0);
+                break;
+                
+            case 'follow':
+                // Will be updated dynamically during animation
+                cameraTransition.followProjectile = true;
+                return; // Return early and handle differently
+                
+            case 'firstPerson':
+                // Will also be updated dynamically
+                cameraTransition.firstPerson = true;
+                return; // Return early and handle differently
+                
+            default:
+                // Default to original position
+                cameraTransition.targetPosition = new THREE.Vector3(15, 10, 15);
+                cameraTransition.targetLookAt = new THREE.Vector3(0, 0, 0);
+        }
+        
+        // Start transition
+        cameraTransition.active = true;
+        cameraTransition.startTime = Date.now();
+        cameraTransition.followProjectile = false;
+        cameraTransition.firstPerson = false;
+    }
+    
+    /**
+     * Update camera position during transitions
+     */
+    updateCameraTransition() {
+        const transition = this.cameraTransition;
+        
+        if (!transition.active) {
+            return;
+        }
+        
+        // Handle follow camera mode
+        if (transition.followProjectile && this.projectile) {
+            // Position camera behind and above projectile
+            const offset = new THREE.Vector3(0, 3, 5);
+            const cameraPosition = this.projectile.position.clone().add(offset);
+            this.threeUtils.camera.position.copy(cameraPosition);
+            this.threeUtils.camera.lookAt(this.projectile.position);
+            return;
+        }
+        
+        // Handle first person mode
+        if (transition.firstPerson && this.projectile) {
+            // Position camera at projectile looking along motion direction
+            this.threeUtils.camera.position.copy(this.projectile.position);
+            
+            // Look in direction of motion
+            if (this.animationTime < this.animationDuration - 0.1) {
+                const progress = this.animationTime / this.animationDuration;
+                const currentIndex = Math.floor(progress * (this.trajectoryPoints.length - 1));
+                const nextIndex = Math.min(currentIndex + 1, this.trajectoryPoints.length - 1);
+                
+                const currentPoint = this.trajectoryPoints[currentIndex];
+                const nextPoint = this.trajectoryPoints[nextIndex];
+                
+                const direction = new THREE.Vector3(
+                    nextPoint.x - currentPoint.x,
+                    nextPoint.y - currentPoint.y,
+                    nextPoint.z - currentPoint.z
+                ).normalize();
+                
+                const lookAtPoint = this.projectile.position.clone().add(direction.multiplyScalar(5));
+                this.threeUtils.camera.lookAt(lookAtPoint);
+            }
+            return;
+        }
+        
+        // Normal transition between two fixed positions
+        const elapsed = Date.now() - transition.startTime;
+        const duration = transition.duration * 1000; // Convert to ms
+        const progress = Math.min(elapsed / duration, 1.0);
+        const easedProgress = transition.easing(progress);
+        
+        // Interpolate position
+        const newPosition = transition.startPosition.clone().lerp(
+            transition.targetPosition, 
+            easedProgress
+        );
+        
+        this.threeUtils.camera.position.copy(newPosition);
+        
+        // Look at target
+        this.threeUtils.camera.lookAt(transition.targetLookAt);
+        
+        // End transition when complete
+        if (progress >= 1.0) {
+            transition.active = false;
+            this.threeUtils.controls.target.copy(transition.targetLookAt);
+            this.threeUtils.controls.update();
+        }
+    }
+    
+    /**
+     * Toggle between 2D and 3D views
+     * @param {boolean} is3D - Whether to use 3D view
+     */
+    toggleDimension(is3D) {
+        if (is3D) {
+            // Transition to 3D perspective view
+            this.transitionCameraTo('default');
+        } else {
+            // Transition to 2D side view
+            this.transitionCameraTo('side');
+        }
+    }
+    
+    /**
+     * Reset camera view with smooth transition
+     */
+    resetView() {
+        this.transitionCameraTo('default');
+    }
+}
+
+// Make the class globally available
+window.SceneView = SceneView;
