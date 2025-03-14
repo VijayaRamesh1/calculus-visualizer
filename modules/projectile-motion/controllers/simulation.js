@@ -9,15 +9,17 @@
  * - Manages environment settings
  */
 
-import TrajectoryModel from '../models/trajectory.js';
-import SceneView from '../views/scene.js';
-import GraphsView from '../views/graphs.js';
-import UICore from '../../../core/ui-core.js';
+// Remove ES module imports
+// We'll access these globals directly now
+// const TrajectoryModel = window.TrajectoryModel;
+// const SceneView = window.SceneView;
+// const GraphsView = window.GraphsView;
+// const UICore = window.UICore;
 
 class SimulationController {
     constructor() {
         // Initialize UI
-        this.ui = new UICore();
+        //this.ui = new UICore();
         
         // Initialize model
         this.trajectoryModel = new TrajectoryModel();
@@ -47,42 +49,82 @@ class SimulationController {
     }
     
     /**
+     * Helper method to set up input listeners
+     */
+    setupInputListener(id, callback) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('input', () => {
+                // Parse value as float
+                let value = parseFloat(element.value);
+                
+                // Update displayed value
+                const valueDisplay = element.parentElement.querySelector('.slider-value');
+                if (valueDisplay) {
+                    const units = element.dataset.units || '';
+                    const precision = element.dataset.precision || 0;
+                    valueDisplay.textContent = value.toFixed(precision) + ' ' + units;
+                }
+                
+                // Call the callback with the value
+                callback(value);
+            });
+        }
+    }
+    
+    /**
+     * Helper method to set up checkbox listeners
+     */
+    setupCheckboxListener(id, callback) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('change', () => {
+                // Get checked status
+                const value = element.checked;
+                
+                // Call the callback with the value
+                callback(value);
+            });
+        }
+    }
+    
+    /**
      * Initialize event listeners for controls
      */
     initializeEventListeners() {
         // Parameter controls
-        this.ui.onParameterChange('initial-velocity', value => {
+        this.setupInputListener('initial-velocity', value => {
             this.trajectoryModel.updateParameters({ initialVelocity: value });
             this.updateViews();
         });
         
-        this.ui.onParameterChange('launch-angle', value => {
+        this.setupInputListener('launch-angle', value => {
             this.trajectoryModel.updateParameters({ launchAngle: value });
             this.updateViews();
         });
         
-        this.ui.onParameterChange('gravity', value => {
+        this.setupInputListener('gravity', value => {
             this.trajectoryModel.updateParameters({ gravity: value });
             this.updateViews();
         });
         
         // Visualization options
-        this.ui.onParameterChange('show-trajectory', value => {
+        this.setupCheckboxListener('show-trajectory', value => {
             this.trajectoryModel.updateSettings({ showTrajectory: value });
             this.updateViews();
         });
         
-        this.ui.onParameterChange('show-velocity-vectors', value => {
+        this.setupCheckboxListener('show-velocity-vectors', value => {
             this.trajectoryModel.updateSettings({ showVelocityVectors: value });
             this.updateViews();
         });
         
-        this.ui.onParameterChange('show-acceleration', value => {
+        this.setupCheckboxListener('show-acceleration', value => {
             this.trajectoryModel.updateSettings({ showAcceleration: value });
             this.updateViews();
         });
         
-        this.ui.onParameterChange('show-math-functions', value => {
+        this.setupCheckboxListener('show-math-functions', value => {
             this.trajectoryModel.updateSettings({ showMathFunctions: value });
             this.updateViews();
         });
@@ -251,3 +293,6 @@ class SimulationController {
 document.addEventListener('DOMContentLoaded', () => {
     window.simulationController = new SimulationController();
 });
+
+// Make class globally available
+window.SimulationController = SimulationController;
