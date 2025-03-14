@@ -23,6 +23,9 @@
     <!-- Module Scripts - Loaded before module-specific scripts -->
     <script src="./utils/three-utils.js"></script>
     <script src="./utils/enhanced-environment.js"></script>
+    <script src="./views/scene.js"></script>
+    <script src="./models/physics.js"></script>
+    <script src="./models/trajectory.js"></script>
 </head>
 <body data-theme="light">
     <div class="container">
@@ -263,7 +266,7 @@
                     <h2>Real-world Applications</h2>
                     <div class="application-cards">
                         <div class="application-card">
-                            <div class="application-image" style="background-image: url('../../assets/images/wind-turbine.jpg')"></div>
+                            <div class="application-image" style="background-image: url('../../assets/images/placeholder-image.jpg')"></div>
                             <div class="application-content">
                                 <h3>Wind Turbine Design</h3>
                                 <p>Engineers use projectile motion concepts to calculate optimal blade angles for maximum energy extraction from wind.</p>
@@ -271,7 +274,7 @@
                         </div>
                         
                         <div class="application-card">
-                            <div class="application-image" style="background-image: url('../../assets/images/sports.jpg')"></div>
+                            <div class="application-image" style="background-image: url('../../assets/images/placeholder-image.jpg')"></div>
                             <div class="application-content">
                                 <h3>Sports Analytics</h3>
                                 <p>Calculate the optimal angle for a basketball shot or the trajectory of a baseball based on calculus principles.</p>
@@ -279,7 +282,7 @@
                         </div>
                         
                         <div class="application-card">
-                            <div class="application-image" style="background-image: url('../../assets/images/rocket.jpg')"></div>
+                            <div class="application-image" style="background-image: url('../../assets/images/placeholder-image.jpg')"></div>
                             <div class="application-content">
                                 <h3>Rocket Trajectory</h3>
                                 <p>Aerospace engineers plot complex rocket trajectories using advanced forms of the projectile motion equations.</p>
@@ -296,13 +299,10 @@
     </div>
 
     <!-- Core Scripts -->
-    <script src="./views/scene.js"></script>
-    <script src="./models/physics.js"></script>
-    <script src="./models/trajectory.js"></script>
     <script src="./controllers/simulation.js"></script>
     <script src="./controllers/entry-experience.js"></script>
     
-    <script type="module">
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Start with the entry experience
             const startExploringBtn = document.getElementById('start-exploring');
@@ -369,22 +369,57 @@
             const environmentTypeSelect = document.getElementById('environment-type');
             const weatherEffectSelect = document.getElementById('weather-effect');
             
-            if (timeOfDaySelect && window.SimulationController) {
+            // Initialize SimulationController globally
+            window.SimulationController = {
+                setTimeOfDay: function(value) {
+                    console.log('Setting time of day to', value);
+                    if (window.sceneView) {
+                        window.sceneView.setTimeOfDay(value);
+                    }
+                },
+                setEnvironmentType: function(value) {
+                    console.log('Setting environment type to', value);
+                    if (window.sceneView) {
+                        window.sceneView.setEnvironmentType(value);
+                    }
+                },
+                setWeatherEffect: function(value) {
+                    console.log('Setting weather effect to', value);
+                    if (window.sceneView) {
+                        window.sceneView.setWeatherEffect(value);
+                    }
+                }
+            };
+            
+            if (timeOfDaySelect) {
                 timeOfDaySelect.addEventListener('change', function() {
                     window.SimulationController.setTimeOfDay(this.value);
                 });
             }
             
-            if (environmentTypeSelect && window.SimulationController) {
+            if (environmentTypeSelect) {
                 environmentTypeSelect.addEventListener('change', function() {
                     window.SimulationController.setEnvironmentType(this.value);
                 });
             }
             
-            if (weatherEffectSelect && window.SimulationController) {
+            if (weatherEffectSelect) {
                 weatherEffectSelect.addEventListener('change', function() {
                     window.SimulationController.setWeatherEffect(this.value);
                 });
+            }
+            
+            // Initialize the scene
+            const visualizationContainer = document.getElementById('visualization-canvas');
+            if (visualizationContainer) {
+                try {
+                    // Initialize core components
+                    window.threeUtils = new ThreeUtils(visualizationContainer);
+                    window.sceneView = new SceneView(visualizationContainer);
+                    console.log('Visualization initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing visualization:', error);
+                }
             }
         });
     </script>
