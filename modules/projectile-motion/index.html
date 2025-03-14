@@ -19,6 +19,10 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+    
+    <!-- Module Scripts - Loaded before module-specific scripts -->
+    <script src="./utils/three-utils.js"></script>
+    <script src="./utils/enhanced-environment.js"></script>
 </head>
 <body data-theme="light">
     <div class="container">
@@ -112,6 +116,28 @@
                                     <path d="M20.49 9.00001C19.9828 7.5682 19.1209 6.28286 17.9845 5.27549C16.8482 4.26812 15.4745 3.5771 14 3.27001C12.5255 2.96292 10.9977 3.05394 9.56385 3.53491C8.13 4.01587 6.84296 4.86948 5.84003 6.00001L1 10M23 14L18.16 18C17.157 19.1305 15.87 19.9841 14.4361 20.4651C13.0023 20.9461 11.4744 21.0371 10 20.73C8.52552 20.4229 7.15175 19.7319 6.01545 18.7245C4.87914 17.7171 4.01717 16.4318 3.51003 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </button>
+                        </div>
+                        
+                        <!-- Environment Controls -->
+                        <div class="environment-controls">
+                            <select id="time-of-day" title="Time of Day">
+                                <option value="day">Day</option>
+                                <option value="sunset">Sunset</option>
+                                <option value="night">Night</option>
+                            </select>
+                            
+                            <select id="environment-type" title="Environment">
+                                <option value="grassland">Grassland</option>
+                                <option value="desert">Desert</option>
+                                <option value="snow">Snow</option>
+                            </select>
+                            
+                            <select id="weather-effect" title="Weather">
+                                <option value="clear">Clear</option>
+                                <option value="rain">Rain</option>
+                                <option value="wind">Wind</option>
+                                <option value="fog">Fog</option>
+                            </select>
                         </div>
                     </div>
                     
@@ -270,8 +296,11 @@
     </div>
 
     <!-- Core Scripts -->
-    <script type="module" src="./controllers/simulation.js"></script>
-    <script type="module" src="./controllers/entry-experience.js"></script>
+    <script src="./views/scene.js"></script>
+    <script src="./models/physics.js"></script>
+    <script src="./models/trajectory.js"></script>
+    <script src="./controllers/simulation.js"></script>
+    <script src="./controllers/entry-experience.js"></script>
     
     <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
@@ -332,6 +361,29 @@
                             overlay.style.display = 'none';
                         }, 500);
                     });
+                });
+            }
+            
+            // Environment controls
+            const timeOfDaySelect = document.getElementById('time-of-day');
+            const environmentTypeSelect = document.getElementById('environment-type');
+            const weatherEffectSelect = document.getElementById('weather-effect');
+            
+            if (timeOfDaySelect && window.SimulationController) {
+                timeOfDaySelect.addEventListener('change', function() {
+                    window.SimulationController.setTimeOfDay(this.value);
+                });
+            }
+            
+            if (environmentTypeSelect && window.SimulationController) {
+                environmentTypeSelect.addEventListener('change', function() {
+                    window.SimulationController.setEnvironmentType(this.value);
+                });
+            }
+            
+            if (weatherEffectSelect && window.SimulationController) {
+                weatherEffectSelect.addEventListener('change', function() {
+                    window.SimulationController.setWeatherEffect(this.value);
                 });
             }
         });
