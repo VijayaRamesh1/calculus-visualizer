@@ -334,3 +334,129 @@ class SceneView {
         // Apply to enhanced environment
         this.environment.setEnvironmentType(type);
     }
+    
+    /**
+     * Toggle animation state
+     * @returns {boolean} New animation state
+     */
+    toggleAnimation() {
+        this.animating = !this.animating;
+        
+        if (this.animating) {
+            this.startAnimation();
+        }
+        
+        return this.animating;
+    }
+    
+    /**
+     * Start the animation loop
+     */
+    startAnimation() {
+        // If already at the end, reset
+        if (this.animationTime >= this.animationDuration) {
+            this.resetAnimation();
+        }
+        
+        // Set up animation loop
+        this.animate();
+    }
+    
+    /**
+     * Reset the animation to the beginning
+     */
+    resetAnimation() {
+        this.animationTime = 0;
+        
+        if (this.projectile && this.trajectoryPoints && this.trajectoryPoints.length > 0) {
+            const startPoint = this.trajectoryPoints[0];
+            this.projectile.position.set(startPoint.x, startPoint.y, startPoint.z);
+        }
+        
+        // Clear trail
+        this.threeUtils.trailPoints = [];
+        if (this.threeUtils.trailLine) {
+            this.threeUtils.scene.remove(this.threeUtils.trailLine);
+            this.threeUtils.trailLine = null;
+        }
+        
+        // Remove impact marker
+        if (this.impactMarker) {
+            this.threeUtils.scene.remove(this.impactMarker);
+            this.impactMarker = null;
+        }
+    }
+    
+    /**
+     * Animation loop
+     */
+    animate() {
+        if (!this.animating) return;
+        
+        // Request next frame
+        requestAnimationFrame(() => this.animate());
+        
+        // Update animation time
+        const deltaTime = 0.016 * this.animationSpeed; // Approximately 60 fps
+        this.animationTime += deltaTime;
+        
+        // Clamp animation time
+        if (this.animationTime > this.animationDuration) {
+            this.animationTime = this.animationDuration;
+            this.animating = false;
+            
+            // Show impact at end
+            if (this.trajectoryPoints && this.trajectoryPoints.length > 0) {
+                const landingPoint = this.trajectoryPoints[this.trajectoryPoints.length - 1];
+                this.createImpactMarker(landingPoint);
+            }
+        }
+        
+        // Update projectile position
+        this.updateProjectilePosition();
+        
+        // Update camera transition if active
+        this.updateCameraTransition();
+        
+        // Update environment
+        this.environment.update(deltaTime);
+    }
+    
+    /**
+     * Update the projectile position based on animation time
+     */
+    updateProjectilePosition() {
+        if (!this.projectile || !this.trajectoryPoints || this.trajectoryPoints.length === 0) return;
+        
+        // Calculate progress (0 to 1)
+        const progress = this.animationTime / this.animationDuration;
+        
+        // Find the index in the trajectory array
+        const pointIndex = Math.min(
+            Math.floor(progress * (this.trajectoryPoints.length - 1)),
+            this.trajectoryPoints.length - 1
+        );
+        
+        // Get the point
+        const point = this.trajectoryPoints[pointIndex];
+        
+        // Update projectile position
+        this.projectile.position.set(point.x, point.y, point.z);
+        
+        // Add velocity-based rotation to the projectile
+        if (pointIndex < this.trajectoryPoints.length - 1) {
+            const nextPoint = this.trajectoryPoints[Math.min(pointIndex + 1, this.trajectoryPoints.length - 1)];
+            const direction = new THREE.Vector3(
+                nextPoint.x - point.x,
+                nextPoint.y - point.y,
+                nextPoint.z - point.z
+            ).normalize();
+            
+            // Apply rotation based on direction
+            this.projectile.rotation.y = Math.atan2(direction.x, direction.z);
+            this.projectile.rotation.x = Math.atan2(direction.y, Math.sqrt(direction.x * direction.x + direction.z * direction.z));
+        }
+        
+        // Update trail
+        this.threeUtils.updateProjectileTrail(this.projectile);
+    }
