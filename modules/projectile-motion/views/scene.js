@@ -244,3 +244,93 @@ class SceneView {
         // Animate the impact marker (expand and fade)
         this.animateImpactMarker();
     }
+    
+    /**
+     * Animate the impact marker expansion and fading
+     */
+    animateImpactMarker() {
+        if (!this.impactMarker) return;
+        
+        const startTime = Date.now();
+        const expandDuration = 1500; // ms
+        
+        const expandRing = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / expandDuration, 1.0);
+            
+            // Scale up and fade out
+            const scale = 1 + progress * 3;
+            const opacity = 1 - progress;
+            
+            this.impactMarker.scale.set(scale, scale, scale);
+            this.impactMarker.material.opacity = opacity;
+            
+            if (progress < 1.0) {
+                requestAnimationFrame(expandRing);
+            } else {
+                // Remove when animation completes
+                this.threeUtils.scene.remove(this.impactMarker);
+                this.impactMarker = null;
+            }
+        };
+        
+        expandRing();
+    }
+    
+    /**
+     * Set the time of day for realistic lighting
+     * @param {string} timeOfDay - 'day', 'sunset', or 'night'
+     */
+    setTimeOfDay(timeOfDay) {
+        this.timeOfDay = timeOfDay;
+        
+        // Use the enhanced environment's time of day system
+        this.environment.setTimeOfDay(timeOfDay);
+    }
+    
+    /**
+     * Add weather effects
+     * @param {string} effect - 'rain', 'snow', 'wind', 'fog', or 'clear'
+     * @param {number} intensity - Intensity level [0,1]
+     */
+    setWeatherEffect(effect, intensity = 0.5) {
+        // Store weather settings
+        this.weatherEffects.type = effect;
+        this.weatherEffects.intensity = intensity;
+        
+        // Apply to enhanced environment
+        this.environment.setWeatherEffect(effect);
+        
+        // Set wind effect for trajectory calculation if needed
+        if (effect === 'wind') {
+            this.weatherEffects.wind.active = true;
+            this.weatherEffects.wind.strength = intensity * 5;
+            this.weatherEffects.wind.direction = new THREE.Vector3(-1, 0, 0);
+        } else {
+            this.weatherEffects.wind.active = false;
+            this.weatherEffects.wind.strength = 0;
+        }
+    }
+    
+    /**
+     * Clear all weather effects
+     */
+    clearWeatherEffects() {
+        // Reset wind
+        this.weatherEffects.wind.active = false;
+        this.weatherEffects.wind.strength = 0;
+        
+        // Clear in environment
+        this.environment.setWeatherEffect('clear');
+    }
+    
+    /**
+     * Set environment type (grassland, desert, snow)
+     * @param {string} type - Environment type
+     */
+    setEnvironmentType(type) {
+        this.environmentType = type;
+        
+        // Apply to enhanced environment
+        this.environment.setEnvironmentType(type);
+    }
