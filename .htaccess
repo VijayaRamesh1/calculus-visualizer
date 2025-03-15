@@ -4,13 +4,26 @@ RewriteEngine On
 # Base path for the application
 RewriteBase /calculus-visualizer/
 
+# Direct access to modules from the examples URL structure
+RewriteRule ^examples/projectile-motion/?$ modules/projectile-motion/index.html [L]
+RewriteRule ^examples/harmonic-motion/?$ modules/harmonic-motion/index.html [L]
+RewriteRule ^examples/area-curves/?$ modules/area-curves/index.html [L]
+RewriteRule ^examples/taylor-series/?$ modules/taylor-series/index.html [L]
+RewriteRule ^examples/population-growth/?$ modules/population-growth/index.html [L]
+
+# Direct access to modules from the applications URL structure
+RewriteRule ^applications/car-acceleration/?$ modules/car-acceleration/index.html [L]
+RewriteRule ^applications/spring-oscillation/?$ modules/spring-oscillation/index.html [L]
+RewriteRule ^applications/wave-propagation/?$ modules/wave-propagation/index.html [L]
+RewriteRule ^applications/market-equilibrium/?$ modules/market-equilibrium/index.html [L]
+
 # If the request is not for a file or directory, rewrite to index.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.html [L,QSA]
 
 # Handle non-www to www redirection (optional)
-# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteCond %{HTTP_HOST} !^www\\. [NC]
 # RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
 
 # Set default charset and content types
