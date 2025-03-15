@@ -9,10 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/landing.css">
+    <link rel="stylesheet" href="assets/css/modern-landing.css">
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <!-- Accessibility Meta Tags -->
     <meta name="description" content="An interactive tool for visualizing calculus concepts through real-world applications and 3D representations">
@@ -20,6 +25,9 @@
 <body data-theme="light">
     <!-- Skip Navigation Link (for keyboard users) -->
     <a href="#main-content" class="skip-nav">Skip to main content</a>
+    
+    <!-- Grid Background Pattern -->
+    <div class="grid-background"></div>
     
     <div class="container">
         <!-- Header -->
@@ -110,57 +118,11 @@
         </header>
 
         <main id="main-content" class="main-content" role="main">
-            <!-- Content will be dynamically loaded by the router -->
+            <!-- Empty for now, to be added in the next step -->
         </main>
         
-        <footer role="contentinfo">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <h3>Learn</h3>
-                    <ul>
-                        <li><a href="./derivatives.html">Derivatives</a></li>
-                        <li><a href="./integrals.html">Integrals</a></li>
-                        <li><a href="./limits.html">Limits</a></li>
-                        <li><a href="./vector.html">Vector Calculus</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Explore</h3>
-                    <ul>
-                        <li><a href="./modules/projectile-motion/index.html">Projectile Motion</a></li>
-                        <li><a href="./modules/harmonic-motion/index.html">Harmonic Motion</a></li>
-                        <li><a href="./modules/area-curves/index.html">Area Under Curves</a></li>
-                        <li><a href="./modules/taylor-series/index.html">Taylor Series</a></li>
-                        <li><a href="./modules/population-growth/index.html">Population Growth</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Applications</h3>
-                    <ul>
-                        <li><a href="./modules/car-acceleration/index.html">Car Acceleration</a></li>
-                        <li><a href="./modules/spring-oscillation/index.html">Spring Oscillation</a></li>
-                        <li><a href="./modules/wave-propagation/index.html">Wave Propagation</a></li>
-                        <li><a href="./modules/market-equilibrium/index.html">Market Equilibrium</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="./guide.html">User Guide</a></li>
-                        <li><a href="./accessibility.html">Accessibility</a></li>
-                        <li><a href="./about.html">About</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
-            </div>
-        </footer>
+        <!-- Footer will remain the same, to be added in a future step -->
+        
     </div>
 
     <!-- External libraries -->
@@ -170,5 +132,18 @@
 
     <!-- Core JavaScript -->
     <script type="module" src="js/main.js"></script>
+    
+    <!-- Landing page specific script, to be added later -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.app-header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
