@@ -1,6 +1,7 @@
 /**
- * Router for the Calculus Visualizer application
+ * Enhanced router implementation for the Calculus Visualizer application
  * Handles mapping URLs to application components and views
+ * Includes special handling for module paths
  */
 
 class Router {
@@ -40,6 +41,12 @@ class Router {
   navigateTo(path, pushState = true) {
     const fullPath = this.baseUrl + path;
     
+    // Check if this is a module path that should be directly accessed
+    if (this.isModulePath(path)) {
+      window.location.href = fullPath;
+      return;
+    }
+    
     if (pushState) {
       history.pushState(null, '', fullPath);
     }
@@ -48,11 +55,25 @@ class Router {
   }
   
   /**
+   * Check if a path is a direct module path
+   * @param {string} path - The path to check
+   * @returns {boolean} - Whether this is a module path
+   */
+  isModulePath(path) {
+    return path.includes('/modules/');
+  }
+  
+  /**
    * Handle route based on current path
    * @param {string} path - The path to handle
    */
   handleRoute(path) {
-    const route = this.routes[path];
+    // Skip handling for direct module paths
+    if (this.isModulePath(path)) {
+      return;
+    }
+    
+    const route = this.routes[path] || this.routes[path + '/'];
     
     if (route) {
       route();
@@ -65,7 +86,14 @@ class Router {
    * Handle popstate event (browser back/forward)
    */
   handlePopState() {
-    const path = window.location.pathname.replace(this.baseUrl, '');
+    const rawPath = window.location.pathname;
+    
+    // Skip handling for direct module paths
+    if (rawPath.includes('/modules/')) {
+      return;
+    }
+    
+    const path = rawPath.replace(this.baseUrl, '') || '/';
     this.handleRoute(path);
   }
   
@@ -73,7 +101,14 @@ class Router {
    * Initialize the router with the current URL
    */
   initialize() {
-    const path = window.location.pathname.replace(this.baseUrl, '');
+    const rawPath = window.location.pathname;
+    
+    // Skip initialization for direct module paths
+    if (rawPath.includes('/modules/')) {
+      return;
+    }
+    
+    const path = rawPath.replace(this.baseUrl, '') || '/';
     this.handleRoute(path);
   }
 }
