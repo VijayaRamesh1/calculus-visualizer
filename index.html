@@ -118,7 +118,36 @@
         </header>
 
         <main id="main-content" class="main-content" role="main">
-            <!-- Empty for now, to be added in the next step -->
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <!-- Animated Gradient Background -->
+                <div class="gradient-background"></div>
+                
+                <!-- Decorative Math Symbols -->
+                <div class="math-symbol symbol-integral">∫</div>
+                <div class="math-symbol symbol-derivative">∂</div>
+                <div class="math-symbol symbol-limit">lim</div>
+                <div class="math-symbol symbol-vector">∇</div>
+                
+                <!-- Decorative Line Elements -->
+                <div class="decorative-line line-1"></div>
+                <div class="decorative-line line-2"></div>
+                
+                <div class="hero-content fade-in">
+                    <h1 class="hero-title">Visualize Calculus in a New Dimension</h1>
+                    <p class="hero-subtitle">Experience the beauty of mathematics through interactive 3D visualizations that bring calculus concepts to life.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="./modules/projectile-motion/index.html" class="cta-button cta-primary">Start Exploring</a>
+                        <a href="./guide.html" class="cta-button cta-secondary">How It Works</a>
+                    </div>
+                    
+                    <!-- LaTeX Equation Display -->
+                    <div class="equation-display">
+                        \[ f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \]
+                    </div>
+                </div>
+            </section>
         </main>
         
         <!-- Footer will remain the same, to be added in a future step -->
@@ -133,7 +162,7 @@
     <!-- Core JavaScript -->
     <script type="module" src="js/main.js"></script>
     
-    <!-- Landing page specific script, to be added later -->
+    <!-- Landing page specific script -->
     <script>
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -143,6 +172,18 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+        
+        // Animation timing for fade-in elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in, .fade-in-up, .fade-in-left, .fade-in-right');
+            
+            fadeElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translate(0, 0)';
+                }, 100 * (index + 1));
+            });
         });
     </script>
 </body>
