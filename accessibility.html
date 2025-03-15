@@ -8,13 +8,14 @@
     <!-- Preconnect for performance optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
     
     <!-- Accessibility Meta Tags -->
-    <meta name="description" content="Accessibility statement for Calculus Visualizer, outlining our commitment to making mathematics visualization accessible to all users">
+    <meta name="description" content="Accessibility statement for Calculus Visualizer - our commitment to inclusive education">
 </head>
 <body data-theme="light">
     <!-- Skip Navigation Link (for keyboard users) -->
@@ -24,7 +25,7 @@
         <!-- Header -->
         <header class="app-header" role="banner">
             <div class="logo-container">
-                <a href="index.html" class="app-logo" aria-label="Calculus Visualizer Home">
+                <a href="./index.html" class="app-logo" aria-label="Calculus Visualizer Home">
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                         <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="currentColor" stroke-width="2"/>
                         <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -34,6 +35,26 @@
                     <span>Calculus Visualizer</span>
                 </a>
             </div>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="./derivatives.html">Derivatives</a></li>
+                    <li><a href="./integrals.html">Integrals</a></li>
+                    <li><a href="./limits.html">Limits</a></li>
+                    <li><a href="./vector.html">Vector Calculus</a></li>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle">Examples</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="./modules/projectile-motion/index.html">Projectile Motion</a></li>
+                            <li><a href="./modules/harmonic-motion/index.html">Harmonic Motion</a></li>
+                            <li><a href="./modules/area-curves/index.html">Area Under Curves</a></li>
+                            <li><a href="./modules/taylor-series/index.html">Taylor Series</a></li>
+                            <li><a href="./modules/population-growth/index.html">Population Growth</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
             
             <div class="header-controls">
                 <button 
@@ -57,110 +78,160 @@
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
+                
+                <!-- Keyboard Shortcuts Button -->
+                <a href="./shortcuts.html" class="keyboard-shortcuts-btn" aria-label="Show keyboard shortcuts">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M7 10L7 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 10L12 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M17 10L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span class="sr-only">Keyboard Shortcuts</span>
+                </a>
             </div>
         </header>
 
-        <main id="main-content" class="main-content accessibility-content" role="main">
-            <h1>Accessibility Statement</h1>
-            
-            <section aria-labelledby="commitment-heading">
-                <h2 id="commitment-heading">Our Commitment to Accessibility</h2>
-                <p>
-                    Calculus Visualizer is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone, and applying the relevant accessibility standards.
-                </p>
-            </section>
-            
-            <section aria-labelledby="conformance-heading">
-                <h2 id="conformance-heading">Conformance Status</h2>
-                <p>
-                    The Web Content Accessibility Guidelines (WCAG) defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.
-                </p>
-                <p>
-                    Calculus Visualizer is partially conformant with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.
-                </p>
-            </section>
-            
-            <section aria-labelledby="features-heading">
-                <h2 id="features-heading">Accessibility Features</h2>
-                <p>Calculus Visualizer includes the following accessibility features:</p>
+        <main id="main-content" class="main-content" role="main">
+            <section class="accessibility-section">
+                <h1>Accessibility Statement</h1>
+                
+                <div class="accessibility-intro">
+                    <p>
+                        Calculus Visualizer is committed to ensuring digital accessibility for people with disabilities. 
+                        We are continually improving the user experience for everyone and applying relevant accessibility standards.
+                    </p>
+                </div>
+                
+                <h2>Measures to Support Accessibility</h2>
+                
+                <p>Calculus Visualizer takes the following measures to ensure accessibility:</p>
+                
                 <ul>
-                    <li><strong>Keyboard Navigation:</strong> All functionality is accessible through keyboard navigation, with visible focus indicators.</li>
-                    <li><strong>Screen Reader Support:</strong> We've implemented ARIA attributes and proper semantic HTML to support screen reader users.</li>
-                    <li><strong>High Contrast Mode:</strong> Our interface respects high contrast settings and provides sufficient color contrast.</li>
-                    <li><strong>Text Resizing:</strong> Text can be resized up to 200% without loss of content or functionality.</li>
-                    <li><strong>Alternative Text:</strong> All non-decorative images have descriptive alternative text.</li>
-                    <li><strong>Reduced Motion:</strong> Animations are disabled for users who prefer reduced motion.</li>
-                    <li><strong>Dark Mode:</strong> Dark theme option to reduce eye strain.</li>
-                    <li><strong>Focus Mode:</strong> Distraction-free environment for better concentration.</li>
-                    <li><strong>Keyboard Shortcuts:</strong> Essential functions are accessible via keyboard shortcuts.</li>
+                    <li>Includes keyboard navigation for all interactive elements</li>
+                    <li>Provides text alternatives for all non-text content</li>
+                    <li>Implements ARIA landmarks and proper semantic HTML</li>
+                    <li>Ensures sufficient color contrast throughout the application</li>
+                    <li>Offers a "skip to main content" link for keyboard users</li>
+                    <li>Supports zooming without loss of functionality</li>
+                    <li>Works with screen readers through descriptive alt text and ARIA attributes</li>
+                    <li>Provides alternative ways to access mathematical visualizations</li>
                 </ul>
-            </section>
-            
-            <section aria-labelledby="limitations-heading">
-                <h2 id="limitations-heading">Known Limitations</h2>
-                <p>Despite our efforts to ensure accessibility, there are some known limitations:</p>
-                <ul>
-                    <li>3D visualizations may be difficult to comprehend for users with visual impairments. We've provided alternative text descriptions and data tables where possible.</li>
-                    <li>Complex mathematical formulas may present challenges for screen reader users. We've tried to provide alternative text and simpler explanations.</li>
-                    <li>Interactive simulations rely on visual feedback which may be challenging for some users. We're working on auditory and haptic feedback alternatives.</li>
-                </ul>
-            </section>
-            
-            <section aria-labelledby="help-heading">
-                <h2 id="help-heading">Accessibility Help</h2>
+                
+                <h2>Compatibility with Browsers and Assistive Technologies</h2>
+                
                 <p>
-                    If you encounter accessibility barriers on Calculus Visualizer, please let us know:
+                    Calculus Visualizer is designed to be compatible with the following assistive technologies:
                 </p>
+                
                 <ul>
-                    <li>Email: <a href="mailto:accessibility@calculusvisualizer.edu">accessibility@calculusvisualizer.edu</a></li>
-                    <li>Feedback Form: <a href="contact.html">Contact Form</a></li>
+                    <li>Screen readers (including NVDA, JAWS, and VoiceOver)</li>
+                    <li>Zoom settings in browsers up to 200%</li>
+                    <li>Keyboard-only navigation</li>
+                    <li>Speech recognition software</li>
+                    <li>Screen magnification tools</li>
                 </ul>
+                
+                <h2>Alternate Formats for Visualizations</h2>
+                
                 <p>
-                    We welcome your feedback on the accessibility of Calculus Visualizer. We're committed to providing an inclusive experience and will make every effort to fix issues and implement improvements.
+                    Since our primary focus is visual representation of calculus concepts, we provide the following alternatives:
                 </p>
-            </section>
-            
-            <section aria-labelledby="techniques-heading">
-                <h2 id="techniques-heading">Accessibility Techniques Used</h2>
-                <p>We've implemented the following techniques to enhance accessibility:</p>
+                
                 <ul>
-                    <li>Semantic HTML structure with appropriate headings, landmarks, and ARIA attributes</li>
-                    <li>Skip navigation links for keyboard users</li>
-                    <li>Visible focus indicators for keyboard navigation</li>
-                    <li>Color combinations with sufficient contrast ratios (minimum 4.5:1 for normal text)</li>
-                    <li>Text alternatives for non-text content</li>
-                    <li>Live regions for dynamic content updates</li>
-                    <li>Proper form labels and instructions</li>
-                    <li>Keyboard-accessible controls</li>
-                    <li>Responsive design for different devices and screen sizes</li>
-                    <li>Support for text resizing and zoom</li>
-                    <li>Reduced motion option</li>
+                    <li>Text-based descriptions of all visualizations</li>
+                    <li>Tabular data representation where applicable</li>
+                    <li>Audio descriptions of key visualization changes</li>
+                    <li>Mathematical formulas in accessible formats</li>
                 </ul>
+                
+                <h2>Limitations and Alternatives</h2>
+                
+                <p>
+                    Despite our efforts, some content might not be fully accessible. In these cases, we offer:
+                </p>
+                
+                <ul>
+                    <li>Text-based alternatives to complex visual simulations</li>
+                    <li>Downloadable resources in accessible formats</li>
+                    <li>Direct assistance via our contact page</li>
+                </ul>
+                
+                <h2>Feedback and Contact Information</h2>
+                
+                <p>
+                    We welcome your feedback on the accessibility of Calculus Visualizer. Please let us know if you encounter any accessibility barriers:
+                </p>
+                
+                <ul>
+                    <li>Email: <a href="mailto:accessibility@calculus-visualizer.edu">accessibility@calculus-visualizer.edu</a></li>
+                    <li>Phone: (+1) 555-123-4567</li>
+                    <li>Feedback Form: <a href="./contact.html">Contact Page</a></li>
+                </ul>
+                
+                <h2>Formal Approval</h2>
+                
+                <p>
+                    This accessibility statement was created on March 15, 2025.
+                </p>
             </section>
         </main>
         
         <footer role="contentinfo">
-            <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
-            <nav class="footer-nav" aria-label="Footer Navigation">
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="accessibility.html">Accessibility Statement</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <h3>Learn</h3>
+                    <ul>
+                        <li><a href="./derivatives.html">Derivatives</a></li>
+                        <li><a href="./integrals.html">Integrals</a></li>
+                        <li><a href="./limits.html">Limits</a></li>
+                        <li><a href="./vector.html">Vector Calculus</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="./modules/projectile-motion/index.html">Projectile Motion</a></li>
+                        <li><a href="./modules/harmonic-motion/index.html">Harmonic Motion</a></li>
+                        <li><a href="./modules/area-curves/index.html">Area Under Curves</a></li>
+                        <li><a href="./modules/taylor-series/index.html">Taylor Series</a></li>
+                        <li><a href="./modules/population-growth/index.html">Population Growth</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Applications</h3>
+                    <ul>
+                        <li><a href="./modules/car-acceleration/index.html">Car Acceleration</a></li>
+                        <li><a href="./modules/spring-oscillation/index.html">Spring Oscillation</a></li>
+                        <li><a href="./modules/wave-propagation/index.html">Wave Propagation</a></li>
+                        <li><a href="./modules/market-equilibrium/index.html">Market Equilibrium</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="./guide.html">User Guide</a></li>
+                        <li><a href="./accessibility.html">Accessibility</a></li>
+                        <li><a href="./about.html">About</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Calculus Visualizer - An interactive tool for learning calculus concepts</p>
+            </div>
         </footer>
     </div>
 
+    <!-- External libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+
     <!-- Core JavaScript -->
-    <script type="module" src="core/ui-core.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize UI
-            import('./core/ui-core.js').then(module => {
-                const UICore = module.default;
-                const ui = new UICore();
-            });
-        });
-    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
