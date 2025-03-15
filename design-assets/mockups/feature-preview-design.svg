@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#F0EBE1" />
+  
+  <!-- Section Dividers with classical styling -->
+  <rect x="0" y="0" width="1200" height="5" fill="#D6D0C4" />
+  <rect x="0" y="795" width="1200" height="5" fill="#D6D0C4" />
+  
+  <!-- Section Title with classical typography and positioning -->
+  <g transform="translate(600, 100)">
+    <text x="0" y="0" font-family="Georgia, serif" font-size="36" fill="#2A2520" text-anchor="middle">Discover Mathematical Elegance Through Visual Narrative</text>
+    
+    <!-- Decorative ornament below title -->
+    <line x1="-200" y1="30" x2="200" y2="30" stroke="#C1A87C" stroke-width="2"/>
+    <path d="M-10,30 L0,40 L10,30" fill="none" stroke="#C1A87C" stroke-width="2"/>
+    
+    <!-- Subtitle with Golden Ratio spacing -->
+    <text x="0" y="70" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle" width="800">Our visualizations bridge the gap between abstract mathematical concepts and intuitive understanding,</text>
+    <text x="0" y="95" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle" width="800">creating a harmonious balance between form and function.</text>
+  </g>
+  
+  <!-- Feature Cards with classical proportions based on Golden Ratio -->
+  <!-- Card 1 -->
+  <g transform="translate(250, 350)">
+    <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+    
+    <!-- Card Icon with classical styling -->
+    <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+    <circle cx="0" cy="-100" r="30" fill="none" stroke="#225B7D" stroke-width="2"/>
+    <path d="M-20,-100 L20,-100 M0,-120 L0,-80" stroke="#225B7D" stroke-width="2"/>
+    <path d="M-15,-115 A30,30 0 0 1 15,-85" stroke="#225B7D" stroke-width="2" fill="none"/>
+    
+    <!-- Card Title with classical font hierarchy -->
+    <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">Dimensional Harmony</text>
+    
+    <!-- Card Description with proportional spacing -->
+    <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">Explore mathematical concepts through</text>
+    <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">interactive 3D models that respond to your</text>
+    <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">guidance, revealing the underlying proportions</text>
+    <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">and relationships with classical clarity.</text>
+    
+    <!-- Classical decorative element -->
+    <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+    <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+  </g>
+  
+  <!-- Card 2 -->
+  <g transform="translate(600, 350)">
+    <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+    
+    <!-- Card Icon with classical styling -->
+    <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+    <path d="M-30,-110 L30,-90 L-30,-70 L30,-50 Z" fill="none" stroke="#225B7D" stroke-width="2"/>
+    <line x1="-15" y1="-130" x2="-15" y2="-70" stroke="#225B7D" stroke-width="2"/>
+    <line x1="15" y1="-130" x2="15" y2="-70" stroke="#225B7D" stroke-width="2"/>
+    
+    <!-- Card Title with classical font hierarchy -->
+    <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">Natural Applications</text>
+    
+    <!-- Card Description with proportional spacing -->
+    <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">Witness how calculus principles apply to</text>
+    <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">physics, engineering, and natural phenomena</text>
+    <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">through examples that demonstrate the timeless</text>
+    <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">relationship between mathematics and the world.</text>
+    
+    <!-- Classical decorative element -->
+    <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+    <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+  </g>
+  
+  <!-- Card 3 -->
+  <g transform="translate(950, 350)">
+    <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+    
+    <!-- Card Icon with classical styling -->
+    <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+    <rect x="-25" y="-125" width="50" height="50" fill="none" stroke="#225B7D" stroke-width="2"/>
+    <path d="M-15,-95 L-5,-105 L5,-95 L15,-105" fill="none" stroke="#225B7D" stroke-width="2"/>
+    
+    <!-- Card Title with classical font hierarchy -->
+    <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">Guided Discovery</text>
+    
+    <!-- Card Description with proportional spacing -->
+    <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">Build understanding through narrative </text>
+    <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">progression that reveals complex concepts</text>
+    <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">gradually, allowing intuitive comprehension to</text>
+    <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">develop naturally through visual exploration.</text>
+    
+    <!-- Classical decorative element -->
+    <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+    <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+  </g>
+  
+  <!-- Classical footer ornament -->
+  <g transform="translate(600, 750)">
+    <path d="M-100,0 L100,0" stroke="#C1A87C" stroke-width="1"/>
+    <path d="M-90,-10 L-110,10 M90,-10 L110,10" stroke="#C1A87C" stroke-width="1"/>
+    <circle cx="-100" cy="0" r="3" fill="#C1A87C"/>
+    <circle cx="100" cy="0" r="3" fill="#C1A87C"/>
+    <text x="0" y="-20" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#837D75" text-anchor="middle">Elegantia et Claritas</text>
+  </g>
+</svg>
