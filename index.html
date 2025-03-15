@@ -21,6 +21,30 @@
     <!-- MathJax for LaTeX rendering -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Custom style for header SVG -->
+    <style>
+        .classical-header-svg {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            display: block;
+        }
+        
+        /* Ensure proper sizing for the header */
+        .app-header {
+            position: relative;
+            width: 100%;
+            overflow: visible;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .classical-header-svg {
+                height: auto;
+            }
+        }
+    </style>
 </head>
 <body data-theme="light">
     <!-- Skip Navigation Link (for keyboard users) -->
@@ -32,7 +56,8 @@
     <div class="container">
         <!-- Header with classical proportions and visual balance -->
         <header class="app-header" role="banner">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
+            <!-- Classical-style SVG header -->
+            <svg class="classical-header-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
               <!-- Background with subtle pattern -->
               <rect width="1200" height="200" fill="#F0EBE1" />
               <pattern id="subtlePattern" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="scale(0.5)">
@@ -45,41 +70,54 @@
               <rect x="0" y="199" width="1200" height="1" fill="#D6D0C4" />
               
               <!-- Logo Area with Golden Ratio proportions -->
-              <g transform="translate(60, 50)">
-                <!-- Logo Circle -->
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#225B7D" stroke-width="2"/>
-                <line x1="10" y1="50" x2="90" y2="50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                <line x1="50" y1="10" x2="50" y2="90" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                <path d="M90 50C90 28 72 10 50 10C28 10 10 28 10 50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                
-                <!-- Logo Text using classical font styling -->
-                <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
-              </g>
+              <a href="./index.html">
+                <g transform="translate(60, 50)">
+                  <!-- Logo Circle -->
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#225B7D" stroke-width="2"/>
+                  <line x1="10" y1="50" x2="90" y2="50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="50" y1="10" x2="50" y2="90" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M90 50C90 28 72 10 50 10C28 10 10 28 10 50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+                  
+                  <!-- Logo Text using classical font styling -->
+                  <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
+                </g>
+              </a>
               
               <!-- Navigation Menu with classical spacing based on Golden Ratio -->
               <g transform="translate(500, 100)">
-                <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Derivatives</text>
-                <text x="120" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Integrals</text>
-                <text x="220" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Limits</text>
-                <text x="320" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Vector Calculus</text>
+                <a href="./derivatives.html">
+                  <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Derivatives</text>
+                  <line x1="0" y1="5" x2="85" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+                </a>
                 
-                <!-- Menu underlines with classical ornamentation -->
-                <line x1="0" y1="5" x2="85" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                <line x1="120" y1="5" x2="195" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                <line x1="220" y1="5" x2="295" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                <line x1="320" y1="5" x2="440" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+                <a href="./integrals.html">
+                  <text x="120" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Integrals</text>
+                  <line x1="120" y1="5" x2="195" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+                </a>
+                
+                <a href="./limits.html">
+                  <text x="220" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Limits</text>
+                  <line x1="220" y1="5" x2="295" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+                </a>
+                
+                <a href="./vector.html">
+                  <text x="320" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Vector Calculus</text>
+                  <line x1="320" y1="5" x2="440" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+                </a>
               </g>
               
               <!-- Controls Area with symmetrical balance -->
               <g transform="translate(1050, 100)">
                 <!-- Theme Toggle -->
-                <circle cx="0" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
-                <path d="M0 -10 A10 10 0 0 1 0 10 A10 10 0 0 1 0 -10" fill="none" stroke="#225B7D" stroke-width="1.5"/>
+                <circle cx="0" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1" class="theme-toggle-svg" id="theme-toggle-svg"/>
+                <path d="M0 -10 A10 10 0 0 1 0 10 A10 10 0 0 1 0 -10" fill="none" stroke="#225B7D" stroke-width="1.5" class="theme-icon-svg"/>
                 
                 <!-- Settings -->
-                <circle cx="60" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
-                <circle cx="60" cy="0" r="8" fill="none" stroke="#225B7D" stroke-width="1.5"/>
-                <path d="M60 -15 L60 -10 M60 10 L60 15 M45 0 L50 0 M70 0 L75 0" stroke="#225B7D" stroke-width="1.5"/>
+                <a href="./settings/theme.html">
+                  <circle cx="60" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+                  <circle cx="60" cy="0" r="8" fill="none" stroke="#225B7D" stroke-width="1.5"/>
+                  <path d="M60 -15 L60 -10 M60 10 L60 15 M45 0 L50 0 M70 0 L75 0" stroke="#225B7D" stroke-width="1.5"/>
+                </a>
               </g>
               
               <!-- Classical ornamental details at key divisions -->
@@ -87,8 +125,28 @@
               <circle cx="950" cy="100" r="2" fill="#C1A87C" opacity="0.6"/>
             </svg>
 
-            <!-- Preserve functionality by adding these elements outside the visible range (for JavaScript interactivity) -->
-            <div class="header-controls" style="display: none;">
+            <!-- Functional navigation elements (visually hidden but accessible for JS functionality) -->
+            <nav class="main-nav" aria-label="Main Navigation" style="position: absolute; left: -9999px; height: 1px; width: 1px; overflow: hidden;">
+                <ul>
+                    <li><a href="./derivatives.html">Derivatives</a></li>
+                    <li><a href="./integrals.html">Integrals</a></li>
+                    <li><a href="./limits.html">Limits</a></li>
+                    <li><a href="./vector.html">Vector Calculus</a></li>
+                    <li class="dropdown">
+                        <button class="dropdown-toggle">Examples</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="./modules/projectile-motion/index.html">Projectile Motion</a></li>
+                            <li><a href="./modules/harmonic-motion/index.html">Harmonic Motion</a></li>
+                            <li><a href="./modules/area-curves/index.html">Area Under Curves</a></li>
+                            <li><a href="./modules/taylor-series/index.html">Taylor Series</a></li>
+                            <li><a href="./modules/population-growth/index.html">Population Growth</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Functional theme controls (visually hidden but accessible for JS functionality) -->
+            <div class="header-controls" style="position: absolute; left: -9999px; height: 1px; width: 1px; overflow: hidden;">
                 <button 
                     class="theme-toggle" 
                     id="theme-toggle" 
@@ -311,5 +369,20 @@
     
     <!-- Classical Design Enhancements -->
     <script src="assets/js/classical-design.js"></script>
+    
+    <!-- Script to connect SVG theme toggle to functional theme toggle -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Connect SVG theme toggle to the functional theme toggle
+        const svgThemeToggle = document.getElementById('theme-toggle-svg');
+        const functionalThemeToggle = document.getElementById('theme-toggle');
+        
+        if (svgThemeToggle && functionalThemeToggle) {
+            svgThemeToggle.addEventListener('click', function() {
+                functionalThemeToggle.click();
+            });
+        }
+    });
+    </script>
 </body>
 </html>
