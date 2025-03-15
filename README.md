@@ -1,96 +1,87 @@
 # Calculus Visualizer
 
-An interactive tool for visualizing calculus concepts through 3D representations and real-world examples.
+An interactive 3D calculus visualization tool using Three.js
 
-## Enhanced Accessibility Features
+## Overview
 
-This branch contains accessibility enhancements that implement the following key UX/UI design principles:
+Calculus Visualizer is a web-based application designed to help students and educators visualize complex calculus concepts through interactive 3D representations. The tool uses Three.js to render mathematical functions and calculus operations in an engaging and intuitive way.
 
-### Accessibility Principles
-- **Perceptibility**: Content is perceptible to all users through improved color contrast, semantic HTML, ARIA labels, and keyboard focus indicators.
-- **Operability**: All functionality is usable through keyboard navigation and touch interfaces, with clear focus states and reduced motion options.
-- **Simplicity**: The interface is designed to be intuitive, with clear content structure and progressive disclosure of complex information.
-- **Forgiveness**: The system helps prevent errors and provides clear feedback with easy recovery options.
+## Features
 
-### UI/UX Design Principles Implemented
-- **Aesthetic-Usability Effect**: Improved visual design while maintaining accessibility.
-- **Affordance**: Clear visual and interactive cues for all interface elements.
-- **Consistency**: Uniform patterns for interactions, visual style, and behavior.
-- **Constraint**: Limiting options to prevent errors, particularly in complex interactions.
-- **Control**: Users can customize their experience with theme options and focus mode.
-- **Cost-Benefit**: Optimized interactions to minimize user effort.
-- **Entry Point**: Simplified landing page with clear paths to different modules.
-- **Feedback Loop**: Immediate visual, auditory, and haptic feedback for user actions.
-- **Flexibility-Usability Tradeoff**: Balanced specialized features with overall usability.
-- **Legibility**: Enhanced typography with proper font sizes, contrast, and spacing.
-- **Mapping**: Intuitive relationship between controls and their effects.
-- **Mental Model**: Interface aligned with users' understanding of calculus concepts.
-- **Ockham's Razor**: Simplified design elements for clarity.
-- **Performance Load**: Reduced cognitive effort through clear organization.
-- **Progressive Disclosure**: Complex information presented gradually.
-- **Proximity**: Related elements grouped visually and functionally.
-- **Recognition Over Recall**: Clear labels and familiar patterns.
-- **Signal-to-Noise Ratio**: Maximized relevant information and minimized distractions.
-- **Visibility**: Clear system status and available actions.
+- Interactive 3D visualization of calculus concepts
+- Dedicated modules for derivatives, integrals, limits, and vector calculus
+- Real-world applications and examples
+- Customizable parameters for exploration
+- Mobile-friendly responsive design
+- Accessibility features for inclusive learning
 
-## Key Improvements
+## URL Structure
 
-1. **Screen Reader Support**: 
-   - Semantic HTML5 structure with proper landmarks
-   - ARIA attributes for dynamic content
-   - Live regions for updates
-   - Alternative text for visual elements
+The application uses a carefully designed URL structure that provides:
 
-2. **Keyboard Navigation**:
-   - Proper focus management
-   - Visible focus indicators
-   - Skip navigation links
-   - Keyboard shortcuts with a visible reference
+- Intuitive navigation through the application
+- Direct access to specific modules and examples
+- Consistent URL patterns for bookmarking and sharing
 
-3. **Visual Accessibility**:
-   - High contrast color scheme
-   - Dark mode support
-   - Proper text sizing and spacing
-   - Support for browser zoom
+See [URL_STRUCTURE.md](URL_STRUCTURE.md) for a detailed breakdown of all URLs and their mapping.
 
-4. **Cognitive Accessibility**:
-   - Consistent layout and interaction patterns
-   - Clear instructions and feedback
-   - Progressive disclosure of complex information
-   - Focus mode for distraction-free learning
-   - Simplified language and consistent terminology
+## Technical Implementation
 
-5. **Technical Improvements**:
-   - Responsive design for various devices
-   - Reduced motion preference detection
-   - High contrast mode support
-   - Error prevention and recovery mechanisms
-   - Proper form labeling and validation
+- **Framework**: Vanilla JavaScript with modular architecture
+- **Rendering**: Three.js for 3D visualizations
+- **Math Processing**: Math.js for mathematical operations
+- **Routing**: Custom client-side routing with server-side fallback
+- **Styling**: CSS with variables for theming
+
+## Modules
+
+The application consists of several specialized modules:
+
+1. **Core Calculus**
+   - Derivatives
+   - Integrals
+   - Limits
+   - Vector Calculus
+
+2. **Interactive Examples**
+   - Projectile Motion
+   - Harmonic Motion
+   - Area Under Curves
+   - Taylor Series
+   - Population Growth
+
+3. **Real-World Applications**
+   - Car Acceleration
+   - Spring Oscillation
+   - Wave Propagation
+   - Market Equilibrium
+
+## Recent Updates
+
+### URL Routing Enhancements (March 2025)
+
+We've improved the URL routing system to ensure consistent navigation between the main application and standalone modules:
+
+- Added URL rewriting rules to correctly map example URLs to module directories
+- Enhanced the router to better handle direct module access
+- Updated documentation to clarify URL structure and navigation paths
+- Created placeholder modules for consistent navigation experience
+
+These changes ensure that all features are accessible regardless of how users navigate to them, improving the overall user experience.
 
 ## Getting Started
 
 1. Clone the repository
-2. Open `index.html` in your web browser
-3. Explore the different calculus modules
+2. Open `index.html` in your browser
+3. Explore different calculus concepts through the navigation menu
 
-## Keyboard Shortcuts
+## Browser Support
 
-- `Alt + T`: Toggle dark/light theme
-- `Alt + F`: Toggle focus mode
-- `Alt + K` or `?`: Show keyboard shortcuts
-- `Alt + R`: Reset visualization
-- `Space`: Play/pause animation (when not focused on input controls)
-- `Tab`: Navigate through interactive elements
-
-## Accessibility Statement
-
-See our full [Accessibility Statement](accessibility.html) for details on our approach to accessibility, conformance status, and known limitations.
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## License
 
-MIT
-
-## Acknowledgments
-
-- [Three.js](https://threejs.org/) for 3D visualizations
-- [MathJS](https://mathjs.org/) for mathematical functions
+MIT License - See LICENSE file for details
