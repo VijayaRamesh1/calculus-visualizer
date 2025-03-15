@@ -53,6 +53,30 @@ This document outlines the URL structure used in the Calculus Visualizer applica
 | `/calculus-visualizer/settings/theme` | Theme Preferences |
 | `/calculus-visualizer/settings/level` | Difficulty Level Settings |
 
+## Module-Specific URLs
+
+In addition to the main application URLs, the Calculus Visualizer provides direct access to standalone modules via dedicated URLs. These modules contain self-contained experiences that can be accessed either through the main application navigation or directly via their URLs.
+
+| URL | Description |
+|-----|-------------|
+| `/calculus-visualizer/modules/projectile-motion/index.html` | Projectile Motion Module |
+| `/calculus-visualizer/modules/harmonic-motion/index.html` | Harmonic Motion Module |
+| `/calculus-visualizer/modules/area-curves/index.html` | Area Under Curves Module |
+| `/calculus-visualizer/modules/taylor-series/index.html` | Taylor Series Module |
+| `/calculus-visualizer/modules/population-growth/index.html` | Population Growth Module |
+
+## URL Mapping and Redirection
+
+For consistency with the main application's URL structure, the following redirections are in place:
+
+| Application URL | Module URL |
+|-----------------|------------|
+| `/calculus-visualizer/examples/projectile-motion` | `/calculus-visualizer/modules/projectile-motion/index.html` |
+| `/calculus-visualizer/examples/harmonic-motion` | `/calculus-visualizer/modules/harmonic-motion/index.html` |
+| `/calculus-visualizer/examples/area-curves` | `/calculus-visualizer/modules/area-curves/index.html` |
+| `/calculus-visualizer/examples/taylor-series` | `/calculus-visualizer/modules/taylor-series/index.html` |
+| `/calculus-visualizer/examples/population-growth` | `/calculus-visualizer/modules/population-growth/index.html` |
+
 ## Structure Design
 
 The URL structure follows these design principles:
@@ -62,6 +86,7 @@ The URL structure follows these design principles:
    - Main concepts directly under the base path
    - Example applications grouped under `/examples/`
    - Real-world applications grouped under `/applications/`
+   - Standalone modules grouped under `/modules/`
    - User resources directly under the base path
    - Settings grouped under `/settings/`
 3. URLs are descriptive yet concise
@@ -75,5 +100,6 @@ The URL routing is implemented using:
 1. A client-side JavaScript router (`js/router.js`)
 2. URL configuration mapping (`js/routes.js`)
 3. Server-side URL rewriting (`.htaccess`) for single-page application (SPA) routing
+4. Direct module access for standalone experiences
 
 Relative URLs are used throughout the application with the base path `/calculus-visualizer/` to ensure consistency across deployments.
