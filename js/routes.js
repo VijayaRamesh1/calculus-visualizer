@@ -11,12 +11,27 @@ import { loadLimitsView } from './views/limits.js';
 import { loadVectorView } from './views/vector.js';
 import { loadAccessibilityView } from './views/accessibility.js';
 
-// Import example loaders
-import { loadProjectileMotion } from './examples/projectile-motion.js';
-import { loadHarmonicMotion } from './examples/harmonic-motion.js';
-import { loadAreaCurves } from './examples/area-curves.js';
-import { loadTaylorSeries } from './examples/taylor-series.js';
-import { loadPopulationGrowth } from './examples/population-growth.js';
+// Module loaders for standalone examples
+// These redirect to the appropriate module directories
+const loadProjectileMotion = function() {
+  window.location.href = '/calculus-visualizer/modules/projectile-motion/index.html';
+};
+
+const loadHarmonicMotion = function() {
+  window.location.href = '/calculus-visualizer/modules/harmonic-motion/index.html';
+};
+
+const loadAreaCurves = function() {
+  window.location.href = '/calculus-visualizer/modules/area-curves/index.html';
+};
+
+const loadTaylorSeries = function() {
+  window.location.href = '/calculus-visualizer/modules/taylor-series/index.html';
+};
+
+const loadPopulationGrowth = function() {
+  window.location.href = '/calculus-visualizer/modules/population-growth/index.html';
+};
 
 // Import application loaders
 import { loadCarAcceleration } from './applications/car-acceleration.js';
