@@ -181,51 +181,77 @@
       margin: 0 auto 40px;
     }
     
-    .cta-buttons {
+    /* Button styles with proper icon spacing */
+    .button-container {
       display: flex;
-      gap: 20px;
       justify-content: center;
-      margin-bottom: 50px;
+      gap: 40px;
+      margin: 40px 0;
     }
     
-    .btn {
+    .button {
       display: flex;
       align-items: center;
-      justify-content: center;
       padding: 15px 30px;
       border-radius: 5px;
       text-decoration: none;
-      font-size: 16px;
-      gap: 10px;
+      font-size: 18px;
+      position: relative;
+      min-width: 220px;
+      justify-content: center;
       transition: transform 0.3s;
     }
     
-    .btn:hover {
+    .button:hover {
       transform: translateY(-3px);
     }
     
-    .btn-primary {
+    /* Primary button (blue) */
+    .primary-button {
       background-color: #225B7D;
       color: #F5F2E9;
+      border: none;
     }
     
-    .btn-secondary {
+    /* Secondary button (outlined) */
+    .secondary-button {
       background-color: transparent;
       color: #225B7D;
       border: 2px solid #225B7D;
     }
     
-    .equation-card {
+    /* Icon styling - positioned with proper spacing */
+    .button-icon {
+      position: absolute;
+      left: 20px;
+    }
+    
+    /* Add padding to push text away from icon */
+    .button-text {
+      margin-left: 15px;
+    }
+    
+    /* Formula card styling */
+    .formula-container {
+      max-width: 600px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .formula-card {
       background-color: #F5F2E9;
       border: 1px solid #D6D0C4;
       border-radius: 5px;
-      padding: 30px;
-      width: 380px;
+      padding: 30px 40px;
       position: relative;
-      margin-top: 20px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
     }
     
-    .equation-card::before {
+    /* Vertical blue line on left */
+    .formula-card::before {
       content: '';
       position: absolute;
       left: 0;
@@ -235,16 +261,15 @@
       background-color: #225B7D;
     }
     
-    .equation {
-      font-size: 22px;
-      margin-bottom: 20px;
-      text-align: center;
+    .formula {
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-family: Georgia, serif;
     }
     
-    .equation-caption {
+    .formula-caption {
       font-style: italic;
       color: #837D75;
-      text-align: center;
       font-size: 16px;
     }
     
@@ -469,6 +494,7 @@
       align-items: center;
       justify-content: center;
       margin-right: 20px;
+      flex-shrink: 0;
     }
     
     .option-text {
@@ -528,9 +554,20 @@
         font-size: 36px;
       }
       
-      .equation-card {
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .formula-card {
         width: 100%;
         max-width: 350px;
+        padding: 20px;
+      }
+      
+      .formula {
+        font-size: 20px;
       }
     }
   </style>
@@ -623,41 +660,30 @@
         that bring calculus concepts to life with classical precision and beauty.
       </p>
       
-      <div class="cta-buttons">
-        <a href="#begin" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" width="20" height="20">
-            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/>
+      <!-- Buttons with properly spaced icons -->
+      <div class="button-container">
+        <a href="#begin" class="button primary-button">
+          <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Begin Your Journey
+          <span class="button-text">Begin Your Journey</span>
         </a>
-        <a href="#explore" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" width="20" height="20">
+        <a href="#explore" class="button secondary-button">
+          <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
-            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          Explore the Method
+          <span class="button-text">Explore the Method</span>
         </a>
       </div>
       
-      <div class="equation-card">
-        <div class="equation">f'(x) = lim<sub>h→0</sub> (f(x+h) - f(x))/h</div>
-        <div class="equation-caption">The Derivative Definition</div>
+      <!-- Improved formula card -->
+      <div class="formula-container">
+        <div class="formula-card">
+          <div class="formula">f'(x) = lim<sub>h→0</sub> (f(x+h) - f(x))/h</div>
+          <div class="formula-caption">The Derivative Definition</div>
+        </div>
       </div>
-    </div>
-    
-    <!-- 3D Visualization preview (simplified version) -->
-    <div class="visualization" style="display: none;">
-      <svg viewBox="0 0 300 300" width="300" height="300">
-        <rect width="300" height="300" fill="#F5F2E9" opacity="0.7"/>
-        <path d="M150,150 L250,200 L200,100 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D"/>
-        <path d="M150,150 L50,100 L100,200 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D"/>
-        <path d="M150,150 L50,200 L100,100 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D"/>
-        <path d="M150,150 L250,100 L200,200 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D"/>
-        <line x1="150" y1="150" x2="300" y2="150" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
-        <line x1="150" y1="150" x2="150" y2="0" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
-        <line x1="150" y1="150" x2="80" y2="220" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
-        <path d="M50,200 C80,170 120,120 150,100 C180,80 220,100 250,120" fill="none" stroke="#BC7C51" stroke-width="2"/>
-      </svg>
     </div>
   </section>
 
