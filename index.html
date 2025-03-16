@@ -1,121 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculus Visualizer - Experience Mathematics Through Classical Elegance</title>
-
-    <!-- Preconnect for performance optimization -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Classical Font Families -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/classical-design.css">
-
-    <!-- MathJax for LaTeX rendering -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- Custom styles for hero section -->
-    <style>
-        .classical-header-svg {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            display: block;
-        }
-
-        .hero-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 700px;
-            background: linear-gradient(135deg, #F5F2E9, #F0EBE1);
-            position: relative;
-        }
-
-        .hero-svg {
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-        }
-
-        @media (max-width: 768px) {
-            .classical-header-svg {
-                height: auto;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Calculus Visualizer - Classical Theme</title>
 </head>
-<body data-theme="light">
-    <!-- Skip Navigation Link -->
-    <a href="#main-content" class="skip-nav">Skip to main content</a>
-
-    <!-- Header -->
-    <header class="app-header" role="banner">
-        <svg class="classical-header-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
-            <rect width="1200" height="200" fill="#F0EBE1" />
-            <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
-        </svg>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <svg class="hero-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
-            <!-- Background with classical gradient -->
-            <defs>
-                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#F5F2E9;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#F0EBE1;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <rect width="1200" height="700" fill="url(#bgGradient)" />
-
-            <!-- Mathematical symbols with classical styling -->
-            <text x="200" y="200" font-family="Georgia, serif" font-size="120" fill="#225B7D" opacity="0.1">∫</text>
-            <text x="900" y="300" font-family="Georgia, serif" font-size="100" fill="#225B7D" opacity="0.1">∂</text>
-            <text x="300" y="500" font-family="Georgia, serif" font-size="80" fill="#225B7D" opacity="0.1">lim</text>
-            <text x="800" y="150" font-family="Georgia, serif" font-size="90" fill="#225B7D" opacity="0.1">∇</text>
-
-            <!-- Title -->
-            <text x="600" y="200" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">The Timeless Art of</text>
-            <text x="600" y="260" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">Calculus Visualization</text>
-
-            <!-- Subtitle -->
-            <text x="600" y="320" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47">Experience the elegant harmony of mathematics through interactive</text>
-            <text x="600" y="350" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47">visualizations that bring calculus concepts to life with classical precision and beauty.</text>
-
-            <!-- CTA Buttons -->
-            <g transform="translate(350, 400)">
-                <rect width="200" height="50" rx="5" fill="#225B7D" />
-                <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#F5F2E9">Begin Your Journey</text>
-            </g>
-            <g transform="translate(650, 400)">
-                <rect width="200" height="50" rx="5" fill="none" stroke="#225B7D" stroke-width="2" />
-                <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#225B7D">Explore the Method</text>
-            </g>
-
-            <!-- Featured Equation -->
-            <g transform="translate(600, 500)">
-                <rect x="-150" y="0" width="300" height="120" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
-                <text x="0" y="50" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#2A2520">f'(x) = lim_{h→0} (f(x+h) - f(x))/h</text>
-                <text x="0" y="90" font-family="Georgia, serif" font-style="italic" font-size="16" text-anchor="middle" fill="#837D75">The Derivative Definition</text>
-            </g>
-        </svg>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer-classical">
-        <p>&copy; 2025 Calculus Visualizer. Designed with classical principles.</p>
-    </footer>
-
-    <!-- External JavaScript -->
-    <script type="module" src="js/main.js"></script>
+<body>
+  <!-- ======================== HEADER SECTION ======================== -->
+  <section id="header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
+      <!-- Background with subtle pattern -->
+      <rect width="1200" height="200" fill="#F0EBE1" />
+      <pattern id="subtlePattern" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="scale(0.5)">
+        <rect width="60" height="60" fill="#F0EBE1"/>
+        <path d="M0 0L60 60M60 0L0 60" stroke="#E5E0D5" stroke-width="0.5"/>
+      </pattern>
+      <rect width="1200" height="200" fill="url(#subtlePattern)" />
+      
+      <!-- Bottom border with classical detail -->
+      <rect x="0" y="199" width="1200" height="1" fill="#D6D0C4" />
+      
+      <!-- Logo Area with Golden Ratio proportions -->
+      <g transform="translate(60, 50)">
+        <!-- Logo Circle -->
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#225B7D" stroke-width="2"/>
+        <line x1="10" y1="50" x2="90" y2="50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+        <line x1="50" y1="10" x2="50" y2="90" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+        <path d="M90 50C90 28 72 10 50 10C28 10 10 28 10 50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
+        
+        <!-- Logo Text using classical font styling -->
+        <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
+      </g>
+      
+      <!-- Navigation Menu with classical spacing based on Golden Ratio -->
+      <g transform="translate(500, 100)">
+        <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Derivatives</text>
+        <text x="120" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Integrals</text>
+        <text x="220" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Limits</text>
+        <text x="320" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Vector Calculus</text>
+        
+        <!-- Menu underlines with classical ornamentation -->
+        <line x1="0" y1="5" x2="85" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+        <line x1="120" y1="5" x2="195" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+        <line x1="220" y1="5" x2="295" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+        <line x1="320" y1="5" x2="440" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
+      </g>
+      
+      <!-- Controls Area with symmetrical balance -->
+      <g transform="translate(1050, 100)">
+        <!-- Theme Toggle -->
+        <circle cx="0" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+        <path d="M0 -10 A10 10 0 0 1 0 10 A10 10 0 0 1 0 -10" fill="none" stroke="#225B7D" stroke-width="1.5"/>
+        
+        <!-- Settings -->
+        <circle cx="60" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+        <circle cx="60" cy="0" r="8" fill="none" stroke="#225B7D" stroke-width="1.5"/>
+        <path d="M60 -15 L60 -10 M60 10 L60 15 M45 0 L50 0 M70 0 L75 0" stroke="#225B7D" stroke-width="1.5"/>
+      </g>
+      
+      <!-- Classical ornamental details at key divisions -->
+      <circle cx="450" cy="100" r="2" fill="#C1A87C" opacity="0.6"/>
+      <circle cx="950" cy="100" r="2" fill="#C1A87C" opacity="0.6"/>
+    </svg>
+  </section>
+  
+  <!-- ======================== HERO SECTION ======================== -->
+  <section id="hero">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+      <!-- Background with gradient inspired by classical art -->
+      <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#F5F2E9;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#F0EBE1;stop-opacity:1" />
+        </linearGradient>
+        <pattern id="gridPattern" width="50" height="50" patternUnits="userSpaceOnUse">
+          <rect width="50" height="50" fill="none"/>
+          <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#225B7D" stroke-width="0.2" opacity="0.1"/>
+        </pattern>
+      </defs>
+      
+      <!-- Main background -->
+      <rect width="1200" height="700" fill="url(#bgGradient)" />
+      <rect width="1200" height="700" fill="url(#gridPattern)" opacity="0.7" />
+      
+      <!-- Mathematical symbols with classical styling -->
+      <text x="200" y="200" font-family="Georgia, serif" font-size="120" fill="#225B7D" opacity="0.1">∫</text>
+      <text x="900" y="300" font-family="Georgia, serif" font-size="100" fill="#225B7D" opacity="0.1">∂</text>
+      <text x="300" y="500" font-family="Georgia, serif" font-size="80" fill="#225B7D" opacity="0.1">lim</text>
+      <text x="800" y="150" font-family="Georgia, serif" font-size="90" fill="#225B7D" opacity="0.1">∇</text>
+      
+      <!-- Main content with golden ratio proportioning -->
+      <g transform="translate(600, 300)">
+        <!-- Title with classical typography -->
+        <text x="-400" y="0" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">The Timeless Art of</text>
+        <text x="-400" y="60" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">Calculus Visualization</text>
+        
+        <!-- Decorative line with classical ornament -->
+        <line x1="-600" y1="90" x2="-200" y2="90" stroke="#C1A87C" stroke-width="2"/>
+        <circle cx="-400" cy="90" r="5" fill="#C1A87C"/>
+        
+        <!-- Subtitle with classical proportions -->
+        <text x="-400" y="130" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47" width="600">
+          Experience the elegant harmony of mathematics through interactive
+        </text>
+        <text x="-400" y="155" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47" width="600">
+          visualizations that bring calculus concepts to life with classical precision and beauty.
+        </text>
+        
+        <!-- CTA Buttons with classical styling -->
+        <g transform="translate(-500, 220)">
+          <rect x="0" y="0" width="200" height="50" rx="5" fill="#225B7D" />
+          <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#F5F2E9">
+            Begin Your Journey
+          </text>
+        </g>
+        <g transform="translate(-270, 220)">
+          <rect x="0" y="0" width="200" height="50" rx="5" fill="none" stroke="#225B7D" stroke-width="2" />
+          <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#225B7D">
+            Explore the Method
+          </text>
+        </g>
+        
+        <!-- Featured Equation Card with classical styling -->
+        <g transform="translate(-400, 320)">
+          <rect x="-150" y="0" width="300" height="120" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+          <text x="0" y="50" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#2A2520">
+            f'(x) = lim_{h→0} (f(x+h) - f(x))/h
+          </text>
+          <text x="0" y="90" font-family="Georgia, serif" font-style="italic" font-size="16" text-anchor="middle" fill="#837D75">
+            The Derivative Definition
+          </text>
+          <line x1="-150" y1="0" x2="-150" y2="120" stroke="#225B7D" stroke-width="4"/>
+        </g>
+      </g>
+      
+      <!-- Interactive visualization element -->
+      <g transform="translate(900, 350)">
+        <!-- 3D Graph Visualization -->
+        <rect x="-150" y="-150" width="300" height="300" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1" opacity="0.7"/>
+        
+        <!-- Simple 3D graph representation -->
+        <path d="M0,0 L100,50 L50,-50 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D" stroke-width="1"/>
+        <path d="M0,0 L-100,-50 L-50,50 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D" stroke-width="1"/>
+        <path d="M0,0 L-100,50 L-50,-50 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D" stroke-width="1"/>
+        <path d="M0,0 L100,-50 L50,50 Z" fill="#225B7D" opacity="0.2" stroke="#225B7D" stroke-width="1"/>
+        
+        <!-- Axes -->
+        <line x1="0" y1="0" x2="150" y2="0" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
+        <line x1="0" y1="0" x2="0" y2="-150" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
+        <line x1="0" y1="0" x2="-70" y2="70" stroke="#225B7D" stroke-width="1.5" stroke-dasharray="5,5"/>
+        
+        <!-- Function curve -->
+        <path d="M-100,50 C-70,20 -30,-30 0,-50 C30,-70 70,-50 100,-30" fill="none" stroke="#BC7C51" stroke-width="2"/>
+      </g>
+      
+      <!-- Bottom decorative element -->
+      <rect x="0" y="650" width="1200" height="50" fill="#F5F2E9" opacity="0.5"/>
+      <path d="M0,650 C300,620 900,680 1200,650" fill="none" stroke="#D6D0C4" stroke-width="1"/>
+    </svg>
+  </section>
+  
+  <!-- ======================== FEATURE PREVIEWS SECTION ======================== -->
+  <section id="feature-previews">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+      <!-- Background -->
+      <rect width="1200" height="800" fill="#F0EBE1" />
+      
+      <!-- Section Dividers with classical styling -->
+      <rect x="0" y="0" width="1200" height="5" fill="#D6D0C4" />
+      <rect x="0" y="795" width="1200" height="5" fill="#D6D0C4" />
+      
+      <!-- Section Title with classical typography and positioning -->
+      <g transform="translate(600, 100)">
+        <text x="0" y="0" font-family="Georgia, serif" font-size="36" fill="#2A2520" text-anchor="middle">
+          Discover Mathematical Elegance Through Visual Narrative
+        </text>
+        
+        <!-- Decorative ornament below title -->
+        <line x1="-200" y1="30" x2="200" y2="30" stroke="#C1A87C" stroke-width="2"/>
+        <path d="M-10,30 L0,40 L10,30" fill="none" stroke="#C1A87C" stroke-width="2"/>
+        
+        <!-- Subtitle with Golden Ratio spacing -->
+        <text x="0" y="70" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle" width="800">
+          Our visualizations bridge the gap between abstract mathematical concepts and intuitive understanding,
+        </text>
+        <text x="0" y="95" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle" width="800">
+          creating a harmonious balance between form and function.
+        </text>
+      </g>
+      
+      <!-- Feature Cards with classical proportions based on Golden Ratio -->
+      <!-- Card 1 -->
+      <g transform="translate(250, 350)">
+        <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+        
+        <!-- Card Icon with classical styling -->
+        <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+        <circle cx="0" cy="-100" r="30" fill="none" stroke="#225B7D" stroke-width="2"/>
+        <path d="M-20,-100 L20,-100 M0,-120 L0,-80" stroke="#225B7D" stroke-width="2"/>
+        <path d="M-15,-115 A30,30 0 0 1 15,-85" stroke="#225B7D" stroke-width="2" fill="none"/>
+        
+        <!-- Card Title with classical font hierarchy -->
+        <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">
+          Dimensional Harmony
+        </text>
+        
+        <!-- Card Description with proportional spacing -->
+        <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          Explore mathematical concepts through
+        </text>
+        <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          interactive 3D models that respond to your
+        </text>
+        <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          guidance, revealing the underlying proportions
+        </text>
+        <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          and relationships with classical clarity.
+        </text>
+        
+        <!-- Classical decorative element -->
+        <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+        <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+      </g>
+      
+      <!-- Card 2 -->
+      <g transform="translate(600, 350)">
+        <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+        
+        <!-- Card Icon with classical styling -->
+        <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+        <path d="M-30,-110 L30,-90 L-30,-70 L30,-50 Z" fill="none" stroke="#225B7D" stroke-width="2"/>
+        <line x1="-15" y1="-130" x2="-15" y2="-70" stroke="#225B7D" stroke-width="2"/>
+        <line x1="15" y1="-130" x2="15" y2="-70" stroke="#225B7D" stroke-width="2"/>
+        
+        <!-- Card Title with classical font hierarchy -->
+        <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">
+          Natural Applications
+        </text>
+        
+        <!-- Card Description with proportional spacing -->
+        <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          Witness how calculus principles apply to
+        </text>
+        <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          physics, engineering, and natural phenomena
+        </text>
+        <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          through examples that demonstrate the timeless
+        </text>
+        <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          relationship between mathematics and the world.
+        </text>
+        
+        <!-- Classical decorative element -->
+        <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+        <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+      </g>
+      
+      <!-- Card 3 -->
+      <g transform="translate(950, 350)">
+        <rect x="-150" y="-150" width="300" height="380" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+        
+        <!-- Card Icon with classical styling -->
+        <circle cx="0" cy="-100" r="50" fill="#F5F2E9" stroke="#225B7D" stroke-width="1" opacity="0.2"/>
+        <rect x="-25" y="-125" width="50" height="50" fill="none" stroke="#225B7D" stroke-width="2"/>
+        <path d="M-15,-95 L-5,-105 L5,-95 L15,-105" fill="none" stroke="#225B7D" stroke-width="2"/>
+        
+        <!-- Card Title with classical font hierarchy -->
+        <text x="0" y="-20" font-family="Georgia, serif" font-size="24" fill="#2A2520" text-anchor="middle">
+          Guided Discovery
+        </text>
+        
+        <!-- Card Description with proportional spacing -->
+        <text x="0" y="20" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          Build understanding through narrative 
+        </text>
+        <text x="0" y="45" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          progression that reveals complex concepts
+        </text>
+        <text x="0" y="70" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          gradually, allowing intuitive comprehension to
+        </text>
+        <text x="0" y="95" font-family="Georgia, serif" font-size="16" fill="#554F47" text-anchor="middle" width="260">
+          develop naturally through visual exploration.
+        </text>
+        
+        <!-- Classical decorative element -->
+        <path d="M-120,160 L120,160" stroke="#D6D0C4" stroke-width="1"/>
+        <circle cx="0" cy="160" r="3" fill="#C1A87C"/>
+      </g>
+      
+      <!-- Classical footer ornament -->
+      <g transform="translate(600, 750)">
+        <path d="M-100,0 L100,0" stroke="#C1A87C" stroke-width="1"/>
+        <path d="M-90,-10 L-110,10 M90,-10 L110,10" stroke="#C1A87C" stroke-width="1"/>
+        <circle cx="-100" cy="0" r="3" fill="#C1A87C"/>
+        <circle cx="100" cy="0" r="3" fill="#C1A87C"/>
+        <text x="0" y="-20" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#837D75" text-anchor="middle">
+          Elegantia et Claritas
+        </text>
+      </g>
+    </svg>
+  </section>
+  
+  <!-- ======================== CUSTOMIZABLE SECTION ======================== -->
+  <section id="customizable">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+      <!-- Background inspired by classical architecture with subtle column motifs -->
+      <defs>
+        <pattern id="columnPattern" patternUnits="userSpaceOnUse" width="120" height="700" patternTransform="scale(1)">
+          <rect width="120" height="700" fill="#F5F2E9"/>
+          <!-- Column base -->
+          <rect x="35" y="650" width="50" height="10" fill="#D6D0C4"/>
+          <rect x="40" y="640" width="40" height="10" fill="#D6D0C4"/>
+          <!-- Column shaft with fluting -->
+          <rect x="45" y="100" width="30" height="540" fill="#E8E3DA"/>
+          <path d="M50,100 L50,640" stroke="#D6D0C4" stroke-width="0.5"/>
+          <path d="M55,100 L55,640" stroke="#D6D0C4" stroke-width="0.5"/>
+          <path d="M60,100 L60,640" stroke="#D6D0C4" stroke-width="0.5"/>
+          <path d="M65,100 L65,640" stroke="#D6D0C4" stroke-width="0.5"/>
+          <path d="M70,100 L70,640" stroke="#D6D0C4" stroke-width="0.5"/>
+          <!-- Column capital -->
+          <rect x="40" y="90" width="40" height="10" fill="#D6D0C4"/>
+          <rect x="35" y="80" width="50" height="10" fill="#D6D0C4"/>
+          <rect x="30" y="70" width="60" height="10" fill="#D6D0C4"/>
+        </pattern>
+        
+        <!-- Overlay pattern for section -->
+        <linearGradient id="overlayGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#F5F2E9;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#F5F2E9;stop-opacity:0.85" />
+          <stop offset="100%" style="stop-color:#F5F2E9;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      
+      <!-- Main background with architectural elements -->
+      <rect width="1200" height="700" fill="url(#columnPattern)" opacity="0.3"/>
+      <rect width="1200" height="700" fill="url(#overlayGradient)"/>
+      
+      <!-- Section borders with classical motifs -->
+      <rect x="0" y="0" width="1200" height="10" fill="#D6D0C4"/>
+      <rect x="0" y="690" width="1200" height="10" fill="#D6D0C4"/>
+      
+      <!-- Central decorative element inspired by classical pediments -->
+      <path d="M550,20 L650,70 L750,20" fill="none" stroke="#C1A87C" stroke-width="1"/>
+      <circle cx="650" cy="45" r="15" fill="#F5F2E9" stroke="#C1A87C" stroke-width="1"/>
+      <text x="650" y="50" font-family="Georgia, serif" font-size="14" fill="#C1A87C" text-anchor="middle">∑</text>
+      
+      <!-- Section Title with classical typography -->
+      <g transform="translate(600, 130)">
+        <text x="0" y="0" font-family="Georgia, serif" font-size="36" fill="#2A2520" text-anchor="middle">
+          Personalize Your Mathematical Journey
+        </text>
+        <!-- Decorative line below title -->
+        <line x1="-220" y1="20" x2="220" y2="20" stroke="#C1A87C" stroke-width="2"/>
+        <circle cx="0" cy="20" r="5" fill="#F5F2E9" stroke="#C1A87C" stroke-width="1"/>
+        
+        <!-- Subtitle with classical proportions -->
+        <text x="0" y="60" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle">
+          Adapt the learning experience to match your personal preferences with
+        </text>
+        <text x="0" y="85" font-family="Georgia, serif" font-size="18" fill="#554F47" text-anchor="middle">
+          customizable parameters, presentation styles, and visualization settings.
+        </text>
+      </g>
+      
+      <!-- Two column layout with golden ratio proportions -->
+      <g transform="translate(600, 400)">
+        <!-- Left column - Visualization Image Placeholder -->
+        <g transform="translate(-250, 0)">
+          <rect x="-150" y="-150" width="300" height="300" rx="5" fill="#F0EBE1" stroke="#D6D0C4" stroke-width="1"/>
+          
+          <!-- Classical frame details -->
+          <rect x="-140" y="-140" width="280" height="280" rx="3" fill="none" stroke="#D6D0C4" stroke-width="1" stroke-dasharray="2,2"/>
+          
+          <!-- Placeholder image with mathematical theme -->
+          <circle cx="0" cy="0" r="100" fill="#F5F2E9" stroke="#225B7D" stroke-width="1"/>
+          <path d="M-70,-70 L70,70 M-70,70 L70,-70" stroke="#225B7D" stroke-width="1" stroke-dasharray="5,5"/>
+          <circle cx="0" cy="0" r="40" fill="none" stroke="#225B7D" stroke-width="2"/>
+          
+          <!-- Classical decorative elements -->
+          <path d="M-30,-110 C-20,-120 20,-120 30,-110" fill="none" stroke="#C1A87C" stroke-width="1"/>
+          <path d="M-30,110 C-20,120 20,120 30,110" fill="none" stroke="#C1A87C" stroke-width="1"/>
+        </g>
+        
+        <!-- Right column - Customization Features -->
+        <g transform="translate(170, 0)">
+          <!-- Classical scroll-like container -->
+          <path d="M-170,-150 C-180,-160 -180,-160 -170,-170 L150,-170 C160,-160 160,-160 150,-150 L150,150 C160,160 160,160 150,170 L-170,170 C-180,160 -180,160 -170,150 Z" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+          
+          <!-- Section Title with classical styling -->
+          <text x="-10" y="-130" font-family="Georgia, serif" font-size="20" fill="#2A2520" text-anchor="middle">
+            Customization Options
+          </text>
+          <line x1="-100" y1="-110" x2="80" y2="-110" stroke="#C1A87C" stroke-width="1"/>
+          
+          <!-- Feature list with classical treatment -->
+          <!-- Feature 1 -->
+          <g transform="translate(-120, -70)">
+            <circle cx="0" cy="0" r="15" fill="#F0EBE1" stroke="#225B7D" stroke-width="1"/>
+            <path d="M-5,0 L5,0 M0,-5 L0,5" stroke="#225B7D" stroke-width="1.5"/>
+            
+            <text x="40" y="-10" font-family="Georgia, serif" font-size="16" fill="#2A2520">
+              Adjustable Parameters
+            </text>
+            <text x="40" y="15" font-family="Georgia, serif" font-size="14" fill="#554F47">
+              Control visualization complexity
+            </text>
+          </g>
+          
+          <!-- Feature 2 -->
+          <g transform="translate(-120, 0)">
+            <circle cx="0" cy="0" r="15" fill="#F0EBE1" stroke="#225B7D" stroke-width="1"/>
+            <path d="M-8,-8 L8,8 M-8,8 L8,-8" stroke="#225B7D" stroke-width="1.5"/>
+            
+            <text x="40" y="-10" font-family="Georgia, serif" font-size="16" fill="#2A2520">
+              Visual Themes
+            </text>
+            <text x="40" y="15" font-family="Georgia, serif" font-size="14" fill="#554F47">
+              Choose your aesthetic style
+            </text>
+          </g>
+          
+          <!-- Feature 3 -->
+          <g transform="translate(-120, 70)">
+            <circle cx="0" cy="0" r="15" fill="#F0EBE1" stroke="#225B7D" stroke-width="1"/>
+            <path d="M0,-8 L0,8 M-5,0 L5,0 M-8,-3 L-8,3 M8,-3 L8,3" stroke="#225B7D" stroke-width="1.5"/>
+            
+            <text x="40" y="-10" font-family="Georgia, serif" font-size="16" fill="#2A2520">
+              Narrative Pacing
+            </text>
+            <text x="40" y="15" font-family="Georgia, serif" font-size="14" fill="#554F47">
+              Set your learning rhythm
+            </text>
+          </g>
+          
+          <!-- Classical ornamental detail -->
+          <path d="M-100,120 C-50,110 50,110 100,120" fill="none" stroke="#C1A87C" stroke-width="1"/>
+        </g>
+      </g>
+      
+      <!-- Bottom decorative element inspired by classical friezes -->
+      <g transform="translate(600, 650)">
+        <path d="M-400,0 C-300,-20 -100,20 0,0 C100,-20 300,20 400,0" fill="none" stroke="#D6D0C4" stroke-width="1"/>
+        <circle cx="-200" cy="0" r="3" fill="#C1A87C"/>
+        <circle cx="0" cy="0" r="3" fill="#C1A87C"/>
+        <circle cx="200" cy="0" r="3" fill="#C1A87C"/>
+      </g>
+    </svg>
+  </section>
 </body>
 </html>
