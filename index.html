@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculus Visualizer - Experience Mathematics Through Classical Elegance</title>
-    
+
     <!-- Preconnect for performance optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <!-- Classical Font Families -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/classical-design.css">
-    
+
     <!-- MathJax for LaTeX rendering -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <!-- Custom style for header SVG -->
+
+    <!-- Custom styles for hero section -->
     <style>
         .classical-header-svg {
             width: 100%;
@@ -30,15 +30,22 @@
             max-height: 200px;
             display: block;
         }
-        
-        /* Ensure proper sizing for the header */
-        .app-header {
+
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 700px;
+            background: linear-gradient(135deg, #F5F2E9, #F0EBE1);
             position: relative;
-            width: 100%;
-            overflow: visible;
         }
-        
-        /* Mobile responsiveness */
+
+        .hero-svg {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+        }
+
         @media (max-width: 768px) {
             .classical-header-svg {
                 height: auto;
@@ -47,342 +54,68 @@
     </style>
 </head>
 <body data-theme="light">
-    <!-- Skip Navigation Link (for keyboard users) -->
+    <!-- Skip Navigation Link -->
     <a href="#main-content" class="skip-nav">Skip to main content</a>
-    
-    <!-- Mathematical Canvas Background -->
-    <div class="math-canvas-background"></div>
-    
-    <div class="container">
-        <!-- Header with classical proportions and visual balance -->
-        <header class="app-header" role="banner">
-            <!-- Classical-style SVG header -->
-            <svg class="classical-header-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
-              <!-- Background with subtle pattern -->
-              <rect width="1200" height="200" fill="#F0EBE1" />
-              <pattern id="subtlePattern" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="scale(0.5)">
-                <rect width="60" height="60" fill="#F0EBE1"/>
-                <path d="M0 0L60 60M60 0L0 60" stroke="#E5E0D5" stroke-width="0.5"/>
-              </pattern>
-              <rect width="1200" height="200" fill="url(#subtlePattern)" />
-              
-              <!-- Bottom border with classical detail -->
-              <rect x="0" y="199" width="1200" height="1" fill="#D6D0C4" />
-              
-              <!-- Logo Area with Golden Ratio proportions -->
-              <a href="./index.html">
-                <g transform="translate(60, 50)">
-                  <!-- Logo Circle -->
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#225B7D" stroke-width="2"/>
-                  <line x1="10" y1="50" x2="90" y2="50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                  <line x1="50" y1="10" x2="50" y2="90" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M90 50C90 28 72 10 50 10C28 10 10 28 10 50" stroke="#225B7D" stroke-width="2" stroke-linecap="round"/>
-                  
-                  <!-- Logo Text using classical font styling -->
-                  <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
-                </g>
-              </a>
-              
-              <!-- Navigation Menu with classical spacing based on Golden Ratio -->
-              <g transform="translate(500, 100)">
-                <a href="./derivatives.html">
-                  <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Derivatives</text>
-                  <line x1="0" y1="5" x2="85" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                </a>
-                
-                <a href="./integrals.html">
-                  <text x="120" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Integrals</text>
-                  <line x1="120" y1="5" x2="195" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                </a>
-                
-                <a href="./limits.html">
-                  <text x="220" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Limits</text>
-                  <line x1="220" y1="5" x2="295" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                </a>
-                
-                <a href="./vector.html">
-                  <text x="320" y="0" font-family="Georgia, serif" font-size="18" fill="#2A2520">Vector Calculus</text>
-                  <line x1="320" y1="5" x2="440" y2="5" stroke="#C1A87C" stroke-width="1" opacity="0.6"/>
-                </a>
-              </g>
-              
-              <!-- Controls Area with symmetrical balance -->
-              <g transform="translate(1050, 100)">
-                <!-- Theme Toggle -->
-                <circle cx="0" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1" class="theme-toggle-svg" id="theme-toggle-svg"/>
-                <path d="M0 -10 A10 10 0 0 1 0 10 A10 10 0 0 1 0 -10" fill="none" stroke="#225B7D" stroke-width="1.5" class="theme-icon-svg"/>
-                
-                <!-- Settings -->
-                <a href="./settings/theme.html">
-                  <circle cx="60" cy="0" r="20" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
-                  <circle cx="60" cy="0" r="8" fill="none" stroke="#225B7D" stroke-width="1.5"/>
-                  <path d="M60 -15 L60 -10 M60 10 L60 15 M45 0 L50 0 M70 0 L75 0" stroke="#225B7D" stroke-width="1.5"/>
-                </a>
-              </g>
-              
-              <!-- Classical ornamental details at key divisions -->
-              <circle cx="450" cy="100" r="2" fill="#C1A87C" opacity="0.6"/>
-              <circle cx="950" cy="100" r="2" fill="#C1A87C" opacity="0.6"/>
-            </svg>
 
-            <!-- Functional navigation elements (visually hidden but accessible for JS functionality) -->
-            <nav class="main-nav" aria-label="Main Navigation" style="position: absolute; left: -9999px; height: 1px; width: 1px; overflow: hidden;">
-                <ul>
-                    <li><a href="./derivatives.html">Derivatives</a></li>
-                    <li><a href="./integrals.html">Integrals</a></li>
-                    <li><a href="./limits.html">Limits</a></li>
-                    <li><a href="./vector.html">Vector Calculus</a></li>
-                    <li class="dropdown">
-                        <button class="dropdown-toggle">Examples</button>
-                        <ul class="dropdown-menu">
-                            <li><a href="./modules/projectile-motion/index.html">Projectile Motion</a></li>
-                            <li><a href="./modules/harmonic-motion/index.html">Harmonic Motion</a></li>
-                            <li><a href="./modules/area-curves/index.html">Area Under Curves</a></li>
-                            <li><a href="./modules/taylor-series/index.html">Taylor Series</a></li>
-                            <li><a href="./modules/population-growth/index.html">Population Growth</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-            
-            <!-- Functional theme controls (visually hidden but accessible for JS functionality) -->
-            <div class="header-controls" style="position: absolute; left: -9999px; height: 1px; width: 1px; overflow: hidden;">
-                <button 
-                    class="theme-toggle" 
-                    id="theme-toggle" 
-                    aria-label="Toggle dark/light mode" 
-                    title="Toggle Dark/Light Mode"
-                    aria-pressed="false">
-                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                        <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M4.22021 4.22021L5.64021 5.64021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M18.3599 18.3599L19.7799 19.7799" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M4.22021 19.7799L5.64021 18.3599" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M18.3599 5.64021L19.7799 4.22021" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-        </header>
+    <!-- Header -->
+    <header class="app-header" role="banner">
+        <svg class="classical-header-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">
+            <rect width="1200" height="200" fill="#F0EBE1" />
+            <text x="120" y="60" font-family="Georgia, serif" font-size="24" fill="#225B7D">Calculus Visualizer</text>
+        </svg>
+    </header>
 
-        <main id="main-content" class="main-content" role="main">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <!-- Animated Mathematical Elements -->
-                <div class="math-particle" id="particle-canvas"></div>
-                
-                <!-- Mathematical Symbols -->
-                <div class="math-symbol symbol-integral">∫</div>
-                <div class="math-symbol symbol-derivative">∂</div>
-                <div class="math-symbol symbol-limit">lim</div>
-                <div class="math-symbol symbol-vector">∇</div>
-                
-                <!-- Interactive Element -->
-                <div class="interactive-graph">
-                    <div class="graph-canvas" id="hero-graph"></div>
-                </div>
-                
-                <div class="hero-content reveal-content">
-                    <h1 class="hero-title">The Timeless Art of Calculus Visualization</h1>
-                    <p class="hero-subtitle">Experience the elegant harmony of mathematics through interactive visualizations that bring calculus concepts to life with classical precision and beauty.</p>
-                    
-                    <div class="cta-buttons">
-                        <a href="./modules/projectile-motion/index.html" class="cta-button cta-primary">Begin Your Journey</a>
-                        <a href="./guide.html" class="cta-button cta-secondary">Explore the Method</a>
-                    </div>
-                    
-                    <!-- LaTeX Equation Display -->
-                    <div class="equation-showcase">
-                        <div class="equation-card">
-                            \\[ f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} \\]
-                            <div class="equation-caption">The Derivative Definition</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Features Preview -->
-            <section class="feature-preview-section">
-                <div class="section-intro reveal-content">
-                    <h2>Discover Mathematical Elegance Through Visual Narrative</h2>
-                    <p>Our visualizations bridge the gap between abstract mathematical concepts and intuitive understanding, creating a harmonious balance between form and function.</p>
-                </div>
-                
-                <div class="preview-cards">
-                    <!-- Preview card for 3D Interactive Visualizations -->
-                    <div class="preview-card reveal-content">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Dimensional Harmony</h3>
-                        <p>Explore mathematical concepts through interactive 3D models that respond to your guidance, revealing the underlying proportions and relationships with classical clarity.</p>
-                    </div>
-                    
-                    <!-- Preview card for Real-world Applications -->
-                    <div class="preview-card reveal-content">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 16V8.00002C20.9996 7.6493 20.9071 7.30483 20.7315 7.00119C20.556 6.69754 20.3037 6.44539 20 6.27002L13 2.27002C12.696 2.09449 12.3511 2.00208 12 2.00208C11.6489 2.00208 11.304 2.09449 11 2.27002L4 6.27002C3.69626 6.44539 3.44398 6.69754 3.26846 7.00119C3.09294 7.30483 3.00036 7.6493 3 8.00002V16C3.00036 16.3508 3.09294 16.6952 3.26846 16.9989C3.44398 17.3025 3.69626 17.5547 4 17.73L11 21.73C11.304 21.9056 11.6489 21.998 12 21.998C12.3511 21.998 12.696 21.9056 13 21.73L20 17.73C20.3037 17.5547 20.556 17.3025 20.7315 16.9989C20.9071 16.6952 20.9996 16.3508 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3.27002 6.96002L12 12L20.73 6.96002" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Natural Applications</h3>
-                        <p>Witness how calculus principles apply to physics, engineering, and natural phenomena through examples that demonstrate the timeless relationship between mathematics and the world.</p>
-                    </div>
-                    
-                    <!-- Preview card for Step-by-Step Learning -->
-                    <div class="preview-card reveal-content">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 13V11L10 9V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M13 10V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M13 10L15 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M13 10L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Guided Discovery</h3>
-                        <p>Build understanding through narrative progression that reveals complex concepts gradually, allowing intuitive comprehension to develop naturally through visual exploration.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Customizable Section - Added based on our mockup -->
-            <section class="customizable-section">
-                <div class="section-ornament">
-                    <div class="pediment-decoration"></div>
-                </div>
-                
-                <div class="section-intro reveal-content">
-                    <h2>Personalize Your Mathematical Journey</h2>
-                    <p>Adapt the learning experience to match your personal preferences with customizable parameters, presentation styles, and visualization settings.</p>
-                </div>
-                
-                <div class="customizable-content">
-                    <!-- Left column - visualization preview -->
-                    <div class="visualization-preview reveal-content">
-                        <div class="framed-image">
-                            <div class="visualization-placeholder">
-                                <!-- Placeholder for visualization -->
-                                <div class="math-graph-preview">
-                                    <div class="coordinate-system">
-                                        <div class="axis x-axis"></div>
-                                        <div class="axis y-axis"></div>
-                                        <div class="curve"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="frame-ornament top-left"></div>
-                            <div class="frame-ornament top-right"></div>
-                            <div class="frame-ornament bottom-left"></div>
-                            <div class="frame-ornament bottom-right"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Right column - customization options -->
-                    <div class="customization-options reveal-content">
-                        <div class="classical-scroll">
-                            <h3>Customization Options</h3>
-                            
-                            <ul class="feature-list">
-                                <li class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none" />
-                                            <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <h4>Adjustable Parameters</h4>
-                                        <p>Control visualization complexity and precision</p>
-                                    </div>
-                                </li>
-                                
-                                <li class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" />
-                                            <path d="M3 9L21 9" stroke="currentColor" stroke-width="1.5" />
-                                            <circle cx="7.5" cy="6" r="1.5" fill="currentColor" />
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <h4>Visual Themes</h4>
-                                        <p>Choose your preferred aesthetic style</p>
-                                    </div>
-                                </li>
-                                
-                                <li class="feature-item">
-                                    <div class="feature-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4 6H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                            <path d="M4 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                            <path d="M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                            <circle cx="8" cy="6" r="2" fill="currentColor" />
-                                            <circle cx="12" cy="12" r="2" fill="currentColor" />
-                                            <circle cx="16" cy="18" r="2" fill="currentColor" />
-                                        </svg>
-                                    </div>
-                                    <div class="feature-text">
-                                        <h4>Narrative Pacing</h4>
-                                        <p>Set your ideal learning rhythm</p>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                            <div class="scroll-decoration"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <!-- Classical Footer -->
-        <footer class="footer-classical">
-            <div class="footer-ornament"></div>
-            <p>&copy; 2025 Calculus Visualizer. Designed with classical principles.</p>
-        </footer>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <svg class="hero-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+            <!-- Background with classical gradient -->
+            <defs>
+                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#F5F2E9;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#F0EBE1;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <rect width="1200" height="700" fill="url(#bgGradient)" />
 
-    <!-- External libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.0/lib/browser/math.min.js"></script>
+            <!-- Mathematical symbols with classical styling -->
+            <text x="200" y="200" font-family="Georgia, serif" font-size="120" fill="#225B7D" opacity="0.1">∫</text>
+            <text x="900" y="300" font-family="Georgia, serif" font-size="100" fill="#225B7D" opacity="0.1">∂</text>
+            <text x="300" y="500" font-family="Georgia, serif" font-size="80" fill="#225B7D" opacity="0.1">lim</text>
+            <text x="800" y="150" font-family="Georgia, serif" font-size="90" fill="#225B7D" opacity="0.1">∇</text>
 
-    <!-- Core JavaScript -->
+            <!-- Title -->
+            <text x="600" y="200" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">The Timeless Art of</text>
+            <text x="600" y="260" font-family="Georgia, serif" font-size="48" text-anchor="middle" fill="#2A2520">Calculus Visualization</text>
+
+            <!-- Subtitle -->
+            <text x="600" y="320" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47">Experience the elegant harmony of mathematics through interactive</text>
+            <text x="600" y="350" font-family="Georgia, serif" font-size="18" text-anchor="middle" fill="#554F47">visualizations that bring calculus concepts to life with classical precision and beauty.</text>
+
+            <!-- CTA Buttons -->
+            <g transform="translate(350, 400)">
+                <rect width="200" height="50" rx="5" fill="#225B7D" />
+                <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#F5F2E9">Begin Your Journey</text>
+            </g>
+            <g transform="translate(650, 400)">
+                <rect width="200" height="50" rx="5" fill="none" stroke="#225B7D" stroke-width="2" />
+                <text x="100" y="30" font-family="Georgia, serif" font-size="16" text-anchor="middle" fill="#225B7D">Explore the Method</text>
+            </g>
+
+            <!-- Featured Equation -->
+            <g transform="translate(600, 500)">
+                <rect x="-150" y="0" width="300" height="120" rx="5" fill="#F5F2E9" stroke="#D6D0C4" stroke-width="1"/>
+                <text x="0" y="50" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#2A2520">f'(x) = lim_{h→0} (f(x+h) - f(x))/h</text>
+                <text x="0" y="90" font-family="Georgia, serif" font-style="italic" font-size="16" text-anchor="middle" fill="#837D75">The Derivative Definition</text>
+            </g>
+        </svg>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-classical">
+        <p>&copy; 2025 Calculus Visualizer. Designed with classical principles.</p>
+    </footer>
+
+    <!-- External JavaScript -->
     <script type="module" src="js/main.js"></script>
-    
-    <!-- Mathematical animations and interactions -->
-    <script src="js/landing-animation.js"></script>
-    
-    <!-- Classical Design Enhancements -->
-    <script src="assets/js/classical-design.js"></script>
-    
-    <!-- Script to connect SVG theme toggle to functional theme toggle -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Connect SVG theme toggle to the functional theme toggle
-        const svgThemeToggle = document.getElementById('theme-toggle-svg');
-        const functionalThemeToggle = document.getElementById('theme-toggle');
-        
-        if (svgThemeToggle && functionalThemeToggle) {
-            svgThemeToggle.addEventListener('click', function() {
-                functionalThemeToggle.click();
-            });
-        }
-    });
-    </script>
 </body>
 </html>
